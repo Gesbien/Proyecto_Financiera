@@ -29,3 +29,11 @@ class solicitud(models.Model):
     monto = models.FloatField()
     tasa = models.FloatField()
     cuota = models.IntegerField()
+    
+ class empleados(models.Model):
+    id_persona = models.AutoField(primary_key = True)
+    rol = models.CharField(max_length=40)
+    sueldo = models.FloatField(unique=True)
+    usuario = models.CharField(max_length=80)
+    password = models.CharField(max_length=40)
+    estado = models.CharField(max_length=40)   
