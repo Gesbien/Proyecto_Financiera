@@ -55,7 +55,7 @@ ROOT_URLCONF = 'Proyecto_Financiera.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': [BASE_DIR / 'sistema_gestion/templates']
         ,
         'APP_DIRS': True,
         'OPTIONS': {

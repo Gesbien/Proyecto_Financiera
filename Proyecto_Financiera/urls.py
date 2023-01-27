@@ -16,10 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from sistema_gestion import views
-from django.conf.urls import include
+from django.urls import include
 
 urlpatterns = [
-    path('',views.index, name= 'index'),
-    path('sistema_gestion/',include('sistema_gestion.urls')),
     path('admin/', admin.site.urls),
+    path('', include('sistema_gestion.urls')),
+
 ]
