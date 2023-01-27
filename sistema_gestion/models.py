@@ -39,7 +39,7 @@ class empleados(models.Model):
     estado = models.CharField(max_length=40)   
 
 class prestamo(models.Model):
-    id_prestamo = models.AutoField(primary_key = True)
+    id_prestamo = models.ForeignKey
     id_solicitud = models.ForeignKey(persona,null=True,on_delete=models.CASCADE)
     monto = models.FloatField()
     tasa = models.FloatField()
@@ -48,3 +48,19 @@ class prestamo(models.Model):
     clasificacion = models.CharField(max_length=30)
     porciento_mora = models.FloatField()
     dias_gracia = models.IntegerField()
+    
+    class garantia(models.Model):
+    id_garantia = models.AutoField(primary_key=True)
+    valor_tasacion = models.FloatField(unique=True)
+
+class terreno(models.Model):
+    id_garantia = models.ForeignKey
+    direccion = models.CharField(max_length=80)
+
+class automovil(models.Model):
+    id_garantia=models.ForeignKey
+    fabricante=models.CharField(max_length=40)
+    modelo=models.CharField(max_length=40)
+    anio = models.CharField(max_length=40)
+    placa = models.CharField(max_length=40)
+    chasis = models.CharField(max_length=40)
