@@ -15,7 +15,7 @@ class persona(models.Model):
 
 class informacion(models.Model):
     id_informacion = models.AutoField(primary_key= True)
-    id_persona =  models.ForeignKey(persona,null=True,on_delete=models.CASCADE)
+    id_persona = models.ForeignKey(persona,null=True,on_delete=models.CASCADE)
     tipo = models.CharField(max_length= 40)
     descripcion = models.CharField(max_length = 128)
     estado = models.CharField(max_length=40)
@@ -29,11 +29,22 @@ class solicitud(models.Model):
     monto = models.FloatField()
     tasa = models.FloatField()
     cuota = models.IntegerField()
-    
- class empleados(models.Model):
+
+class empleados(models.Model):
     id_persona = models.AutoField(primary_key = True)
     rol = models.CharField(max_length=40)
-    sueldo = models.FloatField(unique=True)
+    sueldo = models.FloatField()
     usuario = models.CharField(max_length=80)
     password = models.CharField(max_length=40)
     estado = models.CharField(max_length=40)   
+
+class prestamo(models.Model):
+    id_prestamo = models.AutoField(primary_key = True)
+    id_solicitud = models.ForeignKey(persona,null=True,on_delete=models.CASCADE)
+    monto = models.FloatField()
+    tasa = models.FloatField()
+    cuota = models.FloatField()
+    estado = models.CharField(max_length=30)
+    clasificacion = models.CharField(max_length=30)
+    porciento_mora = models.FloatField()
+    dias_gracia = models.IntegerField()
