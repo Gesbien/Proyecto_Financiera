@@ -26,7 +26,8 @@ def update(request, id):
     personas.save()
     return redirect('/paginas/')
 
-def delete(request, id):
-    personas = persona.objects.get(id_persona=id)
+def delete(cedula):
+    personas = persona.objects.get(cedula=cedula)
     personas.estado = 'Anulado'
+    personas.save()
     return redirect('/paginas/')

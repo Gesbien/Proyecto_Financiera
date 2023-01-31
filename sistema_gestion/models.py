@@ -30,6 +30,9 @@ class solicitud(models.Model):
     tasa = models.FloatField()
     cuota = models.IntegerField()
 
+    def __str__(self):
+        return self.id_solicitud
+
 class empleados(models.Model):
     id_persona = models.AutoField(primary_key = True)
     rol = models.CharField(max_length=40)
@@ -48,8 +51,12 @@ class prestamo(models.Model):
     clasificacion = models.CharField(max_length=30)
     porciento_mora = models.FloatField()
     dias_gracia = models.IntegerField()
+
+    def __str__(self):
+        return self.id_solicitud
+
     
-    class garantia(models.Model):
+class garantia(models.Model):
     id_garantia = models.AutoField(primary_key=True)
     valor_tasacion = models.FloatField(unique=True)
 
