@@ -83,3 +83,19 @@ class cobro(models.Model):
     monto_total = models.FloatField()
     monto_interes = models.FloatField()
     monto_capital = models.FloatField()
+    
+ class desembolso(models.Model):
+    id_desembolso =models.AutoField(max_length=40)
+    tipo = models.CharField(max_length=40)
+    monto_total = models.FloatField(unique=True)
+    codigo_cuenta_cheque = models.CharField(max_length=40)
+    fecha = models.DateField()
+
+class notas(models.Model):
+    id_nota = models.AutoField(max_length=40)
+    id_prestamo = models.ForeignKey
+    tipo = models.CharField(max_length=40)
+    monto_total = models.FloatField(unique=True)
+    monto_interes = models.FloatField(unique=True)
+    monto_capital = models.FloatField(unique=True)
+    fecha = models.DateField()   
