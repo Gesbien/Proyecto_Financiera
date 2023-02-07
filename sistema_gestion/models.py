@@ -58,6 +58,7 @@ class prestamo(models.Model):
 class garantia(models.Model):
     id_garantia = models.AutoField(primary_key=True)
     valor_tasacion = models.FloatField()
+    estado = models.CharField(max_length=40)
 
     def __str__(self):
         return self.id_garantia
@@ -73,9 +74,11 @@ class automovil(models.Model):
     anio = models.CharField(max_length=40)
     placa = models.CharField(max_length=40)
     chasis = models.CharField(max_length=40)
+
 class prestamo_garantia(models.Model):
     id_prestamo = models.ForeignKey(prestamo,null=True,on_delete=models.CASCADE)
     id_garantia = models.ForeignKey(garantia,null=True,on_delete=models.CASCADE)
+
 class cobro(models.Model):
     id_cobro = models.AutoField(primary_key=True)
     id_prestamo = models.ForeignKey(prestamo,null=True,on_delete=models.CASCADE)
@@ -83,19 +86,23 @@ class cobro(models.Model):
     monto_total = models.FloatField()
     monto_interes = models.FloatField()
     monto_capital = models.FloatField()
+    estado = models.CharField(max_length=40)
     
- class desembolso(models.Model):
-    id_desembolso =models.AutoField(max_length=40)
-    tipo = models.CharField(max_length=40)
+class desembolso(models.Model):
+    id_desembolso =models.AutoField(primary_key=True)
+    id_prestamo = models.ForeignKey(prestamo, null=True, on_delete=models.CASCADE)
     monto_total = models.FloatField(unique=True)
     codigo_cuenta_cheque = models.CharField(max_length=40)
     fecha = models.DateField()
+    tipo = models.CharField(max_length=40)
+    estado = models.CharField(max_length=40)
 
 class notas(models.Model):
-    id_nota = models.AutoField(max_length=40)
-    id_prestamo = models.ForeignKey
+    id_nota = models.AutoField(primary_key=True)
+    id_prestamo = models.ForeignKey(prestamo,null=True,on_delete=models.CASCADE)
     tipo = models.CharField(max_length=40)
     monto_total = models.FloatField(unique=True)
     monto_interes = models.FloatField(unique=True)
     monto_capital = models.FloatField(unique=True)
-    fecha = models.DateField()   
+    fecha = models.DateField()
+    estado = models.CharField(max_length=40)
