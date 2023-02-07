@@ -42,7 +42,7 @@ class empleados(models.Model):
     estado = models.CharField(max_length=40)   
 
 class prestamo(models.Model):
-    id_prestamo = models.ForeignKey
+    id_prestamo = models.AutoField(primary_key = True)
     id_solicitud = models.ForeignKey(persona,null=True,on_delete=models.CASCADE)
     monto = models.FloatField()
     tasa = models.FloatField()
@@ -55,19 +55,47 @@ class prestamo(models.Model):
     def __str__(self):
         return self.id_solicitud
 
-    
 class garantia(models.Model):
     id_garantia = models.AutoField(primary_key=True)
-    valor_tasacion = models.FloatField(unique=True)
+    valor_tasacion = models.FloatField()
+
+    def __str__(self):
+        return self.id_garantia
 
 class terreno(models.Model):
-    id_garantia = models.ForeignKey
+    id_garantia = models.ForeignKey(garantia,null=True,on_delete=models.CASCADE)
     direccion = models.CharField(max_length=80)
 
 class automovil(models.Model):
-    id_garantia=models.ForeignKey
-    fabricante=models.CharField(max_length=40)
-    modelo=models.CharField(max_length=40)
+    id_garantia = models.ForeignKey(garantia,null=True,on_delete=models.CASCADE)
+    fabricante = models.CharField(max_length=40)
+    modelo = models.CharField(max_length=40)
     anio = models.CharField(max_length=40)
     placa = models.CharField(max_length=40)
     chasis = models.CharField(max_length=40)
+class prestamo_garantia(models.Model):
+    id_prestamo = models.ForeignKey(prestamo,null=True,on_delete=models.CASCADE)
+    id_garantia = models.ForeignKey(garantia,null=True,on_delete=models.CASCADE)
+class cobro(models.Model):
+    id_cobro = models.AutoField(primary_key=True)
+    id_prestamo = models.ForeignKey(prestamo,null=True,on_delete=models.CASCADE)
+    fecha = models.DateField()
+    monto_total = models.FloatField()
+    monto_interes = models.FloatField()
+    monto_capital = models.FloatField()
+    
+ class desembolso(models.Model):
+    id_desembolso =models.AutoField(max_length=40)
+    tipo = models.CharField(max_length=40)
+    monto_total = models.FloatField(unique=True)
+    codigo_cuenta_cheque = models.CharField(max_length=40)
+    fecha = models.DateField()
+
+class notas(models.Model):
+    id_nota = models.AutoField(max_length=40)
+    id_prestamo = models.ForeignKey
+    tipo = models.CharField(max_length=40)
+    monto_total = models.FloatField(unique=True)
+    monto_interes = models.FloatField(unique=True)
+    monto_capital = models.FloatField(unique=True)
+    fecha = models.DateField()   
