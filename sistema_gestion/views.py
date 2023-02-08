@@ -4,13 +4,13 @@ from .models import solicitud
 # Create your views here.
 
 def inicio(request):
-     return HttpResponse("<h1>Bienvenido al Sistema</h1>")
+     return render(request,'paginas/index.html')
 def personas(request):
      return render(request,'paginas/persona.html')
 
 def home (request):
      solicitudListados = solicitud.objects.all()
-     return render(request, "gestionSolicitud.html",{"solicitudes":solicitudListados})
+     return render(request, "paginas/gestionSolicitud.html", {"solicitudes":solicitudListados})
 
 def registrarSolicitud(request):
      id_solicitud = request.POST['txtId_Solicitud']
@@ -25,7 +25,7 @@ def registrarSolicitud(request):
 
 def edicionSolicitud(request,id_solicitud):
      Solicitud = solicitud.objects.get(id_solicitud=id_solicitud)
-     return render(request,"edicionSolicitud.html", {"solicitud":solicitud})
+     return render(request, "paginas/edicionSolicitud.html", {"solicitud":solicitud})
 
 def editarSolicitud(request):
      id_solicitud = request.POST['txtId_Solicitud']

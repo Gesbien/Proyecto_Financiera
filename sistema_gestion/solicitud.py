@@ -4,4 +4,4 @@ from .models import solicitud
 def inicio_solicitud(request):
     solicitudes = solicitud.objects.all()
     context = {'solicitudes': solicitudes}
-    return render(request, 'paginas/', context)
+    return render(request, 'paginas/gestionSolicitud.html', context)
