@@ -1,0 +1,71 @@
+{% extends "./base.html" %}
+{% block tittle %} Gestion de solicitud {% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+    <h2>Gestion de solicitud</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/registrarSolicitud/" method="POST">{% csrf_token %}
+                <div class="form-group">
+                    <input type="text" id="txtId_Solicitud" name="txtId_Solicitud" class="form-control" placeholder="Id solicitud" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="txtId_Persona" name="txtId_Persona" class="form-control" placeholder="Id persona" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="txtEstado" name="txtEstado" class="form-control" placeholder="Estado" maxlength= 40 required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="numMonto" name="numMonto" class="form-control" placeholder="Monto" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="numTasa" name="numTasa" class="form-control" placeholder="Tasa" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="numCuota" name="numCuota" class="form-control" placeholder="Cuota" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h1>Listado de solicitud</h1>
+        <div class="table-responsive py-2">
+            <table class="tabla table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Id solicitud</th>
+                    <th>Id persona</th>
+                    <th>Estado</th>
+                    <th>Monto</th>
+                    <th>Tasa</th>
+                    <th>Cuota</th>
+                    <th colspan="">Opciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for s in solicitudes %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ s.id_solicitud }}</td>
+                            <td>{{ s.id_persona }}</td>
+                            <td>{{ s.estado }}</td>
+                            <td>{{ s.monto }}</td>
+                            <td>{{ s.tasa }}</td>
+                            <td>{{ s.cuota }}</td>
+                            <td><a href="edicionSolicitud/{{ s.id_persona }}" class ="btn btn info">Editar</a></td>
+                            <td><a href="eliminacionSolicitud/{{ s.id_persona }}" class ="btn btn danger">Eliminar</a></td>
+                            </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
