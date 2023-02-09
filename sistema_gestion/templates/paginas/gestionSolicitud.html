@@ -21,38 +21,52 @@
     </div>
     <!-- Page content -->
     <div class="container-fluid mt--6">
+    <div class="row align-items-center py-7">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <div class="input-group input-group-alternative mb-4">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
+                      </div>
+                      <input class="form-control form-control-alternative" placeholder="Buscar" type="text">
+                        <a href="registrarSolicitud/" class ="btn btn-success">Agregar</a>
+                    </div>
+                  </div>
+                </div>
+
+    </div>
       <div class="row">
-          <div class="row align-items-center py-8">
-                  <div class="table-responsive">
+          <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+              <div class="table-responsive">
               <!-- Projects table -->
-              <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                    <tr>
-                        <th scope="col">Id solicitud</th>
-                        <th scope="col">Id persona</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col">Monto</th>
-                        <th scope="col">Tasa</th>
-                        <th scope="col"> Cuota</th>
-                        <th colspan="">Opciones</th>
-                    </tr>
-                 </thead>
-                <tbody>
-                    {% for s in solicitudes %}
+                  <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
                         <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ s.id_solicitud }}</td>
-                            <td>{{ s.id_persona }}</td>
-                            <td>{{ s.estado }}</td>
-                            <td>{{ s.monto }}</td>
-                            <td>{{ s.tasa }}</td>
-                            <td>{{ s.cuota }}</td>
-                            <td><a href="edicionSolicitud/{{ s.id_persona }}" class ="btn btn info">Editar</a></td>
-                            <td><a href="eliminacionSolicitud/{{ s.id_persona }}" class ="btn btn danger">Eliminar</a></td>
-                            </tr>
-                    {% endfor %}
-                </tbody>
-              </table>
+                            <th scope="col">Id solicitud</th>
+                            <th scope="col">Id persona</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Monto</th>
+                            <th scope="col">Tasa</th>
+                            <th scope="col"> Cuota</th>
+                            <th colspan="">Opciones</th>
+                        </tr>
+                     </thead>
+                    <tbody>
+                        {% for s in solicitudes %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ s.id_solicitud }}</td>
+                                <td>{{ s.id_persona }}</td>
+                                <td>{{ s.estado }}</td>
+                                <td>{{ s.monto }}</td>
+                                <td>{{ s.tasa }}</td>
+                                <td>{{ s.cuota }}</td>
+                                <td><a href="edicionSolicitud/{{ s.id_solicitud }}" class ="btn btn-info">Editar</a></td>
+                                <td><a href="eliminacionSolicitud/{{ s.id_solicitud }}" class ="btn btn-danger">Anular</a></td>
+                                </tr>
+                        {% endfor %}
+                    </tbody>
+                  </table>
               </div>
           </div>
       </div>

@@ -15,6 +15,7 @@ class persona(models.Model):
         return self.id_persona
 
 
+
 class informacion(models.Model):
     id_informacion = models.AutoField(primary_key=True)
     id_persona = models.ForeignKey(persona, null=True, on_delete=models.CASCADE)

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import solicitud
+from .models import persona
 # Create your views here.
 
 def inicio(request):
@@ -14,7 +15,7 @@ def home (request):
 
 def registrarSolicitud(request):
      id_solicitud = request.POST['txtId_Solicitud']
-     id_persona = request.POST['txtId_Persona']
+     id_persona = persona.objects.filter(id_persona=request.POST['txtId_Persona'])
      estado = request.POST['txtEstado']
      monto = request.POST['numMonto']
      tasa = request.POST['numTasa']
