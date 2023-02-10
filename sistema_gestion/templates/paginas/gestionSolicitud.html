@@ -29,7 +29,7 @@
                         <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
                       </div>
                       <input class="form-control form-control-alternative" placeholder="Buscar" type="text">
-                        <a href="registrarSolicitud/" class ="btn btn-success">Agregar</a>
+                        <a href="solicitud/registrar" class ="btn btn-success">Agregar</a>
                     </div>
                   </div>
                 </div>
@@ -43,7 +43,6 @@
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">Id solicitud</th>
-                            <th scope="col">Id persona</th>
                             <th scope="col">Estado</th>
                             <th scope="col">Monto</th>
                             <th scope="col">Tasa</th>
@@ -54,15 +53,13 @@
                     <tbody>
                         {% for s in solicitudes %}
                             <tr>
-                                <td>{{ forloop.counter }}</td>
                                 <td>{{ s.id_solicitud }}</td>
-                                <td>{{ s.id_persona }}</td>
                                 <td>{{ s.estado }}</td>
                                 <td>{{ s.monto }}</td>
                                 <td>{{ s.tasa }}</td>
                                 <td>{{ s.cuota }}</td>
-                                <td><a href="edicionSolicitud/{{ s.id_solicitud }}" class ="btn btn-info">Editar</a></td>
-                                <td><a href="eliminacionSolicitud/{{ s.id_solicitud }}" class ="btn btn-danger">Anular</a></td>
+                                <td><a href="/solicitud/editar/{{ s.id_solicitud }}" class ="btn btn-info">Editar</a></td>
+                                <td><a href="/solicitud/anular/{{ s.id_solicitud }}" class ="btn btn-danger">Anular</a></td>
                                 </tr>
                         {% endfor %}
                     </tbody>

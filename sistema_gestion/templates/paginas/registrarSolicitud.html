@@ -20,29 +20,30 @@
     </div>
     <!-- Body -->
     <div class="row">
-    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
-        <div class="card">
-            <div class="card-body">
-                <form action="/registroSolicitud/" method="POST">{% csrf_token %}
-                <div class="form-group">
-                    <input type="text" id="txtId_Solicitud" name="txtId_Solicitud" class="form-control" placeholder="Id solicitud" required>
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+            <div class="card">
+                <div class="card-body">
+                    <form action="/solicitud/registro/" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="txtId_Solicitud" name="txtId_Solicitud" class="form-control" placeholder="Id solicitud" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtEstado" name="txtEstado" class="form-control" placeholder="Estado" maxlength= 40 required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="numMonto" name="numMonto" class="form-control" placeholder="Monto" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="numTasa" name="numTasa" class="form-control" placeholder="Tasa" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="numCuota" name="numCuota" class="form-control" placeholder="Cuota" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Registrar</button>
+                    </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <input type="text" id="txtEstado" name="txtEstado" class="form-control" placeholder="Estado" maxlength= 40 required>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="numMonto" name="numMonto" class="form-control" placeholder="Monto" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="numTasa" name="numTasa" class="form-control" placeholder="Tasa" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="numCuota" name="numCuota" class="form-control" placeholder="Cuota" required>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-success btn-block text-white">Registrar</button>
-                </div>
-                </form>
             </div>
         </div>
     </div>
