@@ -1,6 +1,5 @@
 from django.db import models
 
-
 # Create your models here.
 class persona(models.Model):
     id_persona = models.AutoField(primary_key=True)
@@ -8,28 +7,28 @@ class persona(models.Model):
     nombres = models.CharField(max_length=80)
     primer_apellido = models.CharField(max_length=40)
     segundo_apellido = models.CharField(max_length=40)
-    tipo = models.CharField(max_length=40)
-    estado = models.CharField(max_length=40)
+    direccion = models.CharField(max_length=256)
+    telefono = models.CharField(max_length=20)
+    celular = models.CharField(max_length=20)
+    tipo = models.CharField(max_length=20)
+    estado = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.id_persona
-
-
-
-class informacion(models.Model):
-    id_informacion = models.AutoField(primary_key=True)
-    id_persona = models.ForeignKey(persona, null=True, on_delete=models.CASCADE)
-    tipo = models.CharField(max_length=40)
-    descripcion = models.CharField(max_length=128)
-    estado = models.CharField(max_length=40)
+        return self.cedula
+class informacion_trabajo(models.Model):
+    id_info = models.AutoField(primary_key=True)
+    cedula = models.ForeignKey(persona, null=True, on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=70)
+    telefono = models.CharField(max_length=20)
+    direccion = models.CharField(max_length=256)
+    sueldo = models.FloatField()
 
     def __str__(self):
-        return self.id_informacion
-
+        return self.id_info
 
 class solicitud(models.Model):
     id_solicitud = models.AutoField(primary_key=True)
-    id_persona = models.ForeignKey(persona, null=True, on_delete=models.CASCADE)
+    cedula = models.ForeignKey(persona, null=True, on_delete=models.CASCADE)
     estado = models.CharField(max_length=40)
     monto = models.FloatField()
     tasa = models.FloatField()
@@ -40,7 +39,7 @@ class solicitud(models.Model):
 
 
 class empleados(models.Model):
-    id_persona = models.AutoField(primary_key=True)
+    cedula = models.ForeignKey(persona, null=True, on_delete=models.CASCADE)
     rol = models.CharField(max_length=40)
     sueldo = models.FloatField()
     usuario = models.CharField(max_length=80)
@@ -61,7 +60,6 @@ class prestamo(models.Model):
 
     def __str__(self):
         return self.id_solicitud
-
 
 class garantia(models.Model):
     id_garantia = models.AutoField(primary_key=True)
