@@ -20,63 +20,86 @@
     </div>
     <!-- Body -->
     <div class="row">
-        <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <div class="col-sm-12 col-md-6 col-lg-8 col-xl-12">
             <div class="card">
-                <div class="card-body">
+                <div class="card-body" div.row="">
+                    <h3>Informacion Personal</h3>
                     <form action="/persona/registro/" method="POST">{% csrf_token %}
-                    <div class="form-group">
-                        <input type="text" id="txtId_Persona" name="txtId_Persona" value= "{{persona.id_persona}}" class="form-control" placeholder="Id persona" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="txtCedula" name="txtCedula" value= "{{persona.cedula}}" class="form-control" placeholder="Cedula" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="txtNombres" name="txtNombres" value= "{{persona.nombres}}" class="form-control" placeholder="Nombres" ax_length=80 required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="txtApellidos" name="txtApellidos" value= "{{persona.apellidos}}" class="form-control" placeholder="Apellidos" max_length=80 required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="txtDireccion" name="txtDireccion" value= "{{persona.direccion}}" class="form-control" placeholder="Direccion" max_length=256 required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="txtTelefono" name="txtTelefono" value= "{{persona.telefono}}" class="form-control" placeholder="Telefono" max_length=20 required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="txtcelular" name="txtcelular" value= "{{persona.celular}}" class="form-control" placeholder="Celular" max_length=20 required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="txtTipo" name="txtTipo" value= "{{persona.tipo}}" class="form-control" placeholder="Tipo" max_length=20 required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="txtEstado" name="txtEstado" value= "{{persona.estado}}" class="form-control" placeholder="Estado" max_length=20 required>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-success btn-block text-white">Registrar</button>
-                    </div>
-                    </form>
+                        <div class="form-row">
+                            <label for="txt_cedula" class="col-form-label col-sm-0">Cedula:</label>
+                            <div class="form-group col-ms-auto col-md-3">
+                                   <input type="text" class="form-control" id="txt_cedula" value= "{{persona.cedula}}" class="form-control" placeholder="Cedula" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <label for="txt_nombres" class="col-form-label col-sm-0">Nombres:</label>
+                            <div class="form-group col-ms-auto col-md-4">
+                                    <input type="text" class="form-control" id="txt_nombres" value= "{{persona.nombres}}" class="form-control" placeholder="Nombres" required>
+                            </div>
+                            <label for="txt_apellidos" class="col-form-label col-sm-0">Apellidos:</label>
+                            <div class="form-group col-ms-auto col-md-4">
+                                    <input type="text" class="form-control" id="txt_apellidos" value= "{{persona.apellidos}}" class="form-control" placeholder="Apellidos" required>
+                            </div>
+                        </div>
 
-                    <form action="/solicitud/registro/" method="POST">{% csrf_token %}
-                    <div class="form-group">
-                        <input type="text" id="txtId_Solicitud" name="txtId_Solicitud" class="form-control" placeholder="Id solicitud" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="txtEstado" name="txtEstado" class="form-control" placeholder="Estado" maxlength= 40 required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="numMonto" name="numMonto" class="form-control" placeholder="Monto" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="numTasa" name="numTasa" class="form-control" placeholder="Tasa" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="numCuota" name="numCuota" class="form-control" placeholder="Cuota" required>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-success btn-block text-white">Registrar</button>
-                    </div>
+                       <div class="form-row">
+                           <label for="txt_direccion" class="col-form-label col-sm-0">Direccion:</label>
+                            <div class="form-group col-ms-auto col-md-9">
+                                    <input type="text" class="form-control" id="txt_direccion" value= "{{persona.direccion}}" class="form-control" placeholder="Direccion" required>
+                            </div>
+                       </div>
+
+                        <div class="form-row">
+                            <label for="txtcelular" class="col-form-label col-sm-0">Celular:</label>
+                            <div class="form-group col-ms-auto col-md-4">
+                                    <input type="text" class="form-control" id="txt_celular" value= "{{persona.celular}}" class="form-control" placeholder="Celular" required>
+                            </div>
+
+                            <label for="txtTelefono" class="col-form-label col-sm-0">Telefono:</label>
+                            <div class="form-group col-ms-auto col-md-4">
+                                    <input type="text" class="form-control" id="txtTelefono" value= "{{persona.telefono}}" class="form-control" placeholder="Telefono" required>
+                            </div>
+                        </div>
                     </form>
-                </div>
+                    <!-- Divider -->
+                    <hr class="my-3">
+                    <h3>Informacion del Trabajo</h3>
+                    <form action="/persona/registro/" method="POST">{% csrf_token %}
+                        <div class="form-row">
+                            <label for="txt_nombre" class="col-form-label col-sm-0">Nombres:</label>
+                            <div class="form-group col-ms-auto col-md-4">
+                                    <input type="text" class="form-control" id="txt_nombre" value= "{{informacion_trabajo.nombre}}" class="form-control" placeholder="Nombres" required>
+                            </div>
+                        </div>
+                       <div class="form-row">
+                           <label for="txt_direccion" class="col-form-label col-sm-0">Direccion:</label>
+                            <div class="form-group col-ms-auto col-md-9">
+                                    <input type="text" class="form-control" id="txt_direccion" value= "{{informacion_trabajo.direccion}}" class="form-control" placeholder="Direccion" required>
+                            </div>
+                       </div>
+
+                        <div class="form-row">
+                            <label for="txtTelefono" class="col-form-label col-sm-0">Telefono:</label>
+                            <div class="form-group col-ms-auto col-md-4">
+                                    <input type="tel" class="form-control" id="txtTelefono" value= "{{informacion_trabajo.telefono}}" class="form-control" placeholder="Telefono" required>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- Divider -->
+                    <hr class="my-3">
+                    <form action="/persona/registro/" method="POST">{% csrf_token %}
+                        <div class="form-row">
+                            <label for="txt_nombre" class="col-form-label col-sm-0">Monto Solicitado:</label>
+                            <div class="form-group col-ms-auto col-md-4">
+                                    <input type="number" class="form-control" id="txt_nombre" value= "{{solicitud.monto}}" class="form-control" placeholder="Monto" required>
+                            </div>
+                        </div>
+                    </form>
+                    <div align="right">
+                        <a href="solicitud/registrar" class ="btn btn-success">Agregar</a>
+                    </div>
+
+                 </div>
             </div>
         </div>
     </div>

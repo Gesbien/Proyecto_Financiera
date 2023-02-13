@@ -30,8 +30,6 @@ class solicitud(models.Model):
     cedula = models.ForeignKey(persona, null=True, on_delete=models.CASCADE)
     estado = models.CharField(max_length=40)
     monto = models.FloatField()
-    tasa = models.FloatField()
-    cuota = models.IntegerField()
 
     def __str__(self):
         return self.id_solicitud

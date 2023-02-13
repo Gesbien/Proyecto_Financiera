@@ -14,8 +14,6 @@ def registroSolicitud(request):
     id_solicitud = request.POST['txtId_Solicitud']
     estado = request.POST['txtEstado']
     monto = request.POST['numMonto']
-    tasa = request.POST['numTasa']
-    cuota = request.POST['numCuota']
 
     Solicitud = solicitud.objects.create(id_solicitud=id_solicitud, estado=estado, monto=monto,
                                          tasa=tasa, cuota=cuota)

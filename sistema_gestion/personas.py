@@ -17,8 +17,8 @@ def registroPersona(request):
     direccion = request.POST['txtDireccion']
     telefono = request.POST['txtTelefono']
     celular = request.POST['txtcelular']
-    tipo = request.POST['txtTipo']
-    estado = request.POST['txtEstado']
+    tipo = 'Solicitante'
+    estado = 'Activo'
 
     Persona = persona.objects.create(id_persona=id_persona, cedula=cedula, nombres=nombres,
                                      apellidos=apellidos,
