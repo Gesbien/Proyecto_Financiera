@@ -12,5 +12,6 @@ urlpatterns = [
     path('solicitud/editar/<id_solicitud>',solicitud.editarSolicitud,name='editarSolicitud'),
     path('solicitud/edicion/',solicitud.edicionSolicitud,name='edicionSolicitud'),
     path('solicitud/anular/<id_solicitud>',solicitud.eliminacionSolicitud,name='anularSolicitud'),
+    path('persona/registrar/',personas.registroPersona,name='registrarSolicitud'),
 
 ]

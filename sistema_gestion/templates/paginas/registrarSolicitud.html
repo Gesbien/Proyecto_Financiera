@@ -20,9 +20,42 @@
     </div>
     <!-- Body -->
     <div class="row">
-        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
             <div class="card">
                 <div class="card-body">
+                    <form action="/persona/registro/" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="txtId_Persona" name="txtId_Persona" value= "{{persona.id_persona}}" class="form-control" placeholder="Id persona" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtCedula" name="txtCedula" value= "{{persona.cedula}}" class="form-control" placeholder="Cedula" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtNombres" name="txtNombres" value= "{{persona.nombres}}" class="form-control" placeholder="Nombres" ax_length=80 required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtApellidos" name="txtApellidos" value= "{{persona.apellidos}}" class="form-control" placeholder="Apellidos" max_length=80 required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtDireccion" name="txtDireccion" value= "{{persona.direccion}}" class="form-control" placeholder="Direccion" max_length=256 required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtTelefono" name="txtTelefono" value= "{{persona.telefono}}" class="form-control" placeholder="Telefono" max_length=20 required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtcelular" name="txtcelular" value= "{{persona.celular}}" class="form-control" placeholder="Celular" max_length=20 required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtTipo" name="txtTipo" value= "{{persona.tipo}}" class="form-control" placeholder="Tipo" max_length=20 required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtEstado" name="txtEstado" value= "{{persona.estado}}" class="form-control" placeholder="Estado" max_length=20 required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Registrar</button>
+                    </div>
+                    </form>
+
                     <form action="/solicitud/registro/" method="POST">{% csrf_token %}
                     <div class="form-group">
                         <input type="text" id="txtId_Solicitud" name="txtId_Solicitud" class="form-control" placeholder="Id solicitud" required>
