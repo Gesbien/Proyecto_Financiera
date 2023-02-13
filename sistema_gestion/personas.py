@@ -1,33 +1,65 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import persona
 
-# Create your views here.
+def inicio_persona(request):
+    Personas = persona.objects.all()
+    context = {'Personas': Personas}
+    return render(request, 'paginas/gestionPersona.html' , context)
 
-def index(request):
-    personas = persona.objects.all()
-    context = {'persona': personas}
-    return render(request, 'paginas/persona.html', context)
+def crear_persona(request):
+    return render(request, "paginas/gestionPersona.html")
 
-def create(request):
-    personas = persona(cedula=request.POST.get('cedula'), nombres=request.POST.get('nombre'),primer_apellido=request.POST.get('primer_apellido'),estado='Activo')
-    personas.save()
-    return redirect('crear')
+def registroPersona(request):
+    id_persona = request.POST['txtId_Persona']
+    cedula = request.POST['txtCedula']
+    nombres = request.POST['txtNombres']
+    apellidos = request.POST['txtApellidos']
+    direccion = request.POST['txtDireccion']
+    telefono = request.POST['txtTelefono']
+    celular = request.POST['txtcelular']
+    tipo = request.POST['txtTipo']
+    estado = request.POST['txtEstado']
 
-def edit(request, id):
-    personas = persona.objects.get(id_persona=id)
-    context = {'persona': personas}
-    return render(request, 'paginas/edit.html', context)
+    Persona = persona.objects.create(id_persona=id_persona, cedula=cedula, nombres=nombres,
+                                     apellidos=apellidos,
+                                     direccion=direccion, telefono=telefono, celular=celular, tipo=tipo, estado=estado)
+    return redirect('/persona')
 
-def update(request, id):
-    personas = persona.objects.get(id=id)
-    personas.cedula = request.POST['cedula']
-    personas.nombres = request.POST['nombre']
-    personas.primer_apellido = request.POST['primer_apellido']
-    personas.save()
-    return redirect('/paginas/')
+def editarPersona(request, id_persona):
+    Persona = persona.objects.get(id_persona=id_persona)
+    data = {
+        'persona': Persona
+    }
+    return render(request, "paginas/edicionPersona.html", data)
 
-def delete(cedula):
-    personas = persona.objects.get(cedula=cedula)
-    personas.estado = 'Anulado'
-    personas.save()
-    return redirect('/paginas/')
+def edicionPersona(request):
+    id_persona = request.POST['txtId_Persona']
+    cedula = request.POST['txtCedula']
+    nombres = request.POST['txtNombres']
+    apellidos = request.POST['txtApellidos']
+    direccion = request.POST['txtDireccion']
+    telefono = request.POST['txtTelefono']
+    celular = request.POST['txtcelular']
+    tipo = request.POST['txtTipo']
+    estado = request.POST['txtEstado']
+
+
+    Persona = persona.objects.get(id_persona=id_persona)
+    Persona.cedula = cedula
+    Persona.nombres = nombres
+    Persona.apellidos = apellidos
+    Persona.direccion = direccion
+    Persona.telefono = telefono
+    Persona.celular = celular
+    Persona.tipo = tipo
+    Persona.estado = estado
+    Persona.save()
+
+    return redirect('/persona')
+
+def eliminacionPersona(request, id_persona):
+    Persona = persona.objects.get(id_persona=id_persona)
+    Persona.estado = 'Anulado'
+    Persona.save()
+
+    return redirect('/persona')
