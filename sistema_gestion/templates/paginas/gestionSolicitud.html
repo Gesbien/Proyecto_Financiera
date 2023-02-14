@@ -38,14 +38,14 @@
           <div class="col-lg-10">
               <div class="table-responsive">
               <!-- Projects table -->
-                  <table class="table align-items-center table-flush">
+                  <table class="table align-items-center table-dark">
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">Id solicitud</th>
-                            <th scope="col">Estado</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
                             <th scope="col">Monto</th>
-                            <th scope="col">Tasa</th>
-                            <th scope="col"> Cuota</th>
+                            <th scope="col">Estado</th>
                             <th colspan="">Opciones</th>
                             <th> <a href="solicitud/registrar" class ="btn btn-success text-white">Agregar</a> </th>
                         </tr>
@@ -54,13 +54,13 @@
                         {% for s in solicitudes %}
                             <tr>
                                 <td>{{ s.id_solicitud }}</td>
-                                <td>{{ s.estado }}</td>
+                                <td>{{ s.cedula.nombres }}</td>
+                                <td>{{ s.cedula.apellidos }}</td>
                                 <td>{{ s.monto }}</td>
-                                <td>{{ s.tasa }}</td>
-                                <td>{{ s.cuota }}</td>
+                                <td>{{ s.estado}}</td>
                                 <td><a href="/solicitud/editar/{{ s.id_solicitud }}" class ="btn btn-info">Editar</a></td>
                                 <td><a href="/solicitud/anular/{{ s.id_solicitud }}" class ="btn btn-danger">Anular</a></td>
-                                </tr>
+                            </tr>
                         {% endfor %}
                     </tbody>
                   </table>
