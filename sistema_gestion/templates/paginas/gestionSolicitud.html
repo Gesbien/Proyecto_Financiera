@@ -8,7 +8,7 @@
 {% block content %}
 
     <!-- Header -->
-    <div class="header bg-primary pb-6">
+    <div class="header pb-6" style="background-color: #009ACD">
       <div class="container-fluid">
         <div class="header-body">
           <div class="row align-items-center py-3">
@@ -20,23 +20,22 @@
       </div>
     </div>
     <!-- Page content -->
-    <div class="container-fluid mt--6">
-    <div class="row align-items-center py-7">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <div class="input-group input-group-alternative mb-4">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
-                      </div>
-                      <input class="form-control form-control-alternative" placeholder="Buscar" type="text">
-                        <a href="solicitud/registrar" class ="btn btn-success">Agregar</a>
-                    </div>
+    <div class="container-fluid mt--6" style="background-color: #ced4da" div.row=" ">
+        <div class="form-row align-items-center py-7">
+            <div class="col-md-10">
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
                   </div>
+                  <input id="SearchTerm" class="form-control" placeholder="Search" type="text" onkeyup="doSearch()">
                 </div>
+              </div>
+            </div>
+        </div>
 
-    </div>
-      <div class="row">
-          <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <div class="form-row align-items-center mt--7">
+          <div class="col-lg-10">
               <div class="table-responsive">
               <!-- Projects table -->
                   <table class="table align-items-center table-flush">
@@ -48,8 +47,9 @@
                             <th scope="col">Tasa</th>
                             <th scope="col"> Cuota</th>
                             <th colspan="">Opciones</th>
+                            <th> <a href="solicitud/registrar" class ="btn btn-success text-white">Agregar</a> </th>
                         </tr>
-                     </thead>
+                    </thead>
                     <tbody>
                         {% for s in solicitudes %}
                             <tr>
@@ -67,18 +67,11 @@
               </div>
           </div>
       </div>
+    {% include "includes/footer-fullscreen.html" %}
     </div>
-
-      {% include "includes/footer.html" %}
-
-    </div>
-
 {% endblock content %}
 
 <!-- Specific JS goes HERE -->
 {% block javascripts %}
-
-  <script src="/static/assets/vendor/chart.js/dist/Chart.min.js"></script>
-  <script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
 
 {% endblock javascripts %}
