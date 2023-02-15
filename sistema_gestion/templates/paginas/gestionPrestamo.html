@@ -1,0 +1,86 @@
+{% extends 'paginas/base.html' %}
+
+{% block title %} Prestamo {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-3">
+            <div class="col-lg-6 col-7">
+              <h6 class="h2 text-white d-inline-block mb-0">Lista de Prestamos</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+    <div class="row align-items-center py-7">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <div class="input-group input-group-alternative mb-4">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
+                      </div>
+                      <input class="form-control form-control-alternative" placeholder="Buscar" type="text">
+                        <a href="prestamo/registrar" class ="btn btn-success">Agregar</a>
+                    </div>
+                  </div>
+                </div>
+
+    </div>
+      <div class="row">
+          <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+              <div class="table-responsive">
+              <!-- Projects table -->
+                  <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Id Prestamo</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Monto</th>
+                            <th scope="col">Tasa</th>
+                            <th scope="col"> Cuota</th>
+                            <th scope="col"> Estado</th>
+                            <th colspan="">Opciones</th>
+                        </tr>
+                     </thead>
+                    <tbody>
+                        {% for p in prestamos %}
+                            <tr>
+                                <td>{{ p.id_prestamo }}</td>
+                                <td>{{ p.id_solicitud }}</td>
+                                <td>{{ p.monto }}</td>
+                                <td>{{ p.tasa }}</td>
+                                <td>{{ p.cuota }}</td>
+                                <td>{{ p.estado }}</td>
+                                <td><a href="/prestamo/editar/{{ p.id_prestamo }}" class ="btn btn-info">Editar</a></td>
+                                <td><a href="/prestamo/anular/{{ p.id_prestamo }}" class ="btn btn-danger">Anular</a></td>
+                                </tr>
+                        {% endfor %}
+                    </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+    </div>
+
+      {% include "includes/footer.html" %}
+
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+
+  <script src="/static/assets/vendor/chart.js/dist/Chart.min.js"></script>
+  <script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+
+{% endblock javascripts %}
