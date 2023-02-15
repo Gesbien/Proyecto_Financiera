@@ -28,7 +28,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
                   </div>
-                  <input id="SearchTerm" class="form-control" placeholder="Search" type="text" onkeyup="doSearch()">
+                  <input id="searchTerm" name="searchTerm" class="form-control" placeholder="Search" type="text" onkeyup="doSearch()">
                 </div>
               </div>
             </div>
@@ -38,7 +38,7 @@
           <div class="col-lg-10">
               <div class="table-responsive">
               <!-- Projects table -->
-                  <table class="table align-items-center table-dark">
+                  <table class="table align-items-center table-dark" id="datos" name="datos" >
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">Id solicitud</th>
@@ -47,7 +47,7 @@
                             <th scope="col">Monto</th>
                             <th scope="col">Estado</th>
                             <th colspan="">Opciones</th>
-                            <th> <a href="solicitud/registrar" class ="btn btn-success text-white">Agregar</a> </th>
+                            <th> <a href="solicitud/registrar/{{ 0 }}" class ="btn btn-success text-white">Agregar</a> </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -73,5 +73,5 @@
 
 <!-- Specific JS goes HERE -->
 {% block javascripts %}
-
+    <script src="/static/assets/js/modal.js"></script>
 {% endblock javascripts %}

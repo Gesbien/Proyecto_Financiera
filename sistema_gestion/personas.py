@@ -25,13 +25,12 @@ def registroPersona(request,salida):
 
         registroInformacion(request,Persona)
 
-        if salida == 'Solicitud':
+        if salida == 'solicitud':
             return Persona
         else:
             redirect('/cliente')
 
-def registroInformacion(request,persona):
-    cedula = persona
+def registroInformacion(request,cedula):
     nombre_trabajo = request.POST['txt_trabj_nombre']
     telefono_trabajo = request.POST['txt_trabj_direccion']
     direccion_trabajo = request.POST['txt_trabj_telefono']
@@ -48,30 +47,40 @@ def editarPersona(request, id_persona):
     }
     return render(request, "paginas/edicionPersona.html", data)
 
-def edicionPersona(request):
-    id_persona = request.POST['txtId_Persona']
-    cedula = request.POST['txtCedula']
-    nombres = request.POST['txtNombres']
-    apellidos = request.POST['txtApellidos']
-    direccion = request.POST['txtDireccion']
-    telefono = request.POST['txtTelefono']
-    celular = request.POST['txtcelular']
-    tipo = request.POST['txtTipo']
-    estado = request.POST['txtEstado']
+def edicionPersona(request,salida):
+    cedula = request.POST['txt_cedula']
+    nombres = request.POST["txt_nombres"]
+    apellidos = request.POST["txt_apellidos"]
+    direccion = request.POST["txt_direccion"]
+    telefono = request.POST["txt_telefono"]
+    celular = request.POST["txt_celular"]
 
-
-    Persona = persona.objects.get(id_persona=id_persona)
+    Persona = persona.objects.get(cedula=cedula)
     Persona.cedula = cedula
     Persona.nombres = nombres
     Persona.apellidos = apellidos
     Persona.direccion = direccion
     Persona.telefono = telefono
     Persona.celular = celular
-    Persona.tipo = tipo
-    Persona.estado = estado
     Persona.save()
 
-    return redirect('/cliente')
+    edicionInforme(request,Persona)
+
+    if salida != 'Solicitud':
+        return redirect('/cliente')
+
+def edicionInforme(request,cedula):
+    nombre_trabajo = request.POST['txt_trabj_nombre']
+    telefono_trabajo = request.POST['txt_trabj_direccion']
+    direccion_trabajo = request.POST['txt_trabj_telefono']
+    sueldo = request.POST['txt_trabj_sueldo']
+
+    Info = informacion_trabajo.objects.get(cedula=cedula)
+    Info.nombre = nombre_trabajo
+    Info.telefono = telefono_trabajo
+    Info.direccion = direccion_trabajo
+    Info.sueldo = sueldo
+    Info.save()
 
 def eliminacionPersona(request, id_persona):
     Persona = persona.objects.get(id_persona=id_persona)

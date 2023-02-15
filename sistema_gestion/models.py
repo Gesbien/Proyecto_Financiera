@@ -13,7 +13,7 @@ class persona(models.Model):
     estado = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.cedula
+        return str(self.cedula)
 class informacion_trabajo(models.Model):
     id_info = models.AutoField(primary_key=True)
     cedula = models.ForeignKey(persona, null=True, on_delete=models.CASCADE)
@@ -23,7 +23,7 @@ class informacion_trabajo(models.Model):
     sueldo = models.FloatField()
 
     def __str__(self):
-        return self.id_info
+        return str(self.id_info)
 
 class solicitud(models.Model):
     id_solicitud = models.AutoField(primary_key=True)
@@ -32,7 +32,7 @@ class solicitud(models.Model):
     monto = models.FloatField()
 
     def __str__(self):
-        return self.id_solicitud
+        return str(self.id_solicitud)
 
 
 class empleados(models.Model):
