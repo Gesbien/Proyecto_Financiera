@@ -1,0 +1,78 @@
+{% extends 'paginas/base.html' %}
+
+{% block title %} Prestamo {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- Header -->
+    <div class="header pb-6" style="background-color: #009ACD">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-3">
+            <div class="col-lg-6 col-7">
+              <h6 class="h2 text-white d-inline-block mb-0">Lista de Clientes</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6" style="background-color: #ced4da" div.row=" ">
+        <div class="form-row align-items-center py-7">
+            <div class="col-md-10">
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
+                  </div>
+                  <input id="searchTerm" name="searchTerm" class="form-control" placeholder="Search" type="text" onkeyup="doSearch()">
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div class="form-row align-items-center mt--7">
+          <div class="col-lg-10">
+              <div class="table-responsive">
+              <!-- Projects table -->
+                  <table class="table align-items-center table-dark" id="datos" name="datos" >
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Id Persona</th>
+                            <th scope="col">Cedula</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">Direccion</th>
+                            <th colspan="">Telefono</th>
+                            <th> <a href="cliente/registrar/{{ 0 }}" class ="btn btn-success text-white">Agregar</a> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for c in clientes %}
+                            <tr>
+                                <td>{{ c.id_persona }}</td>
+                                <td>{{ c.cedula }}</td>
+                                <td>{{ c.nombres }}</td>
+                                <td>{{ c.apellidos }}</td>
+                                <td>{{ c.direccion }}</td>
+                                <td>{{ c.telefono}}</td>
+                                <td><a href="/cliente/editar/{{ c.id_persona }}" class ="btn btn-info">Editar</a></td>
+                                <td><a href="/cliente/anular/{{ c.id_persona }}" class ="btn btn-danger">Anular</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+    {% include "includes/footer-fullscreen.html" %}
+    </div>
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+    <script src="/static/assets/js/modal.js"></script>
+{% endblock javascripts %}

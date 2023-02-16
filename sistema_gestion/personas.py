@@ -3,8 +3,8 @@ from .models import persona, informacion_trabajo
 
 def inicio_persona(request):
     Personas = persona.objects.all()
-    context = {'Personas': Personas}
-    return render(request, 'paginas/gestionPersona.html' , context)
+    context = {'Clientes': Personas}
+    return render(request, 'paginas/gestionCliente.html' , context)
 
 def crear_persona(request):
     return render(request, "paginas/gestionPersona.html")

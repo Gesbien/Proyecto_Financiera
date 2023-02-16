@@ -12,6 +12,7 @@ urlpatterns = [
     path('solicitud/editar/<id_solicitud>', solicitud.editarSolicitud, name='editarSolicitud'),
     path('solicitud/edicion/<id_solicitud>', solicitud.edicionSolicitud, name='edicionSolicitud'),
     path('solicitud/anular/<id_solicitud>', solicitud.eliminacionSolicitud, name='anularSolicitud'),
-    path('prestamo',prestamo.inicio_prestamo,name='inicio_persona')
+    path('prestamo',prestamo.inicio_prestamo,name='inicio_persona'),
+    path('cliente', personas.inicio_persona, name='inicio_cliente'),
 
 ]
