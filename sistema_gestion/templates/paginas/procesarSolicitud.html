@@ -1,0 +1,170 @@
+{% extends 'paginas/base.html' %}
+
+{% block title %} Prestamo {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+    <!-- Header -->
+    <div class="header pb-1" style="background-color: #009ACD">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-3">
+            <div class="col-lg-6 col-7">
+              <h6 class="h2 text-white d-inline-block mb-0">Edicion de Solicitud</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 ">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">ID Solicitud</h5>
+                        <h1 class="card-title text-uppercase text-muted mb-0">{{ solicitud }}</h1>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-gray-dark text-white rounded-circle shadow">
+                        <i class="ni  ni-badge"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+    </div>
+
+    <!-- Body -->
+    <div class="row justify-content-center">
+        <div class="col-sm-12 col-md-20  col-xl-8">
+            <div class="card card-stats ">
+                <div class="card-body " style="background-color: #e9ecef">
+                    <div class="card card-stats">
+                        <!-- Card body -->
+                        <div class="card-body">
+                          <div class="row">
+                             <h1 class="display-1">&nbsp&nbspResumen de Datos</h1>
+                          </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <div class="form-row ">
+                                        <div class=" col-md-2">
+                                             <h3><b>Cedula: </b></h3>
+                                        </div>
+                                        <div class="col-ms-auto col-md-4">
+                                            <h3 >{{ solicitud.cedula.cedula }}</h3>
+                                        </div>
+                                     </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="form-row ">
+                                    <div class="col-ms-auto col-md-2">
+                                         <h3><b>Nombres:</b></h3>
+                                    </div>
+                                    <div class="col-ms-auto col-md-3">
+                                        <h3 >{{ solicitud.cedula.nombres }}</h3>
+                                    </div>
+                                    <div class="col-ms-auto col-md-2">
+                                         <h3><b>Apellidos:</b></h3>
+                                    </div>
+                                    <div class="col-ms-auto col-md-3">
+                                        <h3 >{{ solicitud.cedula.apellidos }}</h3>
+                                    </div>
+                                </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="form-row ">
+                                        <div class="col-ms-auto col-md-2">
+                                             <h3><b>Direccion</b></h3>
+                                        </div>
+                                        <div class=" col-md-3">
+                                            <h3 >{{ solicitud.cedula.direccion }}</h3>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                     <div class="form-row ">
+                                        <div class="col-ms-auto col-md-2">
+                                            <h3><b>Telefono:</b></h3>
+                                        </div>
+                                        <div class="col-ms-auto col-md-3">
+                                            <h3 >{{ solicitud.cedula.telefono }}</h3>
+                                        </div>
+                                         <div class="col-ms-auto col-md-2">
+                                             <h3><b>Celular</b></h3>
+                                        </div>
+                                        <div class="col-ms-auto col-md-3">
+                                            <h3>{{ solicitud.cedula.celular }}</h3>
+                                        </div>
+                                    </div>
+                                </li>
+                                <h2> <b>&nbsp&nbsp&nbspInformacion Laboral</b></h2>
+                                <li class="list-group-item">
+                                    <div class="form-row">
+                                        <div class="col-ms-auto col-md-2">
+                                             <h3><b> Nombre: </b></h3>
+                                        </div>
+                                        <div class="col-ms-auto col-md-3">
+                                            <h3 >{{ trabajo.nombre}}</h3>
+                                        </div>
+                                         <div class="col-ms-auto col-md-2">
+                                             <h3><b>Telefono: </b></h3>
+                                        </div>
+                                        <div class="col-ms-auto col-md-3">
+                                            <h3 >{{ trabajo.telefono}}</h3>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="form-row">
+                                        <div class="col-ms-auto col-md-2">
+                                             <h3><b> Direccion:</b></h3>
+                                        </div>
+                                        <div class="col-ms-auto col-md-8">
+                                            <h3 >{{ trabajo.direccion}}</h3>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="form-row">
+                                        <div class="col-ms-auto col-md-2">
+                                             <h3><b>Ganancias</b></h3>
+                                        </div>
+                                        <div class="col-ms-auto col-md-3">
+                                            <h3 >{{ trabajo.sueldo}}</h3>
+                                        </div>
+                                        <div class="col-ms-auto ">
+                                             <h3><b>Monto Solicitado: </b></h3>
+                                        </div>
+                                        <div class="col-ms-auto">
+                                            <h3 >{{ solicitud.monto}}</h3>
+                                        </div>
+                                    </div>
+                                </li>
+                                <div align="right">
+                                    <div class="form-row">
+                                    <div class=" col-md-2">
+                                        <a href="/solicitud/procesado/{{ solicitud.id_solicitud }}/{{'Aceptada'}}" class ="btn btn-success" data-toggle="tooltip" data-placement="top" title="Aceptar">
+                                            <i class="fa-solid fa-check"></i></a>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="/solicitud/procesado/{{ solicitud.id_solicitud }}/{{'Denegada'}}" class ="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Rechazar">
+                                            <i class="fa-solid fa-xmark"></i></a>
+                                    </div>
+                                </div>
+                                </div>
+                            </ul>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+{% block javascripts %}
+    <script src="https://kit.fontawesome.com/00fb8eadce.js" crossorigin="anonymous"></script>
+    <script src="/static/assets/js/modal.js"></script>
+{% endblock javascripts %}

@@ -5,13 +5,13 @@ from .models import solicitud, persona, informacion_trabajo
 from .personas import registroPersona,edicionPersona
 
 def inicio_solicitud(request):
-    solicitudes = solicitud.objects.filter(estado='Proceso')
+    solicitudes = solicitud.objects.exclude(estado='Aceptada').exclude(estado='Anulado')
     context = {'solicitudes': solicitudes}
     return render(request, 'paginas/gestionSolicitud.html', context)
 
 def crear_solicitud(request,personas):
     Solicitud = 1 + solicitud.objects.all().count()
-    Personas = persona.objects.all()
+    Personas = persona.objects.filter(estado='Cliente')
     if personas != '0':
         persona_selecionada = persona.objects.get(cedula=personas)
         info_trabj = informacion_trabajo.objects.get(cedula=persona_selecionada)
@@ -67,9 +67,33 @@ def edicionSolicitud(request,id_solicitud):
 
     return redirect('/solicitud')
 
-def eliminacionSolicitud(request, id_solicitud):
+def eliminacionSolicitud(request,id_solicitud):
     Solicitud = solicitud.objects.get(id_solicitud=id_solicitud)
     Solicitud.estado = 'Anulado'
     Solicitud.save()
 
     return redirect('/solicitud')
+
+def procesarSolicitud(request,id_solicitud):
+    Solicitud = solicitud.objects.get(id_solicitud=id_solicitud)
+    info_trabj = informacion_trabajo.objects.get(cedula=Solicitud.cedula)
+
+    context = {
+        'solicitud': Solicitud,
+        'trabajo': info_trabj,
+    }
+    return render(request, "paginas/procesarSolicitud.html", context)
+
+def proceso(request,id_solicitud,eleccion):
+    Solicitud = solicitud.objects.get(id_solicitud=id_solicitud)
+    Solicitud.estado = eleccion
+
+    if eleccion == 'Aceptada':
+        Persona = persona.objects.get(cedula=Solicitud.cedula.cedula)
+        Persona.tipo = 'Cliente'
+        Persona.save()
+
+    Solicitud.save()
+
+    return redirect('/solicitud')
+

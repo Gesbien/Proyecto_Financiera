@@ -3,7 +3,11 @@
 {% block title %} Prestamo {% endblock title %}
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+    <link href="/static/assets/fontawesome/css/all.css" rel="stylesheet">
+
+{% endblock stylesheets %}
+
 
 {% block content %}
 
@@ -39,7 +43,7 @@
               <div class="table-responsive">
               <!-- Projects table -->
                   <table class="table align-items-center table-dark" id="datos" name="datos" >
-                    <thead class="thead-light">
+                    <thead class="thead-dark">
                         <tr>
                             <th scope="col">Id solicitud</th>
                             <th scope="col">Nombre</th>
@@ -47,7 +51,8 @@
                             <th scope="col">Monto</th>
                             <th scope="col">Estado</th>
                             <th colspan="">Opciones</th>
-                            <th> <a href="solicitud/registrar/{{ 0 }}" class ="btn btn-success text-white">Agregar</a> </th>
+                            <th> <a href="solicitud/registrar/{{ 0 }}" class ="btn btn-success text-white" data-toggle="tooltip" data-placement="left" title="Añadir">
+                                 <i class="fa-solid fa-folder-plus"></i> </a> </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,8 +63,13 @@
                                 <td>{{ s.cedula.apellidos }}</td>
                                 <td>{{ s.monto }}</td>
                                 <td>{{ s.estado}}</td>
-                                <td><a href="/solicitud/editar/{{ s.id_solicitud }}" class ="btn btn-info">Editar</a></td>
-                                <td><a href="/solicitud/anular/{{ s.id_solicitud }}" class ="btn btn-danger">Anular</a></td>
+                                <td><a href="/solicitud/editar/{{ s.id_solicitud }}" class ="btn btn-info" data-toggle="tooltip" data-placement="top" title="Editar">
+                                    <i class="fa-solid fa-file-pen"></i></a>
+                                <a href="/solicitud/procesar/{{ s.id_solicitud }}" class ="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Procesar">
+                                    <i class="fa-solid fa-file-circle-question"></i>
+                                    </a></td>
+                                <td><a href="/solicitud/anular/{{ s.id_solicitud }}" class ="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Anular">
+                                    <i class="fa-solid fa-xmark"></i></a></td>
                             </tr>
                         {% endfor %}
                     </tbody>

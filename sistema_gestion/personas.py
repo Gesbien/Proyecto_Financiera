@@ -2,12 +2,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import persona, informacion_trabajo
 
 def inicio_persona(request):
-    Personas = persona.objects.all()
-    context = {'Clientes': Personas}
+    Personas = persona.objects.filter(tipo='Cliente')
+    context = {'clientes': Personas}
     return render(request, 'paginas/gestionCliente.html' , context)
 
 def crear_persona(request):
-    return render(request, "paginas/gestionPersona.html")
+    return render(request, "paginas/registrarCliente.html")
 
 def registroPersona(request,salida):
         cedula = request.POST['txt_cedula']
@@ -43,9 +43,9 @@ def registroInformacion(request,cedula):
 def editarPersona(request, id_persona):
     Persona = persona.objects.get(id_persona=id_persona)
     data = {
-        'persona': Persona
+        'cliente': Persona
     }
-    return render(request, "paginas/edicionPersona.html", data)
+    return render(request, "paginas/edicionCliente.html", data)
 
 def edicionPersona(request,salida):
     cedula = request.POST['txt_cedula']
@@ -66,7 +66,7 @@ def edicionPersona(request,salida):
 
     edicionInforme(request,Persona)
 
-    if salida != 'Solicitud':
+    if salida == 'Cliente':
         return redirect('/cliente')
 
 def edicionInforme(request,cedula):

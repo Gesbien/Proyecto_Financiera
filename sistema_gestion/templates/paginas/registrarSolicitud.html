@@ -3,7 +3,9 @@
 {% block title %} Prestamo {% endblock title %}
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+        <link href="/static/assets/fontawesome/css/all.css" rel="stylesheet">
+{% endblock stylesheets %}
 
 {% block content %}
     <!-- Header -->
@@ -36,7 +38,6 @@
               </div>
             </div>
     </div>
-
     <!-- Body -->
     <div class="row">
         <div class="col-sm-12 col-md-6 col-lg-8 col-xl-12">
@@ -56,7 +57,9 @@
                             </div>
                             <!-- Button trigger modal -->
                             <div class="form-group col-ms-auto col-md-3">
-                               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_busqueda">Buscar</button>
+                               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_busqueda" data-toggle="tooltip" data-placement="right" title="Buscar">
+                                   <i class="fa-solid fa-magnifying-glass"></i>
+                               </button>
                             </div>
                             <!-- Modal -->
                             <div class="modal fade" id="modal_busqueda" name="modal_busqueda" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -65,7 +68,7 @@
                                   <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Busqueda de Clientes</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
+                                      <span aria-hidden="true">&times;</span><i class="fa-solid fa-magnifying-glass"></i>
                                     </button>
                                   </div>
                                   <div class="modal-body" div.row="">
@@ -201,16 +204,18 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div align="right" class="col-md-2">
-                                <button type="submit" class="btn btn-success btn-block text-white">Registrar</button>
+                            <div align="right" class="col-md-1">
+                                <button type="submit" class="btn btn-success btn-block text-white" data-toggle="tooltip" data-placement="top" title="Guardar">
+                                    <i class="fa-solid fa-floppy-disk"></i>
+                                </button>
                              </div>
-                            <div  align="right" class="col-md-2">
-                                <a href="/solicitud" class ="btn btn-danger">Cerrar</a>
+                            <div  align="right" class="col-md-1">
+                                <a href="/solicitud" class ="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Cerrar">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                </a>
                             </div>
                         </div>
-
                     </form>
-
                  </div>
             </div>
         </div>
@@ -218,6 +223,5 @@
 {% endblock content %}
 
 {% block javascripts %}
-  <script src="/static/assets/js/modal.js"></script>
-
+   <script src="/static/assets/js/modal.js"></script>
 {% endblock javascripts %}

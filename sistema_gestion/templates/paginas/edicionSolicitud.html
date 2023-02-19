@@ -3,7 +3,9 @@
 {% block title %} Prestamo {% endblock title %}
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+    <link href="/static/assets/fontawesome/css/all.css" rel="stylesheet">
+{% endblock stylesheets %}
 
 {% block content %}
     <!-- Header -->
@@ -55,7 +57,9 @@
                             </div>
                             <!-- Button trigger modal -->
                             <div class="form-group col-ms-auto col-md-3">
-                               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Buscar</button>
+                               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-toggle="tooltip" data-placement="top" title="Buscar">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                               </button>
                             </div>
                             <!-- Modal -->
                             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -200,11 +204,15 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div align="right" class="col-md-2">
-                                <button type="submit" class="btn btn-success btn-block text-white">Editar</button>
+                            <div align="right" class="col-md-1">
+                                <button type="submit" class="btn btn-success btn-block text-white" data-toggle="tooltip" data-placement="top" title="Guardar">
+                                    <i class="fa-solid fa-floppy-disk"></i>
+                                </button>
                              </div>
-                            <div  align="right" class="col-md-2">
-                                <a href="/solicitud" class ="btn btn-danger">Cerrar</a>
+                            <div  align="left" class="col-md-2">
+                                <a href="/solicitud" class ="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Salir">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                </a>
                             </div>
                         </div>
                     </form>
@@ -215,7 +223,5 @@
     </div>
 {% endblock content %}
 {% block javascripts %}
-
-  <script src="/static/assets/js/modal.js"></script>
-
+    <script src="/static/assets/js/modal.js"></script>
 {% endblock javascripts %}
