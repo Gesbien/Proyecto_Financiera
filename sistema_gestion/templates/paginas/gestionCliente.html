@@ -47,9 +47,8 @@
                             <th scope="col">Cedula</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Apellido</th>
-                            <th scope="col">Direccion</th>
                             <th colspan="">Telefono</th>
-                            <th> <a href="cliente/registrar/{{ 0 }}" class ="btn btn-success text-white" data-toggle="tooltip" data-placement="left" title="Añadir">
+                            <th> <a href="cliente/registrar" class ="btn btn-success text-white" data-toggle="tooltip" data-placement="left" title="Añadir">
                              <i class="fa-solid fa-folder-plus"></i>
                             </a> </th>
                         </tr>
@@ -61,7 +60,6 @@
                                 <td>{{ c.cedula }}</td>
                                 <td>{{ c.nombres }}</td>
                                 <td>{{ c.apellidos }}</td>
-                                <td>{{ c.direccion }}</td>
                                 <td>{{ c.telefono}}</td>
                                 <td><a href="/cliente/editar/{{ c.id_persona }}" class ="btn btn-info" data-toggle="tooltip" data-placement="top" title="Editar">
                                 <i class="fa-solid fa-file-pen"></i>

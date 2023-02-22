@@ -10,8 +10,8 @@ def inicio_solicitud(request):
     return render(request, 'paginas/gestionSolicitud.html', context)
 
 def crear_solicitud(request,personas):
-    Solicitud = 1 + solicitud.objects.all().count()
-    Personas = persona.objects.filter(estado='Cliente')
+    Solicitud = 1 + solicitud.objects.last().id_solicitud
+    Personas = persona.objects.filter(tipo='Cliente').exclude(estado='Anulado')
     if personas != '0':
         persona_selecionada = persona.objects.get(cedula=personas)
         info_trabj = informacion_trabajo.objects.get(cedula=persona_selecionada)
@@ -29,7 +29,7 @@ def crear_solicitud(request,personas):
 
     return render(request, "paginas/registrarSolicitud.html",context)
 
-def registroSolicitud(request,opcion):
+def registroSolicitud(request,opcion,id_solicitud):
     if opcion == 'sl':
         cedula = request.POST['txt_cedula']
         cedula_sol = persona.objects.get(cedula=cedula)
@@ -40,7 +40,7 @@ def registroSolicitud(request,opcion):
     monto = request.POST['txt_monto']
     estado = 'Proceso'
 
-    Solicitud = solicitud.objects.create(cedula=cedula_sol,monto=monto,estado=estado)
+    Solicitud = solicitud.objects.create(id_solicitud=id_solicitud,cedula=cedula_sol,monto=monto,estado=estado)
 
     return redirect('/solicitud')
 
@@ -48,15 +48,17 @@ def editarSolicitud(request,id_solicitud):
 
     Solicitud = solicitud.objects.get(id_solicitud=id_solicitud)
     info_trabj = informacion_trabajo.objects.get(cedula=Solicitud.cedula)
+    Personas = persona.objects.filter(tipo='Cliente').exclude(estado='Anulado')
 
     context = {
+        'personas': Personas,
         'solicitud': Solicitud,
         'trabajo': info_trabj,
     }
     return render(request, "paginas/edicionSolicitud.html", context)
 
 def edicionSolicitud(request,id_solicitud):
-    salida = 'Solicitud'
+    salida = 'sl'
     monto = request.POST['txt_monto']
 
     edicionPersona(request,salida)

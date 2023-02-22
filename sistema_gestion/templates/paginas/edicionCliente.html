@@ -3,7 +3,9 @@
 {% block title %} Prestamo {% endblock title %}
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+    <link href="/static/assets/fontawesome/css/all.css" rel="stylesheet">
+{% endblock stylesheets %}
 
 {% block content %}
     <!-- Header -->
@@ -12,7 +14,7 @@
         <div class="header-body">
           <div class="row align-items-center py-3">
             <div class="col-lg-6 col-7">
-              <h6 class="h2 text-white d-inline-block mb-0">Edicion de Clientes</h6>
+              <h6 class="h2 text-white d-inline-block mb-0">Edicion de Cliente</h6>
             </div>
           </div>
         </div>
@@ -23,7 +25,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                        <h5 class="card-title text-uppercase text-muted mb-0">Id Cliente</h5>
+                        <h5 class="card-title text-uppercase text-muted mb-0">ID Cliente</h5>
                         <h1 class="card-title text-uppercase text-muted mb-0">{{ cliente.id_persona }}</h1>
                     </div>
                     <div class="col-auto">
@@ -42,30 +44,16 @@
         <div class="col-sm-12 col-md-6 col-lg-8 col-xl-12">
             <div class="card">
                 <div class="card-body" div.row="" style="background-color: #e9ecef">
-                    <h3>Informacion Cliente</h3>
-                    <form action="/cliente/edicion/{{ cliente }}" method="POST"> {% csrf_token %}
+                    <h3>Informacion Personal</h3>
+                    <form action="/cliente/edicion/{{ opcion }}" method="POST"> {% csrf_token %}
                         <div class="form-row">
-                            <div class="col-ms-auto col-md-1">
-                                <label for="txt_idPersona" class="col-form-label col-sm-0">Persona:</label>
-                            </div>
-
+                        <div class="col-ms-auto col-md-1">
+                             <label for="txt_cedula" class="col-form-label col-sm-0">Cedula:</label>
+                        </div>
                             <div class="col-ms-auto col-md-3">
                               <div class="form-group">
-                                <input type="number" class="form-control" id="txt_idPersona" name="txt_idPersona" value="{{ cliente.id_persona }}" class="form-control" placeholder="Id Persona" required>
+                                <input type="number" class="form-control" id="txt_cedula" name="txt_cedula" value="{{cliente.cedula}}" class="form-control" placeholder="Cedula" required>
                               </div>
-                            </div>
-                        <div class="form-row">
-                            <div class="col-ms-auto col-md-1">
-                                <label for="txt_idPersona" class="col-form-label col-sm-0">Persona:</label>
-                            </div>
-                            <div class="form-group col-ms-auto col-md-4">
-                                    <input type="text" class="form-control" id="txt_idPersona" name="txt_idPersona" value="{{ cliente.id_persona }}"  class="form-control" placeholder="Id Persona" required>
-                            </div>
-                            <div class="col-ms-auto col-md-1">
-                                <label for="txt_cedula" class="col-form-label col-sm-0">Cedula:</label>
-                            </div>
-                            <div class="form-group col-ms-auto col-md-4">
-                                    <input type="text" class="form-control" id="txt_cedula" name="txt_cedula" value="{{ cliente.cedula }}"  class="form-control" placeholder="Cedula" required>
                             </div>
                         </div>
                         <div class="form-row">
@@ -73,7 +61,7 @@
                                 <label for="txt_nombres" class="col-form-label col-sm-0">Nombres:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
-                                    <input type="text" class="form-control" id="txt_nombres" name="txt_nombres" value="{{ cliente.nombres }}"  class="form-control" placeholder="Nombres" required>
+                                <input type="text" class="form-control" id="txt_nombres" name="txt_nombres" value="{{ cliente.nombres }}" class="form-control" placeholder="Nombres" required>
                             </div>
                             <div class="col-ms-auto col-md-1">
                                 <label for="txt_apellidos" class="col-form-label col-sm-0">Apellidos:</label>
@@ -84,32 +72,77 @@
                         </div>
 
                        <div class="form-row">
-                             <div class="col-ms-auto col-md-1">
-                                 <label for="txt_direccion" class="col-form-label col-sm-0">Direccion:</label>
-                            </div>
-                            <div class="form-group col-ms-auto col-md-9">
-                                    <input type="text" class="form-control" id="txt_direccion"  name="txt_direccion" value="{{ cliente.direccion }}"class="form-control" placeholder="Direccion" required>
-                            </div>
-
                            <div class="col-ms-auto col-md-1">
-                                <label for="txtTelefono" class="col-form-label col-sm-0">Telefono:</label>
-                            </div>
-
-                            <div class="form-group col-ms-auto col-md-4">
-                                    <input type="text" class="form-control" id="txt_telefono" name="txt_telefono" value="{{ cliente.telefono }}" class="form-control" placeholder="Telefono" required>
+                                <label for="txt_direccion" class="col-form-label col-sm-0">Direccion:</label>
+                           </div>
+                           <div class="form-group col-ms-auto col-md-9">
+                               <input type="text" class="form-control" id="txt_direccion"  name="txt_direccion" value="{{ cliente.direccion }}" class="form-control" placeholder="Direccion" required>
                             </div>
                        </div>
 
+                        <div class="form-row">
+                            <div class="col-ms-auto col-md-1">
+                                <label for="txtcelular" class="col-form-label col-sm-0">Celular:</label>
+                            </div>
+                                <div class="form-group col-ms-auto col-md-4">
+                                    <input type="text" class="form-control" id="txt_celular" name="txt_celular" value="{{ cliente.celular }}" class="form-control" placeholder="Celular" required>
+                            </div>
+                            <div class="col-ms-auto col-md-1">
+                                <label for="txtTelefono" class="col-form-label col-sm-0">Telefono:</label>
+                            </div>
+                            <div class="form-group col-ms-auto col-md-4">
+                                <input type="text" class="form-control" id="txt_telefono" name="txt_telefono" value="{{ cliente.telefono }}"  class="form-control" placeholder="Telefono" required>
+                            </div>
+                        </div>
                         <!-- Divider -->
-                        <div class="row">
-                            <div align="right" class="col-md-2">
-                                <button type="submit" class="btn btn-success btn-block text-white">Editar</button>
-                             </div>
-                            <div  align="right" class="col-md-2">
-                                <a href="/cliente" class ="btn btn-danger">Cerrar</a>
+                        <hr class="my-3">
+                        <h3>Informacion Laboral</h3>
+                        <div class="form-row">
+                            <div class="col-ms-auto col-md-1">
+                                <label for="txt_nombre" class="col-form-label col-sm-0">Nombres:</label>
+                            </div>
+                            <div class="form-group col-ms-auto col-md-4">
+                                <input type="text" class="form-control" id="txt_trabj_nombre" name="txt_trabj_nombre" value="{{ trabajo.nombre }}" class="form-control" placeholder="Nombres" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-ms-auto col-md-1">
+                                <label for="txt_direccion" class="col-form-label col-sm-0">Direccion:</label>
+                            </div>
+                                <div class="form-group col-ms-auto col-md-9">
+                                    <input type="text" class="form-control" id="txt_trabj_direccion" name="txt_trabj_direccion" value="{{ trabajo.direccion }}" class="form-control" placeholder="Direccion" required>
                             </div>
                         </div>
 
+                        <div class="form-row">
+                            <div class="col-ms-auto col-md-1">
+                                <label for="txtTelefono" class="col-form-label col-sm-0">Telefono:</label>
+                            </div>
+                            <div class="form-group col-ms-auto col-md-4">
+                                <input type="tel" class="form-control" id="txt_trabj_telefono" name="txt_trabj_telefono" value="{{ trabajo.telefono }}" class="form-control" placeholder="Telefono" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-ms-auto col-md-1">
+                                <label for="txtTelefono" class="col-form-label col-sm-0">Ganancias:</label>
+                            </div>
+                                <div class="form-group col-ms-auto col-md-4">
+                                    <input step="any" type="number" class="form-control" id="txt_trabj_sueldo" name="txt_trabj_sueldo" value="{{ trabajo.sueldo }}"  class="form-control" placeholder="Ganancias" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div align="right" class="col-md-1">
+                                <button type="submit" class="btn btn-success btn-block text-white" data-toggle="tooltip" data-placement="top" title="Guardar">
+                                    <i class="fa-solid fa-floppy-disk"></i>
+                                </button>
+                             </div>
+                            <div  align="left" class="col-md-2">
+                                <a href="/solicitud" class ="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Salir">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                </a>
+                            </div>
+                        </div>
                     </form>
 
                  </div>
@@ -117,8 +150,6 @@
         </div>
     </div>
 {% endblock content %}
-
 {% block javascripts %}
-  <script src="/static/assets/js/modal.js"></script>
-
+    <script src="/static/assets/js/modal.js"></script>
 {% endblock javascripts %}

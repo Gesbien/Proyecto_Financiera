@@ -44,7 +44,7 @@
             <div class="card">
                 <div class="card-body" div.row="" style="background-color: #e9ecef">
                     <h3>Informacion Personal</h3>
-                    <form action="/solicitud/registro/{{ opcion }}" method="POST"> {% csrf_token %}
+                    <form action="/solicitud/registro/{{ opcion }}/{{ solicitudes }}" method="POST"> {% csrf_token %}
                         <div class="form-row">
                             <div class="col-ms-auto col-md-1">
                                 <label for="txt_cedula" class="col-form-label col-sm-0">Cedula:</label>
@@ -68,7 +68,7 @@
                                   <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Busqueda de Clientes</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span><i class="fa-solid fa-magnifying-glass"></i>
+                                      <span aria-hidden="true">&times;</span>
                                     </button>
                                   </div>
                                   <div class="modal-body" div.row="">
