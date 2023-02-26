@@ -14,6 +14,7 @@ class persona(models.Model):
 
     def __str__(self):
         return str(self.cedula)
+
 class informacion_trabajo(models.Model):
     id_info = models.AutoField(primary_key=True)
     cedula = models.ForeignKey(persona, null=True, on_delete=models.CASCADE)
@@ -58,14 +59,21 @@ class prestamo(models.Model):
     def __str__(self):
         return self.id_solicitud
 
+class garante(models.Model):
+    id_persona = models.ForeignKey(persona, null=True, on_delete=models.CASCADE)
+    id_prestamo = models.OneToOneField(prestamo,null=True,unique=True,on_delete=models.CASCADE)
+
 class garantia(models.Model):
     id_garantia = models.AutoField(primary_key=True)
     valor_tasacion = models.FloatField()
     estado = models.CharField(max_length=40)
+    tipo = models.CharField(max_length=40,null=True)
 
     def __str__(self):
         return self.id_garantia
-
+class prestamo_garantia(models.Model):
+    id_prestamo = models.ForeignKey(prestamo, null=True, on_delete=models.CASCADE)
+    id_garantia = models.ForeignKey(garantia, null=True, on_delete=models.CASCADE)
 
 class terreno(models.Model):
     id_garantia = models.ForeignKey(garantia, null=True, on_delete=models.CASCADE)
@@ -79,12 +87,6 @@ class automovil(models.Model):
     anio = models.CharField(max_length=40)
     placa = models.CharField(max_length=40)
     chasis = models.CharField(max_length=40)
-
-
-class prestamo_garantia(models.Model):
-    id_prestamo = models.ForeignKey(prestamo, null=True, on_delete=models.CASCADE)
-    id_garantia = models.ForeignKey(garantia, null=True, on_delete=models.CASCADE)
-
 
 class cobro(models.Model):
     id_cobro = models.AutoField(primary_key=True)

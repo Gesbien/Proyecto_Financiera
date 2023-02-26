@@ -2,7 +2,7 @@ from django.urls import path
 from django.contrib import admin
 from . import views
 from . import personas
-from . import solicitud, prestamo
+from . import solicitud, prestamo, garantia
 
 urlpatterns = [
     path('', views.inicio, name='inicio'),
@@ -21,5 +21,6 @@ urlpatterns = [
     path('cliente/edicion/<salida>', personas.edicionPersona, name='edicionCliente'),
     path('cliente/anular/<id_persona>',personas.anulacionPersona, name='anulacionCliente'),
     path('prestamo', prestamo.inicio_prestamo, name='inicio_prestamo'),
+    path('garantia/registrar',garantia.crear_garantia,name='inicio_garantia')
 
 ]

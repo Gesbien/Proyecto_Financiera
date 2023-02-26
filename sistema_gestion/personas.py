@@ -22,6 +22,7 @@ def registroPersona(request,opcion):
         telefono = request.POST["txt_telefono"]
         celular = request.POST["txt_celular"]
         estado = 'Activo'
+
         if opcion == 'sl':
             tipo = 'Solicitante'
             Persona = persona.objects.create(cedula=cedula, nombres=nombres,
@@ -29,6 +30,15 @@ def registroPersona(request,opcion):
                                              direccion=direccion, telefono=telefono, celular=celular, tipo=tipo,
                                              estado=estado)
             registroInformacion(request, Persona)
+            return Persona
+
+        elif opcion == 'Garante':
+            tipo = 'Garante'
+            Persona = persona.objects.create(cedula=cedula, nombres=nombres,
+                                             apellidos=apellidos,
+                                             direccion=direccion, telefono=telefono, celular=celular, tipo=tipo,
+                                             estado=estado)
+            registroInformacion(request,Persona)
             return Persona
 
         else:
