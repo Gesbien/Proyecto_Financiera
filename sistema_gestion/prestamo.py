@@ -8,7 +8,7 @@ from .personas import registroPersona
 def inicio_prestamo(request):
     prestamos = prestamo.objects.all()
     context = {'prestamo': prestamos}
-    return render(request, 'paginas/gestionPrestamos.html', context)
+    return render(request, 'paginas/gestionPrestamo.html', context)
 
 def crear_prestamo(request):
     return render(request, "paginas/registrarPrestamo.html")

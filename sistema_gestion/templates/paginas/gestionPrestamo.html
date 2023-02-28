@@ -15,7 +15,7 @@
         <div class="header-body">
           <div class="row align-items-center py-3">
             <div class="col-lg-6 col-7">
-              <h6 class="h2 text-white d-inline-block mb-0">Lista de Solicitudes</h6>
+              <h6 class="h2 text-white d-inline-block mb-0">Lista de Préstamos</h6>
             </div>
           </div>
         </div>
@@ -41,14 +41,18 @@
               <div class="table-responsive">
               <!-- Projects table -->
                   <table class="table align-items-center table-dark" id="datos" name="datos" >
-                    <thead class="thead-dark">
+                    <thead class="thead-dark" width="500">
                         <tr>
                             <th scope="col">Id Prestamo</th>
-                            <th scope="col">Nombre</th>
+                            <th scope="col">Id Solicitud</th>
                             <th scope="col">Monto</th>
                             <th scope="col">Tasa</th>
-                            <th scope="col"> Cuota</th>
-                            <th scope="col"> Estado</th>
+                            <th scope="col">Cuota</th>
+                            <th scope="col">Clasificación</th>
+                            <th scope="col">% de Mora</th>
+                            <th scope="col">Días de Gracia</th>
+                            <th scope="col">Fecha de Inicio</th>
+                            <th scope="col">Fecha de Expiración</th>
                             <th colspan="">Opciones</th>
                             <th> <a href="solicitud/prestamo/{{ 0 }}" class ="btn btn-success text-white" data-toggle="tooltip" data-placement="left" title="Añadir">
                                  <i class="fa-solid fa-folder-plus"></i>
@@ -56,14 +60,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for s in solicitudes %}
+                        {% for s in prestamos %}
                             <tr>
                                 <td>{{ p.id_prestamo }}</td>
                                 <td>{{ p.id_solicitud }}</td>
                                 <td>{{ p.monto }}</td>
                                 <td>{{ p.tasa }}</td>
                                 <td>{{ p.cuota }}</td>
-                                <td>{{ p.estado }}</td>
+                                <td>{{ p.clasificación }}</td>
+                                <td>{{ p.mora }}</td>
+                                <td>{{ p.gracia }}</td>
+                                <td>{{ p.inicio }}</td>
+                                <td>{{ p.fin }}</td>
                                 <td><a href="/prestamo/editar/{{ p.id_prestamo }}" class ="btn btn-info" data-toggle="tooltip" data-placement="top" title="Editar">
                                     <i class="fa-solid fa-file-pen"></i></a>
                                 </td>

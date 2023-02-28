@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from datetime import datetime
 def inicio_garantia(request):
     Garantia = garantia.objects.all().exclude(estado='Anulado')
-    context = {'garantias': Garantia}
+    context = {'garantia': Garantia}
     return render(request, 'paginas/gestionGarantia.html' , context)
 
 def crear_garantia(request):
