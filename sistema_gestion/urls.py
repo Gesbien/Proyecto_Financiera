@@ -21,6 +21,8 @@ urlpatterns = [
     path('cliente/edicion/<salida>', personas.edicionPersona, name='edicionCliente'),
     path('cliente/anular/<id_persona>',personas.anulacionPersona, name='anulacionCliente'),
     path('prestamo', prestamo.inicio_prestamo, name='inicio_prestamo'),
-    path('garantia/registrar',garantia.crear_garantia,name='inicio_garantia')
+    path('garantia',garantia.inicio_garantia,name='inicio_garantia'),
+    path('garantia/registrar',garantia.crear_garantia,name='inicio_garantia'),
+    path('garantia/registro/<salida>',garantia.registroGarantia,name='registro_garantia'),
 
 ]

@@ -51,10 +51,13 @@ class prestamo(models.Model):
     monto = models.FloatField()
     tasa = models.FloatField()
     cuota = models.FloatField()
+    valor_cuota = models.FloatField(null=True)
     estado = models.CharField(max_length=30)
     clasificacion = models.CharField(max_length=30)
     porciento_mora = models.FloatField()
     dias_gracia = models.IntegerField()
+    fecha_expedicion = models.DateField(null=True)
+    fecha_expiracion = models.DateField(null=True)
 
     def __str__(self):
         return self.id_solicitud
@@ -66,8 +69,10 @@ class garante(models.Model):
 class garantia(models.Model):
     id_garantia = models.AutoField(primary_key=True)
     valor_tasacion = models.FloatField()
+    nombre_propetario = models.CharField(max_length=80,null=True)
     estado = models.CharField(max_length=40)
     tipo = models.CharField(max_length=40,null=True)
+    fecha_expedicion = models.DateField(null=True)
 
     def __str__(self):
         return self.id_garantia
@@ -77,8 +82,10 @@ class prestamo_garantia(models.Model):
 
 class terreno(models.Model):
     id_garantia = models.ForeignKey(garantia, null=True, on_delete=models.CASCADE)
-    direccion = models.CharField(max_length=80)
-
+    direccion = models.CharField(max_length=156)
+    metraje = models.FloatField(null=True)
+    certificado_titulo = models.CharField(max_length=80,null=True)
+    numero_parcela = models.CharField(max_length=40,null=True)
 
 class automovil(models.Model):
     id_garantia = models.ForeignKey(garantia, null=True, on_delete=models.CASCADE)
@@ -87,6 +94,10 @@ class automovil(models.Model):
     anio = models.CharField(max_length=40)
     placa = models.CharField(max_length=40)
     chasis = models.CharField(max_length=40)
+    pasajeros = models.IntegerField(default=2,null=True)
+    no_motor = models.CharField(max_length=15,null=True)
+    color = models.CharField(max_length=10,null=True)
+    clasificacion = models.CharField(max_length=15,null=True)
 
 class cobro(models.Model):
     id_cobro = models.AutoField(primary_key=True)
@@ -103,7 +114,7 @@ class desembolso(models.Model):
     id_prestamo = models.ForeignKey(prestamo, null=True, on_delete=models.CASCADE)
     monto_total = models.FloatField(unique=True)
     codigo_cuenta_cheque = models.CharField(max_length=40)
-    fecha = models.DateField()
+    fecha= models.DateField(null=True)
     tipo = models.CharField(max_length=40)
     estado = models.CharField(max_length=40)
 

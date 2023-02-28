@@ -1,38 +1,49 @@
 from .models import garantia, terreno, automovil,garante,prestamo
 from django.shortcuts import render, redirect
-from .personas import registroPersona
-
+from datetime import datetime
 def inicio_garantia(request):
     Garantia = garantia.objects.all().exclude(estado='Anulado')
-    context = {'garantia': Garantia}
+    context = {'garantias': Garantia}
     return render(request, 'paginas/gestionGarantia.html' , context)
 
 def crear_garantia(request):
     Num_Garantia = 1
     context = {
-            'opcion' : 'cl',
-            'cliente': Num_Garantia
+            'salida' : 'garantia',
+            'garantia': Num_Garantia
     }
     return render(request, "paginas/registrarGarantia.html",context)
 
 def registroGarantia(request,salida):
-    valor_tasacion = request.POST('txt_valor_tasacion')
-    tipo = request.POST.get('dropdown_menu')
-    Garantia = garantia.objects.create(valor_tasacion=valor_tasacion,estado='Activa',tipo=tipo)
-
-    if tipo == 'Terreno':
-        direccion = request.POST('txt_direccion')
-        terreno.objects.create(id_garantia=Garantia,direccion=direccion)
-    else:
-        fabricante = request.POST('txt_fabricante')
-        modelo = request.POST('txt_modelo')
-        anio = request.POST('txt_anio')
-        placa = request.POST('txt_placa')
-        chasis = request.POST('txt_chasis')
-        automovil.objects.create(fabricante=fabricante,modelo=modelo,anio=anio,placa=placa,chasis=chasis)
+    valor_tasacion = request.POST['txt_valor_tasacion']
+    nombre_propetario = request.POST['txt_nombre']
+    fecha = request.POST['datepicker-month']
+    fecha_exped = datetime.strptime(fecha, '%d/%m/%Y')
+    fecha_convert = fecha_exped.strftime('%Y-%m-%d')
+    tipo = request.POST.get('roleSel')
+    Garantia = garantia.objects.create(valor_tasacion=valor_tasacion,nombre_propetario=nombre_propetario,
+                                       estado='Activa',tipo=tipo,fecha_expedicion=fecha_convert)
+    if tipo == 'Inmobiliario':
+        direccion = request.POST['txt_direccion']
+        metraje = request.POST['txt_metraje']
+        certificado = request.POST['txt_certificado']
+        percela = request.POST['txt_parcela']
+        terreno.objects.create(id_garantia=Garantia,direccion=direccion,metraje=metraje,
+                               certificado_titulo=certificado,numero_parcela=percela)
+    elif tipo == 'Vehiculo':
+        fabricante = request.POST['txt_fabricante']
+        modelo = request.POST['txt_modelo']
+        anio = request.POST['txt_anio']
+        color = request.POST['txt_color']
+        placa = request.POST['txt_placa']
+        chasis = request.POST['txt_chasis']
+        pasajeros = request.POST['txt_pasajeros']
+        clasificacion = request.POST['txt_clasificacion']
+        automovil.objects.create(fabricante=fabricante,modelo=modelo,anio=anio,color=color,
+                                 placa=placa,chasis=chasis,pasajeros=pasajeros,clasificacion=clasificacion)
 
     if salida == 'garantia':
-        redirect('/garantia')
+        return redirect('/garantia')
 
 def editarGarantia(request,id_garantia):
     Garantia = garantia.objects.get(id_garantia=id_garantia)
@@ -75,4 +86,4 @@ def anulacionGarantia(request, id_garantia):
     Garantia.estado = 'Anulado'
     Garantia.save()
 
-    return redirect('/cliente')
+    return redirect('/garantia')
