@@ -1,4 +1,3 @@
-
 var ids=["Inmobiliario", "Vehiculo"];
 var dropDown = document.getElementById("roleSel");
 
