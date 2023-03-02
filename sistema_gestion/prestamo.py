@@ -11,7 +11,7 @@ def inicio_prestamo(request):
     return render(request, 'paginas/gestionPrestamo.html', context)
 
 def crear_prestamo(request):
-    return render(request, "paginas/registrarPrestamo.html")
+    return render(request, "paginas/registrarPrestamo.html",)
 
 def registroPrestamo(request):
     salida = 'Prestamo'

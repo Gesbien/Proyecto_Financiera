@@ -48,9 +48,10 @@
                             <th scope="col">Monto</th>
                             <th scope="col">Tasa</th>
                             <th scope="col">Cuota</th>
-                            <th scope="col">Estado</th>
+                            <th scope="col">Clasificación</th
+                            <th colspan="">Opciones</th>
                             <th> <a href="prestamo/registrar" class ="btn btn-success text-white" data-toggle="tooltip" data-placement="left" title="Añadir">
-                                 <i class="fa-solid fa-folder-plus"></i>
+                                 <i class="fa-solid fa-folder-plus"></i> </a> </th>
                             </a> </th>
                         </tr>
                     </thead>
@@ -58,11 +59,15 @@
                         {% for s in prestamos %}
                             <tr>
                                 <td>{{ p.id_prestamo }}</td>
-                                <td>{{ p.id_solicitud.cedula.Nombre }}</td>
+                                <td>{{ p.id_solicitud }}</td>
                                 <td>{{ p.monto }}</td>
                                 <td>{{ p.tasa }}</td>
                                 <td>{{ p.cuota }}</td>
-                                <td>{{ p.estado }}</td>
+                                <td>{{ p.clasificación }}</td>
+                                <td>{{ p.mora }}</td>
+                                <td>{{ p.gracia }}</td>
+                                <td>{{ p.inicio }}</td>
+                                <td>{{ p.fin }}</td>
                                 <td><a href="/prestamo/editar/{{ p.id_prestamo }}" class ="btn btn-info" data-toggle="tooltip" data-placement="top" title="Editar">
                                     <i class="fa-solid fa-file-pen"></i></a>
                                 </td>
