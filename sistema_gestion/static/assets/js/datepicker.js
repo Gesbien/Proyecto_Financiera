@@ -15,4 +15,14 @@ $(document).ready(function(){
         format: "dd/mm/yyyy",
         language: "es"
     });
+
+	$("#datepicker-monthi").datepicker( {
+        format: "dd/mm/yyyy",
+        language: "es"
+    });
+
+	$("#datepicker-monthf").datepicker( {
+        format: "dd/mm/yyyy",
+        language: "es"
+    });
 });

@@ -1,28 +1,35 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.views.generic import  ListView, CreateView
 
-from .models import prestamo
+from .models import prestamo, solicitud
 from .personas import registroPersona
 
 def inicio_prestamo(request):
     prestamos = prestamo.objects.all()
-    context = {'prestamo': prestamos}
+    solicitudes = solicitud.objects.all().filter(estado='Aceptada')
+    context = {
+        'solicitudes' : solicitudes,
+        'prestamo': prestamos}
     return render(request, 'paginas/gestionPrestamo.html', context)
 
-def crear_prestamo(request):
-    return render(request, "paginas/registrarPrestamo.html",)
+def crear_prestamo(request,id_solicitud):
+    Solicitud = solicitud.objects.get(id_solicitud=id_solicitud)
+    Num_prestamo = 1
+    context = {
+        'solicitud' : Solicitud,
+        'numero'    : Num_prestamo
+    }
+    return render(request, "paginas/registrarPrestamo.html", context)
 
 def registroPrestamo(request):
     salida = 'Prestamo'
-    cedula_info = registroPersona(request,salida)
     monto = request.POST['txt_monto']
     tasa = request.POST['txt_tasa']
     cuota = request.POST['txt_cuota']
     estado = 'Proceso'
 
 
-    Prestamo = prestamo.objects.create(cedula=cedula_info,monto=monto,estado=estado,tasa=tasa,cuota=cuota)
+    Prestamo = prestamo.objects.create(monto=monto,estado=estado,tasa=tasa,cuota=cuota)
 
     return redirect('/prestamo')
 

@@ -1,8 +1,7 @@
 from django.urls import path
 from django.contrib import admin
-from . import views
-from . import personas
-from . import solicitud, prestamo, garantia
+from . import views, solicitud, prestamo, garantia, personas, desembolso
+
 
 urlpatterns = [
     path('', views.inicio, name='inicio'),
@@ -21,9 +20,15 @@ urlpatterns = [
     path('cliente/edicion/<salida>', personas.edicionPersona, name='edicionCliente'),
     path('cliente/anular/<id_persona>',personas.anulacionPersona, name='anulacionCliente'),
     path('prestamo', prestamo.inicio_prestamo, name='inicio_prestamo'),
-    path('prestamo/registrar', prestamo.crear_prestamo, name='registroPrestamo'),
+    path('prestamo/registrar/<id_solicitud>', prestamo.crear_prestamo, name='registroPrestamo'),
     path('garantia',garantia.inicio_garantia,name='inicio_garantia'),
-    path('garantia/registrar',garantia.crear_garantia,name='inicio_garantia'),
+    path('garantia/registrar',garantia.crear_garantia,name='registrar_garantia'),
     path('garantia/registro/<salida>',garantia.registroGarantia,name='registro_garantia'),
+    path('garantia/editar/<id_garantia>',garantia.editarGarantia,name='editar_garantia'),
+    path('garantia/edicion/<salida>/<id_garantia>',garantia.edicionGarantia, name='edicion_garantia'),
+    path('garantia/anular/<id_garantia>',garantia.anulacionGarantia,name='anular_garantia'),
+    path('desembolso',desembolso.inicio_desmbolso,name='inicio_desembolso'),
+    path('desembolso/registrar',desembolso.crear_desembolso,name='inicio_desembolso'),
+    path('desembolso/registro/<id_prestamo>',desembolso.registroDesembolso, name='registro_desembolso'),
 
 ]

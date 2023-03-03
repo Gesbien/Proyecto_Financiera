@@ -2,16 +2,22 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic import  ListView, CreateView
 
-from .models import desembolso,prestamo
+from .models import desembolso,prestamo, persona
 from .personas import registroPersona
 
 def inicio_desmbolso(request):
-    desmboloso = desembolso.objects.all()
-    context = {'desmbolso': desmboloso}
+    desmbolso = desembolso.objects.all()
+    context = {'desmbolso': desmbolso}
     return render(request, 'paginas/gestionDesembolso.html', context)
 
-def crear_desembolso(request):
-    return render(request, "paginas/registrarDesembolso.html")
+def crear_desembolso(request,id_prestamo):
+    Prestamo = prestamo.objects.get(id_prestamo=id_prestamo)
+    Persona = Prestamo.id_solicitud.id_persona
+    context = {
+            'prestamo' : Prestamo,
+            'cliente'  : Persona
+    }
+    return render(request, "paginas/registrarDesembolso.html"), context
 
 def registroDesembolso(request,prestamo):
     monto_total = request.POST['txt_monto_total']

@@ -23,7 +23,7 @@ def registroPersona(request,opcion):
         celular = request.POST["txt_celular"]
         estado = 'Activo'
 
-        if opcion == 'sl':
+        if opcion == 'solicitud':
             tipo = 'Solicitante'
             Persona = persona.objects.create(cedula=cedula, nombres=nombres,
                                              apellidos=apellidos,

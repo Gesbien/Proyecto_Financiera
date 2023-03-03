@@ -41,15 +41,17 @@
                   <table class="table align-items-center table-dark" id="datos" name="datos" >
                     <thead class="thead-light">
                         <tr>
+                            <th scope="col">Id Desembolso</th>
                             <th scope="col">Id Prestamo</th>
                             <th scope="col">Monto</th>
                             <th scope="col">Fecha</th>
-                            <th> <a href="desembolso/registrar/{{ 0 }}" class ="btn btn-success text-white">Agregar</a> </th>
+                            <th scope="col">Opcion</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for d in desembolsos %}
                             <tr>
+                                <td>{{ d.id_desembolso }}</td>
                                 <td>{{ d.id_prestamo }}</td>
                                 <td>{{ d.monto }}</td>
                                 <td>{{ d.fecha }}</td>

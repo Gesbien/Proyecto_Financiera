@@ -53,12 +53,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for g in garantias %}
+                        {% for g in garantia %}
                             <tr>
                                 <td>{{ g.id_garantia }}</td>
                                 <td>{{ g.nombre_propetario }}</td>
                                 <td>{{ g.valor_tasacion }}</td>
-                                <td>{{ g.Tipo }}</td>
+                                <td>{{ g.tipo }}</td>
                                 <td><a href="/garantia/editar/{{ g.id_garantia }}" class ="btn btn-info" data-toggle="tooltip" data-placement="top" title="Editar">
                                 <i class="fa-solid fa-file-pen"></i>
                                 </a>
