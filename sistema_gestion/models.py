@@ -47,7 +47,7 @@ class empleados(models.Model):
 
 class prestamo(models.Model):
     id_prestamo = models.AutoField(primary_key=True)
-    id_solicitud = models.ForeignKey(persona, null=True, on_delete=models.CASCADE)
+    id_solicitud = models.ForeignKey(solicitud, null=True, on_delete=models.CASCADE)
     monto = models.FloatField()
     tasa = models.FloatField()
     cuota = models.FloatField()

@@ -18,7 +18,7 @@ def registroGarantia(request,salida):
     valor_tasacion = request.POST['txt_valor_tasacion']
     nombre_propetario = request.POST['txt_nombre']
     fecha = request.POST['datepicker-month']
-    fecha_exped = datetime.strptime(fecha, '%d/%m/%Y')
+    fecha_exped = datetime.strptime(fecha, '%m/%d/%Y')
     fecha_convert = fecha_exped.strftime('%Y-%m-%d')
     tipo = request.POST.get('roleSel')
     Garantia = garantia.objects.create(valor_tasacion=valor_tasacion,nombre_propetario=nombre_propetario,
@@ -28,8 +28,13 @@ def registroGarantia(request,salida):
         metraje = request.POST['txt_metraje']
         certificado = request.POST['txt_certificado']
         percela = request.POST['txt_parcela']
-        terreno.objects.create(id_garantia=Garantia,direccion=direccion,metraje=metraje,
+        Terreno = terreno.objects.create(id_garantia=Garantia,direccion=direccion,metraje=metraje,
                                certificado_titulo=certificado,numero_parcela=percela)
+        if salida == 'garantia':
+            return redirect('/garantia')
+        else:
+            return Terreno
+
     elif tipo == 'Vehiculo':
         fabricante = request.POST['txt_fabricante']
         modelo = request.POST['txt_modelo']
@@ -39,11 +44,13 @@ def registroGarantia(request,salida):
         chasis = request.POST['txt_chasis']
         pasajeros = request.POST['txt_pasajeros']
         clasificacion = request.POST['txt_clasificacion']
-        automovil.objects.create(id_garantia=Garantia,fabricante=fabricante,modelo=modelo,anio=anio,color=color,
+        Vehiculo = automovil.objects.create(id_garantia=Garantia,fabricante=fabricante,modelo=modelo,anio=anio,color=color,
                                  placa=placa,chasis=chasis,pasajeros=pasajeros,clasificacion=clasificacion)
+        if salida == 'garantia':
+            return redirect('/garantia')
+        else:
+            return Vehiculo
 
-    if salida == 'garantia':
-        return redirect('/garantia')
 
 def editarGarantia(request,id_garantia):
     Garantia = garantia.objects.get(id_garantia=id_garantia)

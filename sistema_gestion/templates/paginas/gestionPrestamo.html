@@ -116,24 +116,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for s in prestamos %}
+                        {% for p in prestamos %}
                             <tr>
                                 <td>{{ p.id_prestamo }}</td>
-                                <td>{{ p.id_solicitud }}</td>
+                                <td>{{ p.id_solicitud.cedula.nombres }} {{ p.id_solicitud.cedula.apellidos }}</td>
                                 <td>{{ p.monto }}</td>
                                 <td>{{ p.tasa }}</td>
                                 <td>{{ p.cuota }}</td>
-                                <td>{{ p.clasificación }}</td>
-                                <td>{{ p.mora }}</td>
-                                <td>{{ p.gracia }}</td>
-                                <td>{{ p.inicio }}</td>
-                                <td>{{ p.fin }}</td>
+                                <td>{{ p.clasificacion }}</td>
                                 <td><a href="/prestamo/editar/{{ p.id_prestamo }}" class ="btn btn-info" data-toggle="tooltip" data-placement="top" title="Editar">
                                     <i class="fa-solid fa-file-pen"></i></a>
-                                </td>
-                                <td><a href="/prestamo/anular/{{ p.id_prestamo }}" class ="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Anular">
+                                    <a href="/prestamo/anular/{{ p.id_prestamo }}" class ="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Anular">
                                     <i class="fa-solid fa-xmark"></i></a></td>
-                                </a></td>
+                                </td>
                                 </tr>
                             </tr>
                         {% endfor %}
