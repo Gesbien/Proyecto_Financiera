@@ -57,7 +57,7 @@ def editarPrestamo(request, id_prestamo):
     data = {
         'Prestamo': prestamo
     }
-    return render(request, "paginas/edicionPrestamo.html", data)
+    return render(request, "paginas/edicionPrestamo.html",data)
 
 def edicionPrestamo(request):
     id_solicitud = request.POST['txtId_Solicitud']

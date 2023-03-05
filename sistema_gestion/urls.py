@@ -21,6 +21,7 @@ urlpatterns = [
     path('cliente/anular/<id_persona>',personas.anulacionPersona, name='anulacionCliente'),
     path('prestamo', prestamo.inicio_prestamo, name='inicio_prestamo'),
     path('prestamo/registrar/<id_solicitud>', prestamo.crear_prestamo, name='registroPrestamo'),
+    path('prestamo/editar/<id_prestamo>', prestamo.editarPrestamo, name='edicionPrestamo'),
     path('prestamo/registro/<opcion>/<id_solicitud>',prestamo.registroPrestamo,name='registro_prestamo'),
     path('prestamo/anular/<id_prestamo>',prestamo.anulacionPrestamo,name='anular_prestamo'),
     path('garantia',garantia.inicio_garantia,name='inicio_garantia'),
