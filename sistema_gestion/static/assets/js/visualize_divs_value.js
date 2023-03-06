@@ -3,7 +3,11 @@ $(document).ready(function(){
 
     if (tipo == 'Vehiculo'){
         document.getElementById("Vehiculo").style.display = 'block'
+        document.getElementById("Garantia").style.display = 'block'
+    }else if(tipo == 'Inmobiliario'){
+         document.getElementById("Inmobiliario").style.display = 'block'
+         document.getElementById("Garantia").style.display = 'block'
     }else{
-        document.getElementById("Inmobiliario").style.display = 'block'
+        document.getElementById("Garante").style.display = 'block'
     }
 });

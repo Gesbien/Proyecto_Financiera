@@ -10,7 +10,10 @@ def inicio_solicitud(request):
     return render(request, 'paginas/gestionSolicitud.html', context)
 
 def crear_solicitud(request,personas):
-    Solicitud = 1
+    if solicitud.objects.last() is not None:
+        Solicitud = 1 + solicitud.objects.last().id_solicitud
+    else:
+        Solicitud = 1
     Personas = persona.objects.filter(tipo='Cliente').exclude(estado='Anulado')
     if personas != '0':
         persona_selecionada = persona.objects.get(cedula=personas)

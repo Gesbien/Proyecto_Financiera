@@ -7,7 +7,7 @@ def inicio_persona(request):
     return render(request, 'paginas/gestionCliente.html' , context)
 
 def crear_persona(request):
-    Persona = 1
+    Persona = 1 + persona.objects.last().id_persona
     context = {
             'opcion' : 'cl',
             'cliente': Persona

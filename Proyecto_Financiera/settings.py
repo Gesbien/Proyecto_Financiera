@@ -81,7 +81,7 @@ DATABASES = {
         'NAME': 'financiera',
         'USER': '',
         'PASSWORD': '',
-        'HOST': 'Jariel',
+        'HOST': 'GESBIEN',
         'PORT': '',
         'OPTION': {
             'driver': 'ODBC Driver 17 for SQL Server',

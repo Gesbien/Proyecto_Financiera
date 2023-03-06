@@ -48,7 +48,7 @@
                             <th scope="col">Monto</th>
                             <th scope="col">Tasa</th>
                             <th scope="col">Cuota</th>
-                            <th scope="col">Clasificación</th>
+                            <th scope="col">Estado</th>
                             <th>
                                 <!-- Button trigger modal -->
                             <div class="form-group col-ms-auto col-md-3">
@@ -123,7 +123,7 @@
                                 <td>{{ p.monto }}</td>
                                 <td>{{ p.tasa }}</td>
                                 <td>{{ p.cuota }}</td>
-                                <td>{{ p.clasificacion }}</td>
+                                <td>{{ p.estado }}</td>
                                 <td><a href="/prestamo/editar/{{ p.id_prestamo }}" class ="btn btn-info" data-toggle="tooltip" data-placement="top" title="Editar">
                                     <i class="fa-solid fa-file-pen"></i></a>
                                     <a href="/prestamo/anular/{{ p.id_prestamo }}" class ="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Anular">
