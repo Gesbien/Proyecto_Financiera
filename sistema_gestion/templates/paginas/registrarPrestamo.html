@@ -50,7 +50,7 @@
                                 <label for="txt_cedula" class="col-form-label col-sm-0">Cédula:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
-                                    <input type="text" class="form-control" id="txt_cedula" name="txt_cedula" value="{{ solicitud.cedula.cedula }}"   placeholder="Cédula" >
+                                    <input type="text" class="form-control" id="txt_cedula" disabled="disabled" name="txt_cedula" value="{{ solicitud.cedula.cedula }}"   placeholder="Cédula" >
                             </div>
                         </div>
                         <div class="form-row">
@@ -58,13 +58,13 @@
                                 <label for="txt_nombres" class="col-form-label col-sm-0">Nombre/s:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
-                                    <input type="text" class="form-control" id="txt_nombres" name="txt_nombre/s" value="{{ solicitud.cedula.nombres }}"   placeholder="Nombre/s" >
+                                    <input type="text" class="form-control" id="txt_nombres" disabled="disabled" name="txt_nombre/s" value="{{ solicitud.cedula.nombres }}"   placeholder="Nombre/s" >
                             </div>
                             <div class="col-ms-auto col-md-1">
                                 <label for="txt_apellidos" class="col-form-label col-sm-0">Apellido/s:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
-                                    <input type="text" class="form-control" id="txt_apellidos"  name="txt_apellido/s" value="{{ solicitud.cedula.apellidos}}"  placeholder="Apellido/s" >
+                                    <input type="text" class="form-control" id="txt_apellidos"  disabled="disabled" name="txt_apellido/s" value="{{ solicitud.cedula.apellidos}}"  placeholder="Apellido/s" >
                             </div>
                         </div>
 
@@ -73,7 +73,7 @@
                                  <label for="txt_direccion" class="col-form-label col-sm-0">Dirección:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-9">
-                                    <input type="text" class="form-control" id="txt_direccion"  name="txt_direccion" value="{{ solicitud.cedula.direccion }}"  placeholder="Dirección" >
+                                    <input type="text" class="form-control" id="txt_direccion" disabled="disabled"  name="txt_direccion" value="{{ solicitud.cedula.direccion }}"  placeholder="Dirección" >
                             </div>
                        </div>
 
@@ -82,14 +82,14 @@
                                 <label for="txt_celular" class="col-form-label col-sm-0">Celular:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
-                                    <input type="text" class="form-control" id="txt_celular" name="txt_celular" value="{{ solicitud.cedula.celular }}"  placeholder="Celular" >
+                                    <input type="text" class="form-control" id="txt_celular" disabled="disabled" name="txt_celular" value="{{ solicitud.cedula.celular }}"  placeholder="Celular" >
                             </div>
                             <div class="col-ms-auto col-md-1">
                                 <label for="txt_telefono" class="col-form-label col-sm-0">Teléfono:</label>
                             </div>
 
                             <div class="form-group col-ms-auto col-md-4">
-                                    <input type="text" class="form-control" id="txt_telefono" name="txt_telefono" value="{{ solicitud.cedula.telefono }}"  placeholder="Teléfono" >
+                                    <input type="text" class="form-control" id="txt_telefono" disabled="disabled" name="txt_telefono" value="{{ solicitud.cedula.telefono }}"  placeholder="Teléfono" >
                             </div>
 
                         </div>
@@ -101,13 +101,13 @@
                                 <label for="txt_monto" class="col-form-label col-sm-0">Monto:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
-                                    <input type="number" class="form-control" id="txt_monto" name="txt_monto" value="{{ solicitud.monto }}"  placeholder="Monto" >
+                                    <input step="any" type="number" class="form-control" id="txt_monto" name="txt_monto" value="{{ solicitud.monto }}"  placeholder="Monto" >
                             </div>
                             <div class="col-ms-auto col-md-1">
                                 <label for="txt_tasa" class="col-form-label col-sm-0">Tasa:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
-                                    <input type="number" class="form-control" id="txt_tasa"  name="txt_tasa" value=""  placeholder="Tasa" >
+                                    <input step="any" type="number" class="form-control" id="txt_tasa"  name="txt_tasa" value=""  placeholder="Tasa" >
                             </div>
                         </div>
                         <div class="form-row">
@@ -115,7 +115,7 @@
                                 <label for="txt_cuota" class="col-form-label col-sm-0">No. Cuota:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
-                                    <input type="number" class="form-control" id="txt_cuota" name="txt_cuota" value=""  placeholder="Cuota" >
+                                    <input step="any" type="number" class="form-control" id="txt_cuota" name="txt_cuota" value=""  placeholder="Cuota" >
                             </div>
                             <div class="col-ms-auto col-md-1">
                                 <label for="txt_apellidos" class="col-form-label col-sm-0">Clasificación:</label>
@@ -133,7 +133,7 @@
                                 <label for="txt_valor_cuota" class="col-form-label col-sm-0">Valor Cuota</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
-                                    <input type="number" class="form-control" id="txt_valor_cuota" name="txt_valor_cuota" value=""   placeholder="0" >
+                                    <input step="any" type="number" class="form-control" id="txt_valor_cuota" name="txt_valor_cuota" value=""   placeholder="0" required>
                             </div>
                         </div>
                         <div class="form-row">
@@ -141,7 +141,7 @@
                                 <label for="txt_%_de_mora" class="col-form-label col-sm-0">% de Mora:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
-                                    <input type="text" class="form-control" id="txt_%_de_mora" name="txt_%_de_mora" value=""  placeholder="% de Mora" >
+                                    <input type="text" class="form-control" id="txt_%_de_mora" name="txt_%_de_mora" value=""  placeholder="% de Mora" required>
                             </div>
                             <div class="col-ms-auto col-md-1">
                                 <label for="txt_dias_de_gracia" class="col-form-label col-sm-0">Días de Gracia:</label>
@@ -160,7 +160,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                         </div>
-                                        <input class="form-control datepicker" id="datepicker-monthi" name="datepicker-month_inicio" placeholder="Selecciona Fecha" onkeydown="addMonths(event)" type="text" value="">
+                                        <input class="form-control datepicker" id="datepicker-monthi" name="datepicker-month_inicio" placeholder="Selecciona Fecha" onkeydown="addMonths(event)" type="text" value="" required>
                                     </div>
                             </div>
                             <div class="col-ms-auto col-md-1">
@@ -311,8 +311,6 @@
                                 <div class="form-group col-ms-auto col-md-4"  >
                                         <input type="text" id="txt_clasificacion" name="txt_clasificacion" value="{{ auto.clasificacion }}" class="form-control" placeholder="Clasificacion">
                                 </div>
-
-
                             </div>
                         </div>
                         <div id="Garante" class="hidden" style="display: none">

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic import  ListView, CreateView
 
-from .models import desembolso,prestamo, persona
+from .models import desembolso,prestamo, persona, solicitud
 from .personas import registroPersona
 
 def inicio_desmbolso(request):
@@ -12,21 +12,28 @@ def inicio_desmbolso(request):
 
 def crear_desembolso(request,id_prestamo):
     Prestamo = prestamo.objects.get(id_prestamo=id_prestamo)
-    Persona = Prestamo.id_solicitud.id_persona
+    Solicitud = solicitud.objects.get(id_solicitud=Prestamo.id_solicitud.id_solicitud)
+    Persona = persona.objects.get(cedula=Solicitud.cedula.cedula)
+    if desembolso.objects.last() is not None:
+        Num_desembolso = 1 + desembolso.objects.last().id_prestamo
+    else:
+        Num_desembolso = 1
     context = {
             'prestamo' : Prestamo,
-            'cliente'  : Persona
+            'cliente'  : Persona,
+            'numero'   : Num_desembolso
     }
-    return render(request, "paginas/registrarDesembolso.html"), context
+    return render(request, "paginas/registrarDesembolso.html", context)
 
 def registroDesembolso(request,prestamo):
-    monto_total = request.POST['txt_monto_total']
+    monto = request.POST['txt_Monto']
     codigo_cuenta_cheque = request.POST['txt_tasa']
     cuota = request.POST['txt_cuota']
     estado = 'Proceso'
+    orden_de = request.POST['txt_Nombres']
 
 
-    Desembolso = desembolso.objects.create( id_prestamo =prestamo  ,monto_total=monto_total,estado=estado,codigo_cuenta_cheque=codigo_cuenta_cheque,cuota=cuota)
+    Desembolso = desembolso.objects.create( id_prestamo =prestamo  ,monto_total=monto,estado=estado,codigo_cuenta_cheque=codigo_cuenta_cheque,cuota=cuota)
 
     return redirect('/prestamo')
 

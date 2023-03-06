@@ -3,7 +3,7 @@ from datetime import datetime
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-from .models import prestamo, solicitud, prestamo_garantia, garante, informacion_trabajo
+from .models import prestamo, solicitud, prestamo_garantia, garante, informacion_trabajo, automovil, terreno
 from .garantia import registroGarantia, edicionGarantia
 from .personas import registroPersona, edicionPersona
 
@@ -72,13 +72,25 @@ def editarPrestamo(request, id_prestamo):
             'prestamo': Prestamo,
             'trabajo'  : Trabajo
         }
-    else:
+    elif Prestamo.clasificacion == 'Vehiculo':
         Union_Garantia = prestamo_garantia.objects.get(id_prestamo=id_prestamo)
+        Vehiculo = automovil.objects.get(id_garantia=Union_Garantia.id_garantia)
         context = {
             'garantia': Union_Garantia,
+            'auto'     : Vehiculo,
             'solicitud': Solicitud,
             'prestamo': Prestamo
         }
+    else:
+        Union_Garantia = prestamo_garantia.objects.get(id_prestamo=id_prestamo)
+        Terreno = terreno.objects.get(id_garantia=Union_Garantia.id_garantia)
+        context = {
+            'garantia': Union_Garantia,
+            'Inmobi': Terreno,
+            'solicitud': Solicitud,
+            'prestamo': Prestamo
+        }
+
 
     return render(request, "paginas/edicionPrestamo.html",context)
 
@@ -106,7 +118,7 @@ def edicionPrestamo(request,id_prestamo):
     Prestamo.fecha_expiracion = fecha_fin
     Prestamo.save()
 
-    tipo = request.POST['txt_clasificacion']
+    tipo = Prestamo.clasificacion
     if tipo == 'Personal':
         edicionPersona(request, salida)
     elif tipo == 'Inmobiliario' or tipo == 'Vehiculo':

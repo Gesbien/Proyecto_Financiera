@@ -74,7 +74,7 @@ def edicionGarantia(request,salida,id_garantia):
     valor_tasacion = request.POST['txt_valor_tasacion']
     nombre_propetario = request.POST['txt_nombre']
     fecha = request.POST['datepicker-month']
-    fecha_exped = datetime.strptime(fecha, '%d/%m/%Y')
+    fecha_exped = datetime.strptime(fecha, '%m/%d/%Y')
     fecha_convert = fecha_exped.strftime('%Y-%m-%d')
     Garantia = garantia.objects.get(id_garantia=id_garantia)
     Garantia.valor_tasacion = valor_tasacion

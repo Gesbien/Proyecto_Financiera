@@ -32,7 +32,7 @@ urlpatterns = [
     path('garantia/edicion/<salida>/<id_garantia>',garantia.edicionGarantia, name='edicion_garantia'),
     path('garantia/anular/<id_garantia>',garantia.anulacionGarantia,name='anular_garantia'),
     path('desembolso',desembolso.inicio_desmbolso,name='inicio_desembolso'),
-    path('desembolso/registrar',desembolso.crear_desembolso,name='inicio_desembolso'),
+    path('desembolso/registrar/<id_prestamo>',desembolso.crear_desembolso,name='inicio_desembolso'),
     path('desembolso/registro/<id_prestamo>',desembolso.registroDesembolso, name='registro_desembolso'),
 
 ]

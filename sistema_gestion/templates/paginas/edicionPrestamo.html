@@ -101,13 +101,13 @@
                                 <label for="txt_nombres" class="col-form-label col-sm-0">Monto:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
-                                    <input type="number" class="form-control" id="txt_monto" name="txt_monto" value="{{ prestamo.monto }}"  class="form-control" placeholder="Monto" >
+                                    <input step="any" type="number" class="form-control" id="txt_monto" name="txt_monto" value="{{ prestamo.monto }}"  class="form-control" placeholder="Monto" >
                             </div>
                             <div class="col-ms-auto col-md-1">
                                 <label for="txt_apellidos" class="col-form-label col-sm-0">Tasa:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
-                                    <input type="number" class="form-control" id="txt_tasa"  name="txt_tasa" value="{{ prestamo.tasa }}" class="form-control" placeholder="Tasa" >
+                                    <input step="any" type="number" class="form-control" id="txt_tasa"  name="txt_tasa" value="{{ prestamo.tasa }}" class="form-control" placeholder="Tasa" >
                             </div>
                         </div>
                         <div class="form-row">
@@ -129,7 +129,7 @@
                                 <label for="txt_valor_cuota" class="col-form-label col-sm-0">Valor Cuota</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
-                                    <input type="number" class="form-control" id="txt_valor_cuota" name="txt_valor_cuota" value="{{ prestamo.valor_cuota }}"  class="form-control" placeholder="0" required>
+                                    <input step="any" type="number" class="form-control" id="txt_valor_cuota" name="txt_valor_cuota" value="{{ prestamo.valor_cuota }}"  class="form-control" placeholder="0" required>
                             </div>
                         </div>
                         <div class="form-row">
@@ -181,7 +181,7 @@
                                 </div>
                                 <div class="col-ms-auto col-md-4">
                                   <div class="form-group">
-                                    <input type="number" class="form-control" id="txt_valor_tasacion" value="{{ garantia.id_garantia.valor_tasacion }}" name="txt_valor_tasacion"  class="form-control"  >
+                                    <input step="any" type="number" class="form-control" id="txt_valor_tasacion" value="{{ garantia.id_garantia.valor_tasacion }}" name="txt_valor_tasacion"  class="form-control"  >
                                   </div>
                                 </div>
                                  <div class="col-ms-auto col-md-2">
@@ -259,13 +259,13 @@
                                     <label for="txt_fabricante" class="col-form-label col-sm-0">Fabricante:</label>
                                 </div>
                                 <div class="form-group col-ms-auto col-md-4">
-                                        <input type="text" class="form-control" id="txt_fabricante" name="txt_fabricante" value="{{ garantia.id_garantia.fabricante }}"  class="form-control" placeholder="Modelo">
+                                        <input type="text" class="form-control" id="txt_fabricante" name="txt_fabricante" value="{{ auto.fabricante }}"  class="form-control" placeholder="Modelo">
                                 </div>
                                  <div class="col-ms-auto col-md-2">
                                     <label for="txt_modelo" class="col-form-label col-sm-0">Modelo:</label>
                                 </div>
                                 <div class="form-group col-ms-auto col-md-4">
-                                        <input type="text" class="form-control" id="txt_modelo" name="txt_modelo" value="{{ garantia.id_garantia.modelo }}" class="form-control" placeholder="Modelo">
+                                        <input type="text" class="form-control" id="txt_modelo" name="txt_modelo" value="{{ auto.modelo }}" class="form-control" placeholder="Modelo">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -273,13 +273,13 @@
                                     <label for="txt_anio" class="col-form-label col-sm-0">Año:</label>
                                 </div>
                                 <div class="form-group col-ms-auto col-md-4">
-                                        <input type="number" class="form-control" id="txt_anio" name="txt_anio" value="{{ garantia.id_garantia.anio }}" class="form-control" placeholder="Año">
+                                        <input type="number" class="form-control" id="txt_anio" name="txt_anio" value="{{ auto.anio }}" class="form-control" placeholder="Año">
                                 </div>
                                 <div class="col-ms-auto col-md-2">
                                     <label for="txt_color" class="col-form-label col-sm-0">Color:</label>
                                 </div>
                                 <div class="form-group col-ms-auto col-md-4">
-                                        <input type="text" class="form-control" id="txt_color" name="txt_color" value="{{ garantia.id_garantia.color }}" class="form-control" placeholder="Color">
+                                        <input type="text" class="form-control" id="txt_color" name="txt_color" value="{{ auto.color }}" class="form-control" placeholder="Color">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -287,13 +287,13 @@
                                     <label for="txt_chasis" class="col-form-label col-sm-0">No. Chasis:</label>
                                 </div>
                                 <div class="form-group col-ms-auto col-md-4">
-                                        <input type="text" class="form-control" id="txt_chasis" name="txt_chasis" value="{{ garantia.id_garantia.chasis }}"class="form-control" placeholder="Parcela">
+                                        <input type="text" class="form-control" id="txt_chasis" name="txt_chasis" value="{{ auto.chasis }}"class="form-control" placeholder="Parcela">
                                 </div>
                                 <div class="col-ms-auto col-md-2">
                                     <label for="txt_placa" class="col-form-label col-sm-0">No. Placa:</label>
                                 </div>
                                 <div class="form-group col-ms-auto col-md-4">
-                                        <input type="text" class="form-control" id="txt_placa" name="txt_placa" value="{{ garantia.id_garantia.placa }}" class="form-control" placeholder="Placa">
+                                        <input type="text" class="form-control" id="txt_placa" name="txt_placa" value="{{ auto.placa }}" class="form-control" placeholder="Placa">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -301,13 +301,13 @@
                                     <label for="txt_pasajeros" class="col-form-label col-sm-0">No. Pasajeros:</label>
                                 </div>
                                 <div class="form-group col-ms-auto col-md-4">
-                                        <input type="number" class="form-control" id="txt_pasajeros" name="txt_pasajeros" value="{{ garantia.id_garantia.pasajeros }}" class="form-control" placeholder="Pasajeros">
+                                        <input type="number" class="form-control" id="txt_pasajeros" name="txt_pasajeros" value="{{ auto.pasajeros }}" class="form-control" placeholder="Pasajeros">
                                 </div>
                                 <div class="col-ms-auto col-md-2">
                                     <label for="txt_clasificacion" class="col-form-label col-sm-0">Clasificacion:</label>
                                 </div>
                                 <div class="form-group col-ms-auto col-md-4">
-                                        <input type="text" class="form-control" id="txt_clasificacion" name="txt_clasificacion" value="{{ garantia.id_garantia.clasificacion }}" class="form-control" placeholder="Clasificacion">
+                                        <input type="text" class="form-control" id="txt_clasificacion" name="txt_clasificacion" value="{{ auto.clasificacion }}" class="form-control" placeholder="Clasificacion">
                                 </div>
                             </div>
                         </div>
