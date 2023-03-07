@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class persona(models.Model):
     id_persona = models.AutoField(primary_key=True)
-    cedula = models.IntegerField(unique=True)
+    cedula = models.CharField(max_length=15,unique=True)
     nombres = models.CharField(max_length=80)
     apellidos = models.CharField(max_length=80)
     direccion = models.CharField(max_length=256)
@@ -89,11 +89,11 @@ class terreno(models.Model):
 
 class automovil(models.Model):
     id_garantia = models.ForeignKey(garantia, null=True, on_delete=models.CASCADE)
-    fabricante = models.CharField(max_length=40)
+    fabricante = models.CharField(max_length=25)
     modelo = models.CharField(max_length=40)
-    anio = models.CharField(max_length=40)
-    placa = models.CharField(max_length=40)
-    chasis = models.CharField(max_length=40)
+    anio = models.CharField(max_length=5)
+    placa = models.CharField(max_length=11)
+    chasis = models.CharField(max_length=11)
     pasajeros = models.IntegerField(default=2,null=True)
     no_motor = models.CharField(max_length=15,null=True)
     color = models.CharField(max_length=10,null=True)
