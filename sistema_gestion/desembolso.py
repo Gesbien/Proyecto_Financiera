@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic import  ListView, CreateView
@@ -25,20 +27,26 @@ def crear_desembolso(request,id_prestamo):
     }
     return render(request, "paginas/registrarDesembolso.html", context)
 
-def registroDesembolso(request,prestamo):
+def registroDesembolso(request,id_prestamo):
+    Prestamo = prestamo.objects.get(id_prestamo=id_prestamo)
     monto = request.POST['txt_Monto']
-    codigo_cuenta_cheque = request.POST['txt_tasa']
+    codigo_cuenta_cheque = request.POST['txt_num']
     cuota = request.POST['txt_cuota']
-    estado = 'Proceso'
+    fecha = request.POST['datepicker-month_inicio']
+    fecha_exped = datetime.strptime(fecha, '%m/%d/%Y')
+    fecha_convert = fecha_exped.strftime('%Y-%m-%d')
+    estado = 'Activo'
     orden_de = request.POST['txt_Nombres']
+    tipo = request.POST['txt_tipo']
 
 
-    Desembolso = desembolso.objects.create( id_prestamo =prestamo  ,monto_total=monto,estado=estado,codigo_cuenta_cheque=codigo_cuenta_cheque,cuota=cuota)
+    Desembolso = desembolso.objects.create( id_prestamo = Prestamo  ,monto_total=monto,estado=estado,codigo_cuenta_cheque=codigo_cuenta_cheque,cuota=cuota,
+                                            fecha = fecha_convert, cliente = orden_de, tipo = tipo )
 
     return redirect('/prestamo')
 
-def editarDesembolso(request, id_desmbolso):
-    Desmbolso = desembolso.objects.get(id_desembolso=id_desmbolso)
+def editarDesembolso(request, id_desembolso):
+    Desmbolso = desembolso.objects.get(id_desembolso=id_desembolso)
     data = {
         'Desembolso': desembolso
     }
