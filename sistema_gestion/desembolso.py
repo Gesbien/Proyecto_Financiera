@@ -31,7 +31,6 @@ def registroDesembolso(request,id_prestamo):
     Prestamo = prestamo.objects.get(id_prestamo=id_prestamo)
     monto = request.POST['txt_Monto']
     codigo_cuenta_cheque = request.POST['txt_num']
-    cuota = request.POST['txt_cuota']
     fecha = request.POST['datepicker-month_inicio']
     fecha_exped = datetime.strptime(fecha, '%m/%d/%Y')
     fecha_convert = fecha_exped.strftime('%Y-%m-%d')
@@ -39,9 +38,12 @@ def registroDesembolso(request,id_prestamo):
     orden_de = request.POST['txt_Nombres']
     tipo = request.POST['txt_tipo']
 
+    Prestamo.estado = 'Desembolsado'
+    Prestamo.save()
 
-    Desembolso = desembolso.objects.create( id_prestamo = Prestamo  ,monto_total=monto,estado=estado,codigo_cuenta_cheque=codigo_cuenta_cheque,cuota=cuota,
-                                            fecha = fecha_convert, cliente = orden_de, tipo = tipo )
+
+    Desembolso = desembolso.objects.create( id_prestamo = Prestamo  ,monto_total=monto,estado=estado,codigo_cuenta_cheque=codigo_cuenta_cheque,
+                                            fecha = fecha_convert, nombre_cliente= orden_de, tipo = tipo )
 
     return redirect('/prestamo')
 
@@ -70,9 +72,15 @@ def edicionDesembolso(request):
 
     return redirect('/prestamo')
 
-def eliminacionPrestamo(request, id_desembolso):
+def eliminacionDesembolso(request, id_desembolso):
     Desembolso = desembolso.objects.get(id_desembolso=id_desembolso)
     Desembolso.estado = 'Anulado'
     Desembolso.save()
+    Prestamo = prestamo.objects.get(id_prestamo=Desembolso.id_prestamo.id_prestamo)
+
+    Prestamo.estado = 'Proceso'
+    Prestamo.save()
+
+
 
     return redirect('/desembolso')
