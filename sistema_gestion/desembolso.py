@@ -58,16 +58,22 @@ def edicionDesembolso(request):
     id_solicitud = request.POST['txtId_Solicitud']
     id_prestamo = request.POST['txtId_Prestamo']
     estado = request.POST['txtEstado']
-    monto_total = request.POST['numMonto_Total']
-    codigo_cuenta_cheque = request.POST['txtCodigo_cuenta_cheque']
-
-
+    monto_total = request.POST['numMonto']
+    codigo_cuenta_cheque = request.POST['txt_num']
+    fecha = request.POST['datepicker-month_inicio']
+    fecha_exped = datetime.strptime(fecha, '%m/%d/%Y')
+    fecha_convert = fecha_exped.strftime('%Y-%m-%d')
+    orden_de = request.POST['txt_Nombres']
+    tipo = request.POST['txt_tipo']
 
     Desembolso = desembolso.objects.get(id_solicitud=id_solicitud)
     Desembolso.id_prestamo = prestamo.objects.get(id_prestamo=id_prestamo)
     Desembolso.codigo_cuenta_cheque = codigo_cuenta_cheque
     Desembolso.estado = estado
     Desembolso.monto = monto_total
+    Desembolso.fecha = fecha_convert
+    Desembolso.nombre_cliente = orden_de
+    Desembolso.tipo = tipo
     Desembolso.save()
 
     return redirect('/prestamo')
