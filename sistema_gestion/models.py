@@ -117,6 +117,7 @@ class desembolso(models.Model):
     fecha= models.DateField(null=True)
     tipo = models.CharField(max_length=40)
     estado = models.CharField(max_length=40)
+    nombre_cliente = models.CharField(max_length=30, null=True)
 
 
 class notas(models.Model):

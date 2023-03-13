@@ -99,7 +99,7 @@
                                                             <td>{{ s.cedula.nombres }}</td>
                                                             <td>{{ s.cedula.apellidos }}</td>
                                                             <td>{{ s.monto }}</td>
-                                                            <td><a href="/prestamo/registrar/{{s.id_solicitud}}" class ="btn btn-info">Seleccionar</a></td>
+                                                            <td><a href="/prestamo/registrar/{{s.id_solicitud}}" class ="btn btn-info text-white">Seleccionar</a></td>
                                                         </tr>
                                                     {% endfor %}
                                                 </tbody>
@@ -126,6 +126,9 @@
                                 <td>{{ p.estado }}</td>
                                 <td><a href="/prestamo/editar/{{ p.id_prestamo }}" class ="btn btn-info" data-toggle="tooltip" data-placement="top" title="Editar">
                                     <i class="fa-solid fa-file-pen"></i></a>
+                                    <a href="/desembolso/registrar/{{ p.id_prestamo }}" class ="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Procesar">
+                                    <i class="fa-solid fa-file-circle-question"></i>
+                                    </a>
                                     <a href="/prestamo/anular/{{ p.id_prestamo }}" class ="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Anular">
                                     <i class="fa-solid fa-xmark"></i></a></td>
                                 </td>
