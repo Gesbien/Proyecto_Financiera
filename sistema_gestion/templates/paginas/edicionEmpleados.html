@@ -1,0 +1,118 @@
+{% extends 'paginas/base.html' %}
+
+{% block title %} Prestamo {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+    <link href="/static/assets/fontawesome/css/all.css" rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block content %}
+    <!-- Header -->
+    <div class="header pb-4" style="background-color: #009ACD">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-3">
+            <div class="col-lg-6 col-7">
+              <h6 class="h2 text-white d-inline-block mb-0">Edicion de Empleados</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 ">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Id Persona</h5>
+                        <h1 class="card-title text-uppercase text-muted mb-0">{{ persona.id_persona }}</h1>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-gray-dark text-white rounded-circle shadow">
+                        <i class="ni  ni-badge"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+    </div>
+
+    <!-- Body -->
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-8 col-xl-12">
+            <div class="card">
+                <div class="card-body" div.row="" style="background-color: #e9ecef">
+                    <h3>Informacion </h3>
+                    <form action="/empleados/edicion/{{ opcion }}" method="POST"> {% csrf_token %}
+                        <div class="form-row">
+                        <div class="col-ms-auto col-md-1">
+                             <label for="txt_cedula" class="col-form-label col-sm-0">Cedula:</label>
+                        </div>
+                            <div class="col-ms-auto col-md-3">
+                              <div class="form-group">
+                                <input type="number" class="form-control" id="txt_cedula" name="txt_cedula" value="{{ empleados.cedula }}" class="form-control" placeholder="Cedula" required>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-ms-auto col-md-1">
+                                <label for="txt_rol" class="col-form-label col-sm-0">Rol:</label>
+                            </div>
+                            <div class="form-group col-ms-auto col-md-4">
+                                <input type="text" class="form-control" id="txt_rol" name="txt_rol" value="{{ empleados.rol }}" class="form-control" placeholder="Rol" required>
+                            </div>
+                            <div class="col-ms-auto col-md-1">
+                                <label for="txt_sueldo" class="col-form-label col-sm-0">Sueldo:</label>
+                            </div>
+                            <div class="form-group col-ms-auto col-md-4">
+                                    <input type="text" class="form-control" id="txt_sueldo"  name="txt_sueldo" value="{{ empleados.sueldo }}" class="form-control" placeholder="Sueldo" required>
+                            </div>
+                        </div>
+
+                       <div class="form-row">
+                           <div class="col-ms-auto col-md-1">
+                                <label for="txt_usuario" class="col-form-label col-sm-0">Usuario:</label>
+                           </div>
+                           <div class="form-group col-ms-auto col-md-9">
+                               <input type="text" class="form-control" id="txt_usuario"  name="txt_usuario" value="{{ empleados.usuario }}" class="form-control" placeholder="Usuario" required>
+                            </div>
+                           <div class="col-ms-auto col-md-1">
+                                <label for="txt_password" class="col-form-label col-sm-0">Password:</label>
+                           </div>
+                           <div class="form-group col-ms-auto col-md-9">
+                               <input type="text" class="form-control" id="txt_password"  name="txt_password" value="{{ empleados.password }}" class="form-control" placeholder="Password" required>
+                            </div>
+                       </div>
+
+                        <div class="form-row">
+                            <div class="col-ms-auto col-md-1">
+                                <label for="txt_estado" class="col-form-label col-sm-0">Estado:</label>
+                            </div>
+                                <div class="form-group col-ms-auto col-md-4">
+                                    <input type="text" class="form-control" id="txt_estado" name="txt_estado" value="{{ empleados.estado }}" class="form-control" placeholder="Estado" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div align="right" class="col-md-1">
+                                <button type="submit" class="btn btn-success btn-block text-white" data-toggle="tooltip" data-placement="top" title="Guardar">
+                                    <i class="fa-solid fa-floppy-disk"></i>
+                                </button>
+                             </div>
+                            <div  align="left" class="col-md-2">
+                                <a href="/empleados" class ="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Salir">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+
+                 </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+{% block javascripts %}
+    <script src="/static/assets/js/modal.js"></script>
+{% endblock javascripts %}
