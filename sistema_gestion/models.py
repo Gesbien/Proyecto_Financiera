@@ -58,6 +58,10 @@ class prestamo(models.Model):
     dias_gracia = models.IntegerField()
     fecha_expedicion = models.DateField(null=True)
     fecha_expiracion = models.DateField(null=True)
+    balance_actual = models.FloatField(default=0)
+    balance_capital = models.FloatField(default=0)
+    balance_interes = models.FloatField(default=0)
+
 
     def __str__(self):
         return self.id_solicitud
@@ -129,3 +133,12 @@ class notas(models.Model):
     monto_capital = models.FloatField(unique=True)
     fecha = models.DateField()
     estado = models.CharField(max_length=40)
+
+class marca(models.Model):
+    id_marca = models.AutoField(primary_key=True)
+    nombre_marca = models.CharField(max_length=155)
+
+class modelo(models.Model):
+    id_modelo = models.AutoField(primary_key=True)
+    nombre_marca = models.CharField(max_length=155)
+    nombre_modelo = models.CharField(max_length=255)

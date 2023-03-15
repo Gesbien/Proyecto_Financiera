@@ -1,16 +1,25 @@
-from .models import garantia, terreno, automovil,garante,prestamo
+from .models import garantia, terreno, automovil,garante,prestamo, marca, modelo
 from django.shortcuts import render, redirect
 from datetime import datetime
+from django.http import JsonResponse
 def inicio_garantia(request):
     Garantia = garantia.objects.all().exclude(estado='Anulado')
     context = {'garantia': Garantia}
     return render(request, 'paginas/gestionGarantia.html' , context)
 
 def crear_garantia(request):
-    Num_Garantia = 1 + garantia.objects.last().id_garantia
+    if garantia.objects.last() is not None:
+        Num_Garantia = 1 + garantia.objects.last().id_garantia
+    else:
+        Num_Garantia = 1
+
+    Marca = marca.objects.all()
+    Modelo = modelo.objects.all()
     context = {
-            'salida' : 'garantia',
-            'garantia': Num_Garantia
+            'salida'  : 'garantia',
+            'garantia': Num_Garantia,
+            'marcas'  : Marca,
+            'modelos'  : Modelo
     }
     return render(request, "paginas/registrarGarantia.html",context)
 
