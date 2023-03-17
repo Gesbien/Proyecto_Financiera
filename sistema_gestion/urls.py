@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib import admin
-from . import views, solicitud, prestamo, garantia, personas, desembolso
+from . import views, solicitud, prestamo, garantia, personas, desembolso, empleados
 
 
 urlpatterns = [
@@ -35,5 +35,12 @@ urlpatterns = [
     path('desembolso/registrar/<id_prestamo>',desembolso.crear_desembolso,name='inicio_desembolso'),
     path('desembolso/registro/<id_prestamo>',desembolso.registroDesembolso, name='registro_desembolso'),
     path('desembolso/anular/<id_desembolso>',desembolso.eliminacionDesembolso, name='eliminacionDesembolso'),
+    path('empleados', empleados.inicio_empleados, name='inicio_empleado'),
+    path('empleados/registrar', empleados.crear_empleado(),name='crear_empleado'),
+    path('empleado/registro/',empleados.registroEmpleados,name='registro_empleado'),
+    path('empleado/registro/<salida>', empleados.registroEmpleados, name='registro_empleado'),
+    path('empleado/editar/<id_empleado>', empleados.editarEmpleado, name='edicionEmpleado'),
+    path('empleado/edicion/<id_empleado>', empleados.editarEmpleado, name='edicionEmpleado'),
+    path('empleado/anular/<id_empleado>',empleados.anulacionEmpleado, name='anulacionEmpleado'),
 
 ]
