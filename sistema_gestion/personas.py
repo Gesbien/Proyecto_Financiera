@@ -1,13 +1,23 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
+from django.core.paginator import Paginator
 from .models import persona, informacion_trabajo
 
 def inicio_persona(request):
     Personas = persona.objects.filter(tipo='Cliente').exclude(estado='Anulado')
-    context = {'clientes': Personas}
+    paginator = Paginator(Personas, 3)
+    page = request.GET.get('page')
+    items = paginator.get_page(page)
+    context = {
+        'clientes': Personas,
+        'items' : items
+    }
     return render(request, 'paginas/gestionCliente.html' , context)
 
 def crear_persona(request):
-    Persona = 1 + persona.objects.last().id_persona
+    if persona.objects.last() is not None:
+        Persona = 1 + persona.objects.last().id_persona
+    else:
+        Persona = 1
     context = {
             'opcion' : 'cl',
             'cliente': Persona
