@@ -30,4 +30,4 @@ def crear_cobro(request,id_prestamo):
             'items': items,
             'num_nota': Num_cobro
         }
-    return render(request, "paginas/registrarPrestamo.html", context)
+    return render(request, "paginas/registrarCobro.html", context)
