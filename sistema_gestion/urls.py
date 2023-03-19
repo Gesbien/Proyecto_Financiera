@@ -46,7 +46,7 @@ urlpatterns = [
     path('notas/registro/<id_prestamo>',notas_prestamo.registro_notas,name='registro_notas'),
     path('notas/anular/<id_nota>',notas_prestamo.anulacion_notas,name='anular_notas'),
     path('cobros',notas_prestamo.anulacion_notas,name='inicio_cobros'),
-    path('cobros/registrar/<id_cobro>',notas_prestamo.anulacion_notas,name='registrar_cobros'),
+    path('cobros/registrar/<id_prestamo>',notas_prestamo.anulacion_notas,name='registrar_cobros'),
 
 
 ]
