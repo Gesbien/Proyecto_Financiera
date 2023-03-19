@@ -2,7 +2,7 @@ from django.urls import path
 from django.contrib import admin
 
 import sistema_gestion.cobros
-from . import views, solicitud, prestamo, garantia, personas, desembolso, empleados, cobros
+from . import views, solicitud, prestamo, garantia, personas, desembolso, empleados, cobros, notas_prestamo
 
 
 urlpatterns = [
@@ -46,6 +46,8 @@ urlpatterns = [
     path('empleado/anular/<id_empleado>',empleados.anulacionEmpleado, name='anulacionEmpleado'),
     path('cobro/',cobros.inicio_cobros, name='inicio_cobro'),
     path('cobro/registrar/<id_prestamo>', cobros.crear_cobro, name='registro_cobro'),
-    #path('cobro/editar/<id_cobro>', cobros., name='edicionCobro')
+    path('notas', notas_prestamo.inicio_notas, name='inicio_notas'),
+    path('notas/registrar/<id_prestamo>', notas_prestamo.crear_notas, name='registrar_notas'),
+    path('notas/registro/<id_nota>', notas_prestamo.registro_notas, name='registro_notas'),
 
 ]
