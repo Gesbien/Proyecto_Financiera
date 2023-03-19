@@ -1,7 +1,3 @@
-{% block stylesheets %}
-    <link href="/static/assets/fontawesome/css/all.css" rel="stylesheet">
-{% endblock stylesheets %}
-
 <nav class="sidenav navbar navbar-vertical  fixed-left navbar-expand-xs navbar-light" style="background-color:#ced4da" id="sidenav-main">
   <div class="scrollbar-inner">
     <!-- Brand -->
@@ -15,49 +11,57 @@
       <div class="collapse navbar-collapse" id="sidenav-collapse-main">
         <!-- Nav items -->
         <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link {% if 'index' in segment %} active {% endif %}" href="/prestamo">
+                    <i class="ni ni-money-coins text-primary"></i>
+                    <span class="nav-link-text" style="color: #0a0c0d">Prestamo</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if 'inicio' in segment %} active {% endif %}" href="/solicitud">
+                    <i class="fa-solid fa-file-lines"></i>
+                    <span class="nav-link-text " style="color: #0a0c0d">Solicitud</span>
+                </a>
+            </li>
           <li class="nav-item">
-            <a class="nav-link" href="/prestamo">
-              <i class="ni ni-money-coins text-primary"></i>
-              <span class="nav-link-text" style="color: #0a0c0d">Prestamo</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/solicitud">
-              <i class="fa-solid fa-file-lines"></i>
-              <span class="nav-link-text " style="color: #0a0c0d">Solicitud</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/cliente">
+            <a class="nav-link {% if 'map' in segment %} active {% endif %}" href="/cliente">
                 <i class="fa-solid fa-user"></i>
                 <span class="nav-link-text" style="color: #0a0c0d">Clientes</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/garantia">
-                <i class="fa-solid fa-hand-holding-box"></i>
+            <a class="nav-link {% if 'profile' in segment %} active {% endif %}" href="/garantia">
+              <i class="ni ni-single-02 text-yellow"></i>
               <span class="nav-link-text" style="color: #0a0c0d">Garantia</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/desembolso">
-                <i class="fa-solid fa-hand-holding-dollar"></i>
+            <a class="nav-link {% if 'tables' in segment %} active {% endif %}" href="/desembolso">
+              <i class="ni ni-bullet-list-67 text-default"></i>
               <span class="nav-link-text">Desembolso</span>
             </a>
           </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/cobros">
-                <i class="fa-solid fa-receipt"></i>
+          <li class="nav-item">
+            <a class="nav-link {% if 'tables' in segment %} active {% endif %}" href="/cobro">
+              <i class="ni ni-bullet-list-67 text-default"></i>
               <span class="nav-link-text">Cobros</span>
             </a>
           </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/notas">
-                    <i class="fa-solid fa-money-check-dollar"></i>
-                    <span class="nav-link-text">Notas</span>
-                </a>
-            </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login.html">
+              <i class="ni ni-key-25 text-info"></i>
+              <span class="nav-link-text">Login (template)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/register.html">
+              <i class="ni ni-circle-08 text-pink"></i>
+              <span class="nav-link-text">Register (template)</span>
+            </a>
+          </li>
 
+          <li class="nav-item">
+          </li>            
         </ul>
         <!-- Divider -->
         <hr class="my-3">

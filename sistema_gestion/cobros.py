@@ -6,7 +6,7 @@ from .models import prestamo, cobro
 def inicio_cobros(request):
     Cobros = cobro.objects.all().exclude(estado='Anulado')
     context = {'cobros': Cobros}
-    return render(request, 'paginas/gestionCobros.html' , context)
+    return render(request, 'paginas/gestionCobro.html', context)
 
 def crear_cobro(request,id_prestamo):
     if cobro.objects.last() is not None:

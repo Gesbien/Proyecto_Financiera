@@ -1,6 +1,8 @@
 from django.urls import path
 from django.contrib import admin
-from . import views, solicitud, prestamo, garantia, personas, desembolso, empleados, notas_prestamo
+
+import sistema_gestion.cobros
+from . import views, solicitud, prestamo, garantia, personas, desembolso, empleados
 
 
 urlpatterns = [
@@ -37,16 +39,10 @@ urlpatterns = [
     path('desembolso/anular/<id_desembolso>',desembolso.eliminacionDesembolso, name='eliminacionDesembolso'),
     path('empleados', empleados.inicio_empleados, name='inicio_empleado'),
     path('empleados/registrar', empleados.crear_empleado,name='crear_empleado'),
+    path('empleado/registro/',empleados.registroEmpleados,name='registro_empleado'),
     path('empleado/registro/<salida>', empleados.registroEmpleados, name='registro_empleado'),
     path('empleado/editar/<id_empleado>', empleados.editarEmpleado, name='edicionEmpleado'),
     path('empleado/edicion/<id_empleado>', empleados.editarEmpleado, name='edicionEmpleado'),
     path('empleado/anular/<id_empleado>',empleados.anulacionEmpleado, name='anulacionEmpleado'),
-    path('notas',notas_prestamo.inicio_notas, name='inicio_notas'),
-    path('notas/registrar/<id_prestamo>', notas_prestamo.crear_notas,name='registrar_notas'),
-    path('notas/registro/<id_prestamo>',notas_prestamo.registro_notas,name='registro_notas'),
-    path('notas/anular/<id_nota>',notas_prestamo.anulacion_notas,name='anular_notas'),
-    path('cobros',notas_prestamo.anulacion_notas,name='inicio_cobros'),
-    path('cobros/registrar/<id_prestamo>',notas_prestamo.anulacion_notas,name='registrar_cobros'),
-
-
+    path('cobro/',sistema_gestion.cobros.inicio_cobros, name='inicio_cobro')
 ]
