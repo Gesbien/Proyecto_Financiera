@@ -45,6 +45,7 @@ urlpatterns = [
     path('empleado/edicion/<id_empleado>', empleados.editarEmpleado, name='edicionEmpleado'),
     path('empleado/anular/<id_empleado>',empleados.anulacionEmpleado, name='anulacionEmpleado'),
     path('cobro/',cobros.inicio_cobros, name='inicio_cobro'),
-    path('cobro/registrar/<id_prestamo>', cobros.crear_cobro, name='registro_cobro')
+    path('cobro/registrar/<id_prestamo>', cobros.crear_cobro, name='registro_cobro'),
+    #path('cobro/editar/<id_cobro>', cobros., name='edicionCobro')
 
 ]
