@@ -49,37 +49,62 @@
                             <th scope="col">Id Prestamo</th>
                             <th scope="col">Tipo</th>
                             <th scope="col">Monto Total</th>
-                            <th scope="col">Monto Interes</th>
-                            <th scope="col">Monto Capital</th>
                             <th scope="col">Fecha</th>
                             <th scope="col">Estado</th>
-                            <th colspan="">Opciones</th>
                             <th> <a href="notas/registrar/{{ 0 }}" class ="btn btn-success text-white" data-toggle="tooltip" data-placement="left" title="Añadir">
                                  <i class="fa-solid fa-folder-plus"></i> </a> </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for n in notas %}
+                        {% for item in items %}
                             <tr>
-                                <td>{{ n.id_nota }}</td>
-                                <td>{{ n.id_prestamo }}</td>
-                                <td>{{ n.tipo }}</td>
-                                <td>{{ n.monto_total }}</td>
-                                <td>{{ n.monto_interes}}</td>
-                                <td>{{ n.monto_capital }}</td>
-                                <td>{{ n.fecha}}</td>
-                                <td>{{ n.estado}}</td>
-                                <td><a href="/notas/editar/{{ s.id_nota }}" class ="btn btn-info" data-toggle="tooltip" data-placement="top" title="Editar">
-                                    <i class="fa-solid fa-file-pen"></i></a>
-                                <a href="/notas/procesar/{{ s.id_nota }}" class ="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Procesar">
-                                    <i class="fa-solid fa-file-circle-question"></i>
-                                    </a></td>
+                                <td>{{ item.id_nota }}</td>
+                                <td>{{ item.id_prestamo }}</td>
+                                <td>{{ item.tipo }}</td>
+                                <td>{{ item.monto_total }}</td>
+                                <td>{{ item.fecha }}</td>
+                                <td>{{ item.estado}}</td>
                                 <td><a href="/notas/anular/{{ s.id_nota }}" class ="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Anular">
                                     <i class="fa-solid fa-xmark"></i></a></td>
                             </tr>
                         {% endfor %}
                     </tbody>
                   </table>
+                  <nav aria-label="Paginacion" style="display: grid; place-content: center">
+                      <ul class="pagination">
+                          {% if items.has_previous %}
+                                <li class="page-item">
+                                  <a class="page-link" href="?page=1">
+                                      <i class="fa-solid fa-backward-fast"></i>
+                                    <span class="sr-only">First</span>
+                                  </a>
+                                </li>
+                                <li class="page-item">
+                                  <a class="page-link" href="?page={{ items.previous_page_number }}" aria-label="Previous">
+                                      <i class="fa-solid fa-backward"></i>
+                                    <span class="sr-only">Previous</span>
+                                  </a>
+                                </li>
+                          {% endif %}
+
+                          <li class="page-item"><a class="page-link" href="#">{{ items.number }} </a></li>
+
+                          {% if items.has_next %}
+                                <li class="page-item">
+                                  <a class="page-link" href="?page={{ items.next_page_number }}" aria-label="Next">
+                                      <i class="fa-solid fa-forward"></i>
+                                      <span class="sr-only">Next</span>
+                                  </a>
+                                </li>
+                                <li class="page-item">
+                                  <a class="page-link" href="?page={{ items.paginator.num_pages }}">
+                                      <i class="fa-solid fa-forward-fast"></i>
+                                    <span class="sr-only">Last</span>
+                                  </a>
+                                </li>
+                          {% endif %}
+                      </ul>
+                  </nav>
               </div>
           </div>
       </div>

@@ -3,7 +3,7 @@ from datetime import datetime
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-from .models import prestamo, solicitud, prestamo_garantia, garante, informacion_trabajo, automovil, terreno
+from .models import prestamo, solicitud, prestamo_garantia, garante, informacion_trabajo, automovil, terreno, marca, modelo
 from .garantia import registroGarantia, edicionGarantia
 from .personas import registroPersona, edicionPersona
 
@@ -21,10 +21,14 @@ def crear_prestamo(request,id_solicitud):
         Num_prestamo = 1 + prestamo.objects.last().id_prestamo
     else:
         Num_prestamo = 1
+    Marca = marca.objects.all()
+    Modelo = modelo.objects.all()
     context = {
         'opcion'    : 'nv',
         'solicitud' : Solicitud,
-        'numero'    : Num_prestamo
+        'numero'    : Num_prestamo,
+        'marcas': Marca,
+        'modelos': Modelo
     }
     return render(request, "paginas/registrarPrestamo.html", context)
 
