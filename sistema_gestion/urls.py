@@ -39,7 +39,6 @@ urlpatterns = [
     path('desembolso/anular/<id_desembolso>',desembolso.eliminacionDesembolso, name='eliminacionDesembolso'),
     path('empleados', empleados.inicio_empleados, name='inicio_empleado'),
     path('empleados/registrar', empleados.crear_empleado,name='crear_empleado'),
-    path('empleado/registro/',empleados.registroEmpleados,name='registro_empleado'),
     path('empleado/registro/<salida>', empleados.registroEmpleados, name='registro_empleado'),
     path('empleado/editar/<id_empleado>', empleados.editarEmpleado, name='edicionEmpleado'),
     path('empleado/edicion/<id_empleado>', empleados.editarEmpleado, name='edicionEmpleado'),
