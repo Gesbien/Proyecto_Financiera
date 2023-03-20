@@ -59,12 +59,12 @@
                         {% for item in items %}
                             <tr>
                                 <td>{{ item.id_nota }}</td>
-                                <td>{{ item.id_prestamo }}</td>
+                                <td>{{ item.id_prestamo.id_prestamo }}</td>
                                 <td>{{ item.tipo }}</td>
                                 <td>{{ item.monto_total }}</td>
                                 <td>{{ item.fecha }}</td>
                                 <td>{{ item.estado}}</td>
-                                <td><a href="/notas/anular/{{ s.id_nota }}" class ="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Anular">
+                                <td><a href="/notas/anular/{{ item.id_nota }}" class ="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Anular">
                                     <i class="fa-solid fa-xmark"></i></a></td>
                             </tr>
                         {% endfor %}

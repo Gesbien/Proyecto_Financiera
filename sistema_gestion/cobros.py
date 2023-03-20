@@ -4,8 +4,13 @@ from django.shortcuts import render, redirect
 from .models import prestamo, cobro
 
 def inicio_cobros(request):
-    Cobros = cobro.objects.all().exclude(estado='Anulado')
-    context = {'cobros': Cobros}
+    Cobros = cobro.objects.all()
+    Prestamos = prestamo.objects.all().filter(estado='Desembolsado')
+    paginator = Paginator(Cobros, 10)
+    page = request.GET.get('page')
+    items = paginator.get_page(page)
+    context = {'items': items,
+               'prestamos' : Prestamos}
     return render(request, 'paginas/gestionCobro.html', context)
 
 def crear_cobro(request,id_prestamo):
@@ -13,21 +18,78 @@ def crear_cobro(request,id_prestamo):
         Num_cobro = 1 + cobro.objects.last().id_nota
     else:
         Num_cobro = 1
-    Prestamos = prestamo.objects.all().filter(estado='Desembolsado')
-    paginator = Paginator(Prestamos, 5)
-    page = request.GET.get('page')
-    items = paginator.get_page(page)
 
-    if id_prestamo != '0':
-        Prestamo = prestamo.objects.get(id_prestamo=id_prestamo)
-        context = {
-            'items': items,
-            'num_cobro': Num_cobro,
-            'prestamo': Prestamo
-        }
-    else:
-        context = {
-            'items': items,
-            'num_nota': Num_cobro
-        }
+    Prestamo = prestamo.objects.get(id_prestamo=id_prestamo)
+    monto_interes = Prestamo.balance_interes/Prestamo.cuota
+    monto_capital = Prestamo.balance_capital/Prestamo.cuota
+    context = {
+        'num_cobro': Num_cobro,
+        'prestamo': Prestamo,
+        'interes' : monto_interes,
+        'capital' : monto_capital
+    }
+
     return render(request, "paginas/registrarCobro.html", context)
+
+def registro_cobros(request,id_cobro):
+    id_prestamo = request.POST['txt_prestamos']
+    monto_total = request.POST['txt_monto_total']
+    monto_interes = request.POST['txt_monto_interes']
+    monto_capital = request.POST['txt_monto_capital']
+    concepto = request.POST['txt_concepto']
+    fecha = request.POST['txt_fecha']
+    fecha_exped = datetime.strptime(fecha, '%m/%d/%Y')
+    fecha_convert = fecha_exped.strftime('%Y-%m-%d')
+    Prestamo = prestamo.objects.get(id_prestamo=id_prestamo)
+    estado = 'Realizado'
+
+    cobro.objects.create(id_cobro=id_cobro,monto_total=monto_total,monto_interes=monto_interes,
+                         monto_capital=monto_capital,concepto=concepto,fecha=fecha_convert,
+                         id_prestamo=Prestamo, estado=estado)
+
+    return redirect('/cobros')
+
+def editar_cobro(request,id_cobro):
+    Cobro = cobro.objects.get(id_cobro=id_cobro)
+    context = {
+        'cobro': Cobro,
+    }
+    return render(request, "paginas/edicionCobro.html", context)
+
+def edicion_cobros(request,id_cobro):
+    monto_total = request.POST['txt_monto_total']
+    monto_interes = request.POST['txt_monto_interes']
+    monto_capital = request.POST['txt_monto_capital']
+    concepto = request.POST['txt_concepto']
+    fecha = request.POST['txt_fecha']
+    fecha_exped = datetime.strptime(fecha, '%m/%d/%Y')
+    fecha_convert = fecha_exped.strftime('%Y-%m-%d')
+
+    Cobro = cobro.objects.get(id_cobro=id_cobro)
+    Cobro.monto_total = monto_total
+    Cobro.monto_interes = monto_interes
+    Cobro.monto_capital = monto_capital
+    Cobro.concepto = concepto
+    Cobro.fecha = fecha_convert
+    Cobro.save()
+
+    return redirect('/cobros')
+
+def postear_cobros(request,id_cobro):
+    Cobro = cobro.objects.get(id_cobro=id_cobro)
+    Prestamo = prestamo.objects.get(id_prestamo=Cobro.id_prestamo.id_prestamo)
+
+    Prestamo.balance_actual -= Cobro.monto_total
+    Prestamo.balance_capital -= Cobro.monto_capital
+    Prestamo.balance_interes -= Cobro.monto_interes
+
+    Prestamo.save()
+
+    return redirect('/cobros')
+
+def anulacion_cobros(request, id_cobro):
+    Cobro = cobro.objects.get(id_cobro=id_cobro)
+    Cobro.estado = 'Anulado'
+    Cobro.save()
+
+    return redirect('/cobros')

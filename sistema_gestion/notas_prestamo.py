@@ -5,9 +5,12 @@ from .models import prestamo, notas
 
 
 def inicio_notas(request):
-    notas_prestamo = notas.objects.all().exclude(estado='Anulado')
+    notas_prestamo = notas.objects.all()
+    paginator = Paginator(notas_prestamo, 10)
+    page = request.GET.get('page')
+    items = paginator.get_page(page)
     context = {
-        'notas_prestamo' : notas_prestamo,
+        'items' : items,
         }
     return render(request, 'paginas/gestionNotas.html', context)
 
@@ -45,21 +48,22 @@ def registro_notas(request,id_nota):
     fecha_exped = datetime.strptime(fecha, '%m/%d/%Y')
     fecha_convert = fecha_exped.strftime('%Y-%m-%d')
     estado = 'Realizada'
+    concepto = request.POST['txt_concepto']
+    Prestamo = prestamo.objects.get(id_prestamo=id_prestamo)
 
     if tipo == 'Credito':
-        Prestamo = prestamo.objects.get(id_prestamo=id_prestamo)
-        Prestamo.balance_actual -= monto_total
-        Prestamo.balance_capital -= monto_capital
-        Prestamo.balance_interes -= monto_interes
+        Prestamo.balance_actual -= float(monto_total)
+        Prestamo.balance_capital -= float(monto_capital)
+        Prestamo.balance_interes -= float(monto_interes)
     else:
-        Prestamo = prestamo.objects.get(id_prestamo=id_prestamo)
-        Prestamo.balance_actual += monto_total
-        Prestamo.balance_capital += monto_capital
-        Prestamo.balance_interes += monto_interes
+        Prestamo.balance_actual += float(monto_total)
+        Prestamo.balance_capital += float(monto_capital)
+        Prestamo.balance_interes += float(monto_interes)
+    Prestamo.save()
 
     notas.objects.create(id_nota=id_nota,tipo=tipo,monto_total=monto_total,monto_interes=monto_interes,
                          monto_capital=monto_capital,fecha=fecha_convert,estado=estado,
-                         id_prestamo=Prestamo)
+                         id_prestamo=Prestamo,concepto=concepto)
 
     return redirect('/notas')
 
@@ -77,6 +81,7 @@ def anulacion_notas(request, id_nota):
         Prestamo.balance_actual -= Nota.monto_total
         Prestamo.balance_capital -= Nota.monto_capital
         Prestamo.balance_interes -= Nota.monto_interes
+    Prestamo.save()
 
 
     return redirect('/notas')
