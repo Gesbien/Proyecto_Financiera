@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
@@ -6,7 +7,10 @@ from .personas import registroPersona,edicionPersona
 
 def inicio_solicitud(request):
     solicitudes = solicitud.objects.exclude(estado='Aceptada').exclude(estado='Anulado')
-    context = {'solicitudes': solicitudes}
+    paginator = Paginator(solicitudes, 10)
+    page = request.GET.get('page')
+    items = paginator.get_page(page)
+    context = {'items': items}
     return render(request, 'paginas/gestionSolicitud.html', context)
 
 def crear_solicitud(request,personas):

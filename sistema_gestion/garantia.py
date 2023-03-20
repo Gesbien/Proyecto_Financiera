@@ -1,10 +1,15 @@
+from django.core.paginator import Paginator
+
 from .models import garantia, terreno, automovil,garante,prestamo, marca, modelo
 from django.shortcuts import render, redirect
 from datetime import datetime
 from django.http import JsonResponse
 def inicio_garantia(request):
     Garantia = garantia.objects.all().exclude(estado='Anulado')
-    context = {'garantia': Garantia}
+    paginator = Paginator(Garantia, 10)
+    page = request.GET.get('page')
+    items = paginator.get_page(page)
+    context = {'items': items}
     return render(request, 'paginas/gestionGarantia.html' , context)
 
 def crear_garantia(request):
@@ -64,7 +69,7 @@ def registroGarantia(request,salida):
 def editarGarantia(request,id_garantia):
     Garantia = garantia.objects.get(id_garantia=id_garantia)
     if Garantia.tipo == 'Inmobiliario':
-        Inmobi = terreno.objects.get(id_garantia=Garantia)
+        Inmobi = terreno.objects.get(id_garantia=Garantia.id_garantia)
         context = {
             'Inmobi': Inmobi,
             'salida': 'garantia',

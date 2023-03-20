@@ -1,3 +1,5 @@
+from django.core.paginator import Paginator
+
 from .models import empleados,persona, informacion_trabajo
 from .personas import registroPersona, edicionPersona
 from django.shortcuts import render, redirect
@@ -5,7 +7,10 @@ from datetime import datetime
 
 def inicio_empleados(request):
     Empleado = empleados.objects.all()
-    context = {'empleados': Empleado}
+    paginator = Paginator(Empleado, 10)
+    page = request.GET.get('page')
+    items = paginator.get_page(page)
+    context = {'items': items}
     return render(request, 'paginas/gestionEmpleados.html' , context)
 
 def crear_empleado(request):

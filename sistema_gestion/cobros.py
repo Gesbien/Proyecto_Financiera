@@ -15,7 +15,7 @@ def inicio_cobros(request):
 
 def crear_cobro(request,id_prestamo):
     if cobro.objects.last() is not None:
-        Num_cobro = 1 + cobro.objects.last().id_nota
+        Num_cobro = 1 + cobro.objects.last().id_cobro
     else:
         Num_cobro = 1
 
@@ -77,12 +77,13 @@ def edicion_cobros(request,id_cobro):
 
 def postear_cobros(request,id_cobro):
     Cobro = cobro.objects.get(id_cobro=id_cobro)
+    Cobro.estado = 'Posteado'
+    Cobro.save()
     Prestamo = prestamo.objects.get(id_prestamo=Cobro.id_prestamo.id_prestamo)
 
     Prestamo.balance_actual -= Cobro.monto_total
     Prestamo.balance_capital -= Cobro.monto_capital
     Prestamo.balance_interes -= Cobro.monto_interes
-
     Prestamo.save()
 
     return redirect('/cobros')

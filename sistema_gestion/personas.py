@@ -4,7 +4,7 @@ from .models import persona, informacion_trabajo
 
 def inicio_persona(request):
     Personas = persona.objects.filter(tipo='Cliente').exclude(estado='Anulado')
-    paginator = Paginator(Personas, 3)
+    paginator = Paginator(Personas, 10)
     page = request.GET.get('page')
     items = paginator.get_page(page)
     context = {
@@ -57,7 +57,6 @@ def registroPersona(request,opcion):
                                              apellidos=apellidos,
                                              direccion=direccion, telefono=telefono, celular=celular, tipo=tipo,
                                              estado=estado)
-
             return Persona
 
         else:
