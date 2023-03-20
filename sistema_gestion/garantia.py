@@ -45,8 +45,8 @@ def registroGarantia(request,salida):
             return Terreno
 
     elif tipo == 'Vehiculo':
-        fabricante = request.POST['txt_fabricante']
-        modelo = request.POST['txt_modelo']
+        fabricante = request.POST.get('fabrSel')
+        modelo = request.POST.get('modSel')
         anio = request.POST['txt_anio']
         color = request.POST['txt_color']
         placa = request.POST['txt_placa']

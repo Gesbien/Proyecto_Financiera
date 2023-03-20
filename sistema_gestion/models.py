@@ -111,6 +111,7 @@ class cobro(models.Model):
     monto_interes = models.FloatField()
     monto_capital = models.FloatField()
     estado = models.CharField(max_length=40)
+    concepto = models.CharField(max_length=150, null=True)
 
 
 class desembolso(models.Model):
@@ -133,6 +134,7 @@ class notas(models.Model):
     monto_capital = models.FloatField(unique=True)
     fecha = models.DateField()
     estado = models.CharField(max_length=40)
+    concepto = models.CharField(max_length=150, null=True)
 
 class marca(models.Model):
     id_marca = models.AutoField(primary_key=True)

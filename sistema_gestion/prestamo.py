@@ -3,7 +3,7 @@ from datetime import datetime
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-from .models import prestamo, solicitud, prestamo_garantia, garante, informacion_trabajo, automovil, terreno
+from .models import prestamo, solicitud, prestamo_garantia, garante, informacion_trabajo, automovil, terreno, marca, modelo
 from .garantia import registroGarantia, edicionGarantia
 from .personas import registroPersona, edicionPersona
 
@@ -21,10 +21,14 @@ def crear_prestamo(request,id_solicitud):
         Num_prestamo = 1 + prestamo.objects.last().id_prestamo
     else:
         Num_prestamo = 1
+    Marca = marca.objects.all()
+    Modelo = modelo.objects.all()
     context = {
         'opcion'    : 'nv',
         'solicitud' : Solicitud,
-        'numero'    : Num_prestamo
+        'numero'    : Num_prestamo,
+        'marcas': Marca,
+        'modelos': Modelo
     }
     return render(request, "paginas/registrarPrestamo.html", context)
 
@@ -42,10 +46,15 @@ def registroPrestamo(request,opcion,id_solicitud):
     fecha_convert = fecha_exped.strftime('%Y-%m-%d')
     fecha_fin = request.POST['fecha_fin']
     estado = 'Proceso'
+    monto_interes = float(monto) * (float(tasa) / 100) * float(cuota)
+    monto_actual = float(monto) + monto_interes
+
     Solicitud = solicitud.objects.get(id_solicitud=id_solicitud)
+
     Prestamo = prestamo.objects.create(id_solicitud=Solicitud,fecha_expedicion=fecha_convert,fecha_expiracion=fecha_fin,dias_gracia=dias_gracia,
-                                      clasificacion=clasificacion,estado=estado,valor_cuota=valor_cuota,cuota=cuota,
-                                       tasa=tasa,monto=monto,porciento_mora=porciento_mora)
+                                      clasificacion=clasificacion,estado=estado,valor_cuota=valor_cuota,cuota=cuota,tasa=tasa,
+                                       monto=monto,porciento_mora=porciento_mora,balance_actual=monto_actual,balance_capital=monto,
+                                       balance_interes= monto_interes)
     Solicitud.estado = 'Procesada'
     Solicitud.save()
     if opcion == 'nv':
@@ -106,6 +115,8 @@ def edicionPrestamo(request,id_prestamo):
     fecha_exped = datetime.strptime(fecha, '%m/%d/%Y')
     fecha_convert = fecha_exped.strftime('%Y-%m-%d')
     fecha_fin = request.POST['fecha_fin']
+    monto_interes = float(monto)*(float(tasa)/100)*float(cuota)
+    monto_actual = float(monto) + monto_interes
 
     Prestamo = prestamo.objects.get(id_prestamo=id_prestamo)
     Prestamo.monto = monto
@@ -116,6 +127,9 @@ def edicionPrestamo(request,id_prestamo):
     Prestamo.valor_cuota = valor_cuota
     Prestamo.fecha_expedicion = fecha_convert
     Prestamo.fecha_expiracion = fecha_fin
+    Prestamo.balance_capital = monto
+    Prestamo.balance_interes = monto_interes
+    Prestamo.balance_actual = monto_actual
     Prestamo.save()
 
     tipo = Prestamo.clasificacion

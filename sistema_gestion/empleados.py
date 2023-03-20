@@ -17,7 +17,7 @@ def crear_empleado(request):
          'Empleado': Empleado,
          'opcion': 'Em'
     }
-    return render(request, "paginas/registrarEmpleado.html", context)
+    return render(request, "paginas/registrarEmpleados.html", context)
 
 def registroEmpleados(request,salida):
     Cedula = registroPersona(request,salida)

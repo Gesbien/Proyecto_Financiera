@@ -1,6 +1,8 @@
 from django.urls import path
 from django.contrib import admin
-from . import views, solicitud, prestamo, garantia, personas, desembolso, empleados
+
+import sistema_gestion.cobros
+from . import views, solicitud, prestamo, garantia, personas, desembolso, empleados, cobros, notas_prestamo
 
 
 urlpatterns = [
@@ -36,11 +38,21 @@ urlpatterns = [
     path('desembolso/registro/<id_prestamo>',desembolso.registroDesembolso, name='registro_desembolso'),
     path('desembolso/anular/<id_desembolso>',desembolso.eliminacionDesembolso, name='eliminacionDesembolso'),
     path('empleados', empleados.inicio_empleados, name='inicio_empleado'),
-    path('empleados/registrar', empleados.crear_empleado(),name='crear_empleado'),
-    path('empleado/registro/',empleados.registroEmpleados,name='registro_empleado'),
+    path('empleados/registrar', empleados.crear_empleado,name='crear_empleado'),
     path('empleado/registro/<salida>', empleados.registroEmpleados, name='registro_empleado'),
     path('empleado/editar/<id_empleado>', empleados.editarEmpleado, name='edicionEmpleado'),
     path('empleado/edicion/<id_empleado>', empleados.editarEmpleado, name='edicionEmpleado'),
     path('empleado/anular/<id_empleado>',empleados.anulacionEmpleado, name='anulacionEmpleado'),
+    path('cobros/',cobros.inicio_cobros, name='inicio_cobro'),
+    path('cobros/registrar/<id_prestamo>', cobros.crear_cobro, name='registrar_cobro'),
+    path('cobros/registro/<id_cobro>', cobros.registro_cobros, name='registro_cobro'),
+    path('cobros/editar/<id_cobro>', cobros.editar_cobro, name='editar_cobro'),
+    path('cobros/edicion/<id_cobro>', cobros.edicion_cobros, name='edicion_cobro'),
+    path('cobros/postear/<id_cobro>',cobros.postear_cobros, name='postear_cobro'),
+    path('cobros/anular/<id_cobro>', cobros.anulacion_cobros, name='anulacion_cobros'),
+    path('notas', notas_prestamo.inicio_notas, name='inicio_notas'),
+    path('notas/registrar/<id_prestamo>', notas_prestamo.crear_notas, name='registrar_notas'),
+    path('notas/registro/<id_nota>', notas_prestamo.registro_notas, name='registro_notas'),
+    path('notas/anular/<id_nota>', notas_prestamo.anulacion_notas, name='anular_notas'),
 
 ]
