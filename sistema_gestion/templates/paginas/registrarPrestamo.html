@@ -53,7 +53,7 @@
                     <h3>Informacion Personal</h3>
                     <form action="/prestamo/registro/{{ opcion }}/{{ solicitud.id_solicitud }}" method="POST"> {% csrf_token %}
                         <div class="form-row">
-                            <div class="col-ms-auto col-md-1">
+                            <div class="col-ms-auto col-md-2">
                                 <label for="txt_cedula" class="col-form-label col-sm-0">Cédula:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
@@ -61,13 +61,13 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="col-ms-auto col-md-1">
+                            <div class="col-ms-auto col-md-2">
                                 <label for="txt_nombres" class="col-form-label col-sm-0">Nombre/s:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
                                     <input type="text" class="form-control" id="txt_nombres" disabled="disabled" name="txt_nombre/s" value="{{ solicitud.cedula.nombres }}"   placeholder="Nombre/s" >
                             </div>
-                            <div class="col-ms-auto col-md-1">
+                            <div class="col-ms-auto col-md-2">
                                 <label for="txt_apellidos" class="col-form-label col-sm-0">Apellido/s:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
@@ -76,22 +76,22 @@
                         </div>
 
                        <div class="form-row">
-                             <div class="col-ms-auto col-md-1">
+                             <div class="col-ms-auto col-md-2">
                                  <label for="txt_direccion" class="col-form-label col-sm-0">Dirección:</label>
                             </div>
-                            <div class="form-group col-ms-auto col-md-9">
+                            <div class="form-group col-ms-auto col-md-10">
                                     <input type="text" class="form-control" id="txt_direccion" disabled="disabled"  name="txt_direccion" value="{{ solicitud.cedula.direccion }}"  placeholder="Dirección" >
                             </div>
                        </div>
 
                         <div class="form-row">
-                            <div class="col-ms-auto col-md-1">
+                            <div class="col-ms-auto col-md-2">
                                 <label for="txt_celular" class="col-form-label col-sm-0">Celular:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
                                     <input type="text" class="form-control" id="txt_celular" disabled="disabled" name="txt_celular" value="{{ solicitud.cedula.celular }}"  placeholder="Celular" >
                             </div>
-                            <div class="col-ms-auto col-md-1">
+                            <div class="col-ms-auto col-md-2">
                                 <label for="txt_telefono" class="col-form-label col-sm-0">Teléfono:</label>
                             </div>
 
@@ -104,13 +104,13 @@
                         <hr class="my-3">
                         <h3>Informacion de Préstamo</h3>
                         <div class="form-row">
-                            <div class="col-ms-auto col-md-1">
+                            <div class="col-ms-auto col-md-2">
                                 <label for="txt_monto" class="col-form-label col-sm-0">Monto:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
                                     <input step="any" type="number" class="form-control" id="txt_monto" name="txt_monto" value="{{ solicitud.monto }}"  placeholder="Monto" >
                             </div>
-                            <div class="col-ms-auto col-md-1">
+                            <div class="col-ms-auto col-md-2">
                                 <label for="txt_tasa" class="col-form-label col-sm-0">Tasa:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
@@ -118,13 +118,13 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="col-ms-auto col-md-1">
+                            <div class="col-ms-auto col-md-2">
                                 <label for="txt_cuota" class="col-form-label col-sm-0">No. Cuota:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
                                     <input step="any" type="number" class="form-control" id="txt_cuota" name="txt_cuota" value=""  placeholder="Cuota" >
                             </div>
-                            <div class="col-ms-auto col-md-1">
+                            <div class="col-ms-auto col-md-2">
                                 <label for="txt_apellidos" class="col-form-label col-sm-0">Clasificación:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
@@ -136,7 +136,7 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="col-ms-auto col-md-1">
+                            <div class="col-ms-auto col-md-2">
                                 <label for="txt_valor_cuota" class="col-form-label col-sm-0">Valor Cuota</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
@@ -144,13 +144,13 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="col-ms-auto col-md-1">
+                            <div class="col-ms-auto col-md-2">
                                 <label for="txt_%_de_mora" class="col-form-label col-sm-0">% de Mora:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
                                     <input type="text" class="form-control" id="txt_%_de_mora" name="txt_%_de_mora" value=""  placeholder="% de Mora" required>
                             </div>
-                            <div class="col-ms-auto col-md-1">
+                            <div class="col-ms-auto col-md-2">
                                 <label for="txt_dias_de_gracia" class="col-form-label col-sm-0">Días de Gracia:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
@@ -159,7 +159,7 @@
                         </div>
 
                         <div class="form-row">
-                            <div class="col-ms-auto col-md-1">
+                            <div class="col-ms-auto col-md-2">
                                 <label for="datepicker-month_inicio" class="col-form-label col-sm-0">Fecha Inicio:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
@@ -170,7 +170,7 @@
                                         <input class="form-control datepicker" id="datepicker-monthi" name="datepicker-month_inicio" placeholder="Selecciona Fecha" onkeydown="addMonths(event)" type="text" value="" required>
                                     </div>
                             </div>
-                            <div class="col-ms-auto col-md-1">
+                            <div class="col-ms-auto col-md-2">
                                 <label for="fecha_fin" class="col-form-label col-sm-0">Fecha Fin:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
@@ -197,7 +197,7 @@
                              <div class="col-ms-auto col-md-2">
                                 <label for="roleSel" class="col-form-label col-sm-0" >Tipo:</label>
                             </div>
-                            <div class="col-ms-auto col-md-2">
+                            <div class="col-ms-auto col-md-4">
                                    <select id="roleSel" class="form-control" tabindex="50" name="roleSel">
                                        <option value="Vehiculo">Vehiculo</option>
                                        <option value="Garante">Garante</option>
@@ -332,24 +332,24 @@
                             <hr class="my-3">
                             <h3>Garante</h3>
                             <div class="form-row">
-                                <div class="col-ms-auto col-md-1">
+                                <div class="col-ms-auto col-md-2">
                                     <label for="txt_cedula" class="col-form-label col-sm-0">Cedula:</label>
                                 </div>
 
-                                <div class="col-ms-auto col-md-3">
+                                <div class="col-ms-auto col-md-4">
                                   <div class="form-group">
                                     <input type="number"  id="txt_cedula" name="txt_cedula"  class="form-control" placeholder="Cedula" >
                                   </div>
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="col-ms-auto col-md-1">
+                                <div class="col-ms-auto col-md-2">
                                     <label for="txt_nombres" class="col-form-label col-sm-0">Nombres:</label>
                                 </div>
                                 <div class="form-group col-ms-auto col-md-4">
                                         <input type="text" id="txt_nombres" name="txt_nombres"   class="form-control" placeholder="Nombres" >
                                 </div>
-                                <div class="col-ms-auto col-md-1">
+                                <div class="col-ms-auto col-md-2">
                                     <label for="txt_apellidos" class="col-form-label col-sm-0">Apellidos:</label>
                                 </div>
                                 <div class="form-group col-ms-auto col-md-4">
@@ -358,22 +358,22 @@
                             </div>
 
                            <div class="form-row">
-                                 <div class="col-ms-auto col-md-1">
+                                 <div class="col-ms-auto col-md-2">
                                      <label for="txt_direccion" class="col-form-label col-sm-0">Direccion:</label>
                                 </div>
-                                <div class="form-group col-ms-auto col-md-9">
+                                <div class="form-group col-ms-auto col-md-10">
                                         <input type="text" id="txt_direccion"  name="txt_direccion" class="form-control" placeholder="Direccion" >
                                 </div>
                            </div>
 
                             <div class="form-row">
-                                <div class="col-ms-auto col-md-1">
+                                <div class="col-ms-auto col-md-2">
                                     <label for="txtcelular" class="col-form-label col-sm-0">Celular:</label>
                                 </div>
                                 <div class="form-group col-ms-auto col-md-4">
                                         <input type="text" id="txt_celular" name="txt_celular" class="form-control" placeholder="Celular" >
                                 </div>
-                                <div class="col-ms-auto col-md-1">
+                                <div class="col-ms-auto col-md-2">
                                     <label for="txtTelefono" class="col-form-label col-sm-0">Telefono:</label>
                                 </div>
 
@@ -383,7 +383,7 @@
                             </div>
                             <h3>Informacion Laboral</h3>
                             <div class="form-row">
-                                <div class="col-ms-auto col-md-1">
+                                <div class="col-ms-auto col-md-2">
                                     <label for="txt_nombre" class="col-form-label col-sm-0">Nombres:</label>
                                 </div>
                                 <div class="form-group col-ms-auto col-md-4">
@@ -391,16 +391,16 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="col-ms-auto col-md-1">
+                                <div class="col-ms-auto col-md-2">
                                     <label for="txt_direccion" class="col-form-label col-sm-0">Direccion:</label>
                                 </div>
-                                <div class="form-group col-ms-auto col-md-9">
+                                <div class="form-group col-ms-auto col-md-10">
                                         <input type="text"  id="txt_trabj_direccion" name="txt_trabj_direccion" class="form-control" placeholder="Direccion" >
                                 </div>
                             </div>
 
                             <div class="form-row">
-                                <div class="col-ms-auto col-md-1">
+                                <div class="col-ms-auto col-md-2">
                                     <label for="txtTelefono" class="col-form-label col-sm-0">Telefono:</label>
                                 </div>
                                 <div class="form-group col-ms-auto col-md-4">
@@ -409,7 +409,7 @@
                             </div>
 
                             <div class="form-row">
-                                <div class="col-ms-auto col-md-1">
+                                <div class="col-ms-auto col-md-2">
                                     <label for="txt_trabj_sueldo" class="col-form-label col-sm-0">Ganancias:</label>
                                 </div>
                                 <div class="form-group col-ms-auto col-md-4">
