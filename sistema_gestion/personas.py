@@ -51,6 +51,15 @@ def registroPersona(request,opcion):
             registroInformacion(request,Persona)
             return Persona
 
+        elif opcion == 'Empleado':
+            tipo = 'Empleado'
+            Persona = persona.objects.create(cedula=cedula, nombres=nombres,
+                                             apellidos=apellidos,
+                                             direccion=direccion, telefono=telefono, celular=celular, tipo=tipo,
+                                             estado=estado)
+
+            return Persona
+
         else:
             tipo = 'Cliente'
             Persona = persona.objects.create(cedula=cedula, nombres=nombres,
@@ -98,9 +107,8 @@ def edicionPersona(request,salida):
     Persona.celular = celular
     Persona.save()
 
-    edicionInforme(request,Persona)
-
     if salida == 'cl':
+        edicionInforme(request,Persona)
         return redirect('/cliente')
 
 def edicionInforme(request,cedula):

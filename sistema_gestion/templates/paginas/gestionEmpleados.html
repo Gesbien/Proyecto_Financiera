@@ -64,12 +64,10 @@
                                 <td>{{ e.usuario }}</td>
                                 <td>{{ e.password }}</td>
                                 <td>{{ e.estado}}</td>
-                                <td><a href="/empleados/editar/{{ e.cedula }}" class ="btn btn-info" data-toggle="tooltip" data-placement="top" title="Editar">
+                                <td><a href="/empleados/editar/{{ e.id }}" class ="btn btn-info" data-toggle="tooltip" data-placement="top" title="Editar">
                                     <i class="fa-solid fa-file-pen"></i></a>
-                                <a href="/empleados/procesar/{{ e.cedula }}" class ="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Procesar">
-                                    <i class="fa-solid fa-file-circle-question"></i>
-                                    </a></td>
-                                <td><a href="/empleados/anular/{{ e.cedula }}" class ="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Anular">
+                                </td>
+                                <td><a href="/empleados/anular/{{ e.id }}" class ="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Anular">
                                     <i class="fa-solid fa-xmark"></i></a></td>
                             </tr>
                         {% endfor %}
