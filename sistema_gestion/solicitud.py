@@ -110,7 +110,7 @@ def proceso(request,id_solicitud,eleccion):
     return redirect('/solicitud')
 
 
-def my_view(request):
+def my_view(request ):
     solicitudes = solicitud.objects.exclude(estado='Aceptada').exclude(estado='Anulado')
     response = HttpResponse(content_type='solicitud/pdf')
     response['Content-Disposition'] = 'attachment; filename="Solicitudes.pdf"'
