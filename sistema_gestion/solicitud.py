@@ -2,6 +2,8 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from reportlab.pdfgen import canvas
+from django.template.loader import get_template
+from django.template import Context
 
 from .models import solicitud, persona, informacion_trabajo
 from .personas import registroPersona,edicionPersona
@@ -112,6 +114,9 @@ def my_view(request):
     solicitudes = solicitud.objects.exclude(estado='Aceptada').exclude(estado='Anulado')
     response = HttpResponse(content_type='solicitud/pdf')
     response['Content-Disposition'] = 'attachment; filename="Solicitudes.pdf"'
+    context = {'my_data': solicitudes}
+    template = get_template('Reportes/ReporteSolicitud.html')
+    html = template.render(context)
     p = canvas.Canvas(response)
     p.drawString(100, 100, str(solicitudes))
     p.showPage()
