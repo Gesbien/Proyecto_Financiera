@@ -2,9 +2,9 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from reportlab.pdfgen import canvas
+from reportlab.pdfgen import canvas
 from django.template.loader import get_template
 from django.template import Context
-
 from .models import solicitud, persona, informacion_trabajo
 from .personas import registroPersona,edicionPersona
 
@@ -111,14 +111,19 @@ def proceso(request,id_solicitud,eleccion):
 
 
 def my_view(request ):
-    solicitudes = solicitud.objects.exclude(estado='Aceptada').exclude(estado='Anulado')
-    response = HttpResponse(content_type='solicitud/pdf')
-    response['Content-Disposition'] = 'attachment; filename="Solicitudes.pdf"'
-    context = {'my_data': solicitudes}
-    template = get_template('Reportes/ReporteSolicitud.html')
-    html = template.render(context)
-    p = canvas.Canvas(response)
-    p.drawString(100, 100, str(solicitudes))
-    p.showPage()
-    p.save()
+    Solicitud = solicitud.objects.exclude(estado='Aceptada').exclude(estado='Anulado')
+    # Inicializa el archivo PDF
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="empleados.pdf"'
+
+    # Crear el documento PDF con ReportLab
+    pdf = canvas.Canvas(response)
+    pdf.drawString(100, 750, "Lista de Empleados")
+    pdf.drawString(100, 700, "-" * 50)
+    y = 650
+    for s in Solicitud:
+        pdf.drawString(100, y, f"{s.id_solicitud} {s.cedula.nombres}")
+        y -= 20
+    pdf.showPage()
+    pdf.save()
     return response
