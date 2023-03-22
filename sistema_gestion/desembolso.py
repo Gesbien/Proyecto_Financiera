@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic import  ListView, CreateView
@@ -8,8 +9,11 @@ from .models import desembolso,prestamo, persona, solicitud
 from .personas import registroPersona
 
 def inicio_desmbolso(request):
-    desmbolso = desembolso.objects.all()
-    context = {'desmbolso': desmbolso}
+    Desembolso = desembolso.objects.all()
+    paginator = Paginator(Desembolso, 10)
+    page = request.GET.get('page')
+    items = paginator.get_page(page)
+    context = {'items': items}
     return render(request, 'paginas/gestionDesembolso.html', context)
 
 def crear_desembolso(request,id_prestamo):
@@ -17,7 +21,7 @@ def crear_desembolso(request,id_prestamo):
     Solicitud = solicitud.objects.get(id_solicitud=Prestamo.id_solicitud.id_solicitud)
     Persona = persona.objects.get(cedula=Solicitud.cedula.cedula)
     if desembolso.objects.last() is not None:
-        Num_desembolso = 1 + desembolso.objects.last().id_prestamo
+        Num_desembolso = 1 + desembolso.objects.last().id_desembolso
     else:
         Num_desembolso = 1
     context = {

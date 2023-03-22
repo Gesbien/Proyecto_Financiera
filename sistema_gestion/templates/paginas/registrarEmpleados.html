@@ -14,7 +14,7 @@
         <div class="header-body">
           <div class="row align-items-center py-3">
             <div class="col-lg-6 col-7">
-              <h6 class="h2 text-white d-inline-block mb-0">Registro de Cliente</h6>
+              <h6 class="h2 text-white d-inline-block mb-0">Registro de Empleado</h6>
             </div>
           </div>
         </div>
@@ -25,8 +25,8 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                        <h5 class="card-title text-uppercase text-muted mb-0">ID Cliente</h5>
-                        <h1 class="card-title text-uppercase text-muted mb-0">{{ cliente }}</h1>
+                        <h5 class="card-title text-uppercase text-muted mb-0">ID Empleado</h5>
+                        <h1 class="card-title text-uppercase text-muted mb-0">{{ Empleado }}</h1>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-gray-dark text-white rounded-circle shadow">
@@ -44,7 +44,7 @@
             <div class="card">
                 <div class="card-body" div.row="" style="background-color: #e9ecef">
                     <h3>Informacion Personal</h3>
-                    <form action="/cliente/registro/{{ opcion }}" method="POST"> {% csrf_token %}
+                    <form action="/empleados/registro/{{ opcion }}" method="POST"> {% csrf_token %}
                         <div class="form-row">
                             <div class="col-ms-auto col-md-1">
                                 <label for="txt_cedula" class="col-form-label col-sm-0">Cedula:</label>

@@ -39,7 +39,7 @@
               <div class="table-responsive">
               <!-- Projects table -->
                   <table class="table align-items-center table-dark" id="datos" name="datos" >
-                    <thead class="thead-light">
+                    <thead class="thead-dark">
                         <tr>
                             <th scope="col">Id Desembolso</th>
                             <th scope="col">Id Prestamo</th>
@@ -52,16 +52,15 @@
                         {% for item in items %}
                             <tr>
                                 <td>{{ item.id_desembolso }}</td>
-                                <td>{{ item.id_prestamo }}</td>
-                                <td>{{ item.monto }}</td>
+                                <td>{{ item.id_prestamo.id_prestamo }}</td>
+                                <td>{{ item.monto_total }}</td>
                                 <td>{{ item.fecha }}</td>
-                                <td><a href="/desembolso/editar/{{ d.id_desembolso }}" class ="btn btn-info">Editar</a></td>
-                                <td><a href="/desembolso/anular/{{ d.id_desembolso }}" class ="btn btn-danger">Anular</a></td>
+                                <td><a href="/desembolso/anular/{{ item.id_desembolso }}" class ="btn btn-danger">Anular</a></td>
                             </tr>
                         {% endfor %}
                     </tbody>
                   </table>
-              <nav aria-label="Paginacion" style="align-self: center">
+              <nav aria-label="Paginacion" style="display: grid; place-content: center">
                         <ul class="pagination">
                             {% if items.has_previous %}
                                 <li class="page-item">

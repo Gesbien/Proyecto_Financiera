@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
@@ -9,10 +10,13 @@ from .personas import registroPersona, edicionPersona
 
 def inicio_prestamo(request):
     prestamos = prestamo.objects.all().exclude(estado='Anulado')
+    paginator = Paginator(prestamos, 10)
+    page = request.GET.get('page')
+    items = paginator.get_page(page)
     solicitudes = solicitud.objects.all().filter(estado='Aceptada')
     context = {
         'solicitudes' : solicitudes,
-        'prestamos': prestamos}
+        'items': items}
     return render(request, 'paginas/gestionPrestamo.html', context)
 
 def crear_prestamo(request,id_solicitud):
