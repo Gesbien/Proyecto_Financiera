@@ -94,3 +94,20 @@ def anulacion_cobros(request, id_cobro):
     Cobro.save()
 
     return redirect('/cobros')
+
+def tabla_amortizacion(id_prestamo):
+    Prestamo = prestamo.objects.get(id_prestamo=id_prestamo)
+    monto = Prestamo.monto
+    tasa = Prestamo.tasa
+    cuota = Prestamo.cuota
+    monto_interes = Prestamo.balance_interes
+    pago_interes = monto_interes / cuota
+    pago_capital = monto / cuota
+    valor_cuota = Prestamo.valor_cuota
+    balance_total = Prestamo.balance_actual
+    i = 0
+
+
+
+
+

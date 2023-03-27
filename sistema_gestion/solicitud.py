@@ -1,12 +1,14 @@
+from io import BytesIO
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from reportlab.pdfgen import canvas
-from reportlab.pdfgen import canvas
 from django.template.loader import get_template
-from django.template import Context
+from django.views import View
+
 from .models import solicitud, persona, informacion_trabajo
 from .personas import registroPersona,edicionPersona
+
+from xhtml2pdf import pisa
 
 def inicio_solicitud(request):
     solicitudes = solicitud.objects.exclude(estado='Aceptada').exclude(estado='Anulado')
@@ -109,21 +111,22 @@ def proceso(request,id_solicitud,eleccion):
 
     return redirect('/solicitud')
 
+def render_to_pdf(template_src,context_dict={}):
+    template = get_template(template_src)
+    html = template.render(context_dict)
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode('ISO-8859-1')),result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(),content_type='application/pdf')
+    return None
 
-def my_view(request ):
-    Solicitud = solicitud.objects.exclude(estado='Aceptada').exclude(estado='Anulado')
-    # Inicializa el archivo PDF
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="empleados.pdf"'
-
-    # Crear el documento PDF con ReportLab
-    pdf = canvas.Canvas(response)
-    pdf.drawString(100, 750, "Lista de Empleados")
-    pdf.drawString(100, 700, "-" * 50)
-    y = 650
-    for s in Solicitud:
-        pdf.drawString(100, y, f"{s.id_solicitud} {s.cedula.nombres}")
-        y -= 20
-    pdf.showPage()
-    pdf.save()
-    return response
+class generar_reporte(View):
+    def get(self,request,*args,**kwargs):
+        solicitudes = solicitud.objects.all()
+        template = 'Reportes/ReporteSolicitud.html'
+        context = {
+            'cant' : solicitudes.count(),
+            'solicitudes'  : solicitudes
+        }
+        pdf = render_to_pdf(template,context)
+        return HttpResponse(pdf,content_type='application/pdf')

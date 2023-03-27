@@ -1,54 +1,28 @@
-<!DOCTYPE html>
-<html>
+
 <head>
-  <title>My PDF Report</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-    h1 {
-      font-size: 18pt;
-      font-weight: bold;
-      margin-top: 0;
-    }
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      margin-bottom: 20px;
-    }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 10px;
-      text-align: center;
-    }
-    th {
-      background-color: #f1f1f1;
-    }
-  </style>
+    <h1>SERVICONFI S.R.L</h1>
+    <h2>Lista de Solicitudes</h2>
+    <h3>Cantidad de Solicitudes : {{ cant }}</h3>
 </head>
 <body>
-  <h1>My PDF Report</h1>
-  <table>
-    <thead>
-      <tr>
-          <th scope="col">Id solicitud</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Apellido</th>
-          <th scope="col">Monto</th>
-          <th scope="col">Estado</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for obj in my_data %}
-      <tr>
-        <td>{{ obj.id_solicitud }}</td>
-        <td>{{ obj.cedula.nombres }}</td>
-        <td>{{ obj.cedula.apellidos }}</td>
-        <td>{{ obj.monto }}</td>
-        <td>{{ obj.estado }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+    <table border="0.5">
+        <thead>
+            <th scope="col">Id solicitud</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Monto</th>
+            <th scope="col">Estado</th>
+        </thead>
+        <tbody>
+            {% for obj in solicitudes %}
+              <tr>
+                <td>{{ obj.id_solicitud }}</td>
+                <td>{{ obj.cedula.nombres }}</td>
+                <td>{{ obj.cedula.apellidos }}</td>
+                <td>{{ obj.monto }}</td>
+                <td>{{ obj.estado }}</td>
+              </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
-</html>

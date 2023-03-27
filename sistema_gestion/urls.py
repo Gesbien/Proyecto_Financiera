@@ -8,7 +8,7 @@ from . import views, solicitud, prestamo, garantia, personas, desembolso, emplea
 urlpatterns = [
     path('', views.inicio, name='inicio'),
     path('solicitud', solicitud.inicio_solicitud, name='inicio_solicitud'),
-    path('solicitud/reporte', solicitud.my_view, name='inicio_solicitud'),
+    path('solicitud/reporte', solicitud.generar_reporte.as_view(), name='reporte_solicitud'),
     path('solicitud/registrar/<personas>', solicitud.crear_solicitud, name='registrarSolicitud'),
     path('solicitud/registro/<opcion>/<id_solicitud>', solicitud.registroSolicitud, name='registroSolicitud'),
     path('solicitud/editar/<id_solicitud>', solicitud.editarSolicitud, name='editarSolicitud'),

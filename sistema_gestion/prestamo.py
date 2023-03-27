@@ -50,7 +50,7 @@ def registroPrestamo(request,opcion,id_solicitud):
     fecha_convert = fecha_exped.strftime('%Y-%m-%d')
     fecha_fin = request.POST['fecha_fin']
     estado = 'Proceso'
-    monto_interes = float(monto) * (float(tasa) / 100) * float(cuota)
+    monto_interes = float(monto) * (float(tasa) / 100) * int(cuota)
     monto_actual = float(monto) + monto_interes
 
     Solicitud = solicitud.objects.get(id_solicitud=id_solicitud)
@@ -104,7 +104,6 @@ def editarPrestamo(request, id_prestamo):
             'prestamo': Prestamo
         }
 
-
     return render(request, "paginas/edicionPrestamo.html",context)
 
 def edicionPrestamo(request,id_prestamo):
@@ -119,7 +118,7 @@ def edicionPrestamo(request,id_prestamo):
     fecha_exped = datetime.strptime(fecha, '%m/%d/%Y')
     fecha_convert = fecha_exped.strftime('%Y-%m-%d')
     fecha_fin = request.POST['fecha_fin']
-    monto_interes = float(monto)*(float(tasa)/100)*float(cuota)
+    monto_interes = float(monto)*(float(tasa)/100)*int(cuota)
     monto_actual = float(monto) + monto_interes
 
     Prestamo = prestamo.objects.get(id_prestamo=id_prestamo)
@@ -151,3 +150,16 @@ def anulacionPrestamo(request, id_prestamo):
     Prestamo.save()
 
     return redirect('/prestamo')
+
+def tabla_amortizacion(request):
+    monto = float(request.POST['txt_monto'])
+    tasa = float(request.POST['txt_tasa'])
+    cuota = int(request.POST['txt_cuota'])
+    monto_interes = float(monto) * (float(tasa) / 100) * float(cuota)
+    monto_total = float(monto) + monto_interes
+
+    i = 0
+
+    while i in range(cuota+1):
+        pago_interes = monto_interes/cuota
+        pago_capital = monto/cuota
