@@ -55,7 +55,9 @@
                                 <td>{{ item.id_prestamo.id_prestamo }}</td>
                                 <td>{{ item.monto_total }}</td>
                                 <td>{{ item.fecha }}</td>
-                                <td><a href="/desembolso/anular/{{ item.id_desembolso }}" class ="btn btn-danger">Anular</a></td>
+                                <td><a href="/desembolso/anular/{{ item.id_desembolso }}" class ="btn btn-danger">Anular</a>
+                                   <a href="/desembolso/editar/{{ item.id_desembolso }}" class ="btn btn-danger">Editar</a>
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>

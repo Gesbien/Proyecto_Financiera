@@ -52,9 +52,9 @@ def registroDesembolso(request,id_prestamo):
     return redirect('/prestamo')
 
 def editarDesembolso(request, id_desembolso):
-    Desmbolso = desembolso.objects.get(id_desembolso=id_desembolso)
+    Desembolso = desembolso.objects.get(id_desembolso=id_desembolso)
     data = {
-        'Desembolso': desembolso
+        'desembolso': Desembolso
     }
     return render(request, "paginas/edicionDesembolso.html", data)
 

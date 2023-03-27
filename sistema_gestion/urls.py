@@ -38,6 +38,7 @@ urlpatterns = [
     path('desembolso',desembolso.inicio_desmbolso,name='inicio_desembolso'),
     path('desembolso/registrar/<id_prestamo>',desembolso.crear_desembolso,name='inicio_desembolso'),
     path('desembolso/registro/<id_prestamo>',desembolso.registroDesembolso, name='registro_desembolso'),
+    path('desembolso/editar/<id_desembolso>', desembolso.editarDesembolso, name='edicionDesembolso'),
     path('desembolso/anular/<id_desembolso>',desembolso.eliminacionDesembolso, name='eliminacionDesembolso'),
     path('empleados', empleados.inicio_empleados, name='inicio_empleado'),
     path('empleados/registrar', empleados.crear_empleado,name='crear_empleado'),
