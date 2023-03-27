@@ -1,4 +1,7 @@
 from datetime import datetime
+from io import BytesIO
+
+from django.template.loader import get_template
 from django.views import View
 
 from django.core.paginator import Paginator
@@ -181,7 +184,7 @@ class generar_reporte(View):
         template = 'Reportes/ReportePrestamo.html'
         context = {
             'cant' : prestamos.count(),
-            'prestamos'  : solicitudes
+            'prestamos'  : prestamos
         }
         pdf = render_to_pdf(template,context)
         return HttpResponse(pdf,content_type='application/pdf')
