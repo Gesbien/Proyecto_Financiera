@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <h1>SERVICONFI S.R.L</h1>
+    <h2>Lista de Prestamo</h2>
+    <h3>Cantidad de Prestamos : {{ cant }}</h3>
+</head>
+<body>
+    <table border="0.5">
+        <thead>
+            <th scope="col">Id Prestamp</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Monto</th>
+            <th scope="col">Tasa</th>
+            <th scope="col">Balance</th>
+            <th scope="col">Estado</th>
+        </thead>
+        <tbody>
+            {% for obj in prestamos %}
+              <tr>
+                  <td>{{ obj.id_prestamo }}</td>
+                  <td>{{ obj.id_solicitud.cedula.nombres }} {{ p.id_solicitud.cedula.apellidos }}</td>
+                  <td>{{ obj.monto }}</td>
+                  <td>{{ obj.tasa }}</td>
+                  <td>{{ obj.balance_actual }}</td>
+                  <td>{{ obj.estado }}</td>
+              </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
