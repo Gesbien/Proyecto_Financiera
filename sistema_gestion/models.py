@@ -117,7 +117,7 @@ class cobro(models.Model):
 class desembolso(models.Model):
     id_desembolso = models.AutoField(primary_key=True)
     id_prestamo = models.ForeignKey(prestamo, null=True, on_delete=models.CASCADE)
-    monto_total = models.FloatField(unique=True)
+    monto_total = models.FloatField()
     codigo_cuenta_cheque = models.CharField(max_length=40)
     fecha= models.DateField(null=True)
     tipo = models.CharField(max_length=40)
