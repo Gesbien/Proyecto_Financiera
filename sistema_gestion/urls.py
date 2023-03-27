@@ -23,6 +23,7 @@ urlpatterns = [
     path('cliente/edicion/<salida>', personas.edicionPersona, name='edicionCliente'),
     path('cliente/anular/<id_persona>',personas.anulacionPersona, name='anulacionCliente'),
     path('prestamo', prestamo.inicio_prestamo, name='inicio_prestamo'),
+    path('prestamo/reporte', prestamo.generar_reporte.as_view(), name='reporte_prestamo'),
     path('prestamo/registrar/<id_solicitud>', prestamo.crear_prestamo, name='registroPrestamo'),
     path('prestamo/registro/<opcion>/<id_solicitud>',prestamo.registroPrestamo,name='registro_prestamo'),
     path('prestamo/editar/<id_prestamo>', prestamo.editarPrestamo, name='editarPrestamo'),

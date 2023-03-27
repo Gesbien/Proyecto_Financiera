@@ -1,4 +1,5 @@
 from datetime import datetime
+from django.views import View
 
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
@@ -7,6 +8,7 @@ from django.http import HttpResponse
 from .models import prestamo, solicitud, prestamo_garantia, garante, informacion_trabajo, automovil, terreno, marca, modelo
 from .garantia import registroGarantia, edicionGarantia
 from .personas import registroPersona, edicionPersona
+from xhtml2pdf import pisa
 
 def inicio_prestamo(request):
     prestamos = prestamo.objects.all().exclude(estado='Anulado')
@@ -163,3 +165,23 @@ def tabla_amortizacion(request):
     while i in range(cuota+1):
         pago_interes = monto_interes/cuota
         pago_capital = monto/cuota
+
+def render_to_pdf(template_src,context_dict={}):
+    template = get_template(template_src)
+    html = template.render(context_dict)
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode('ISO-8859-1')),result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(),content_type='application/pdf')
+    return None
+
+class generar_reporte(View):
+    def get(self,request,*args,**kwargs):
+        prestamos = prestamo.objects.all()
+        template = 'Reportes/ReportePrestamo.html'
+        context = {
+            'cant' : prestamos.count(),
+            'prestamos'  : solicitudes
+        }
+        pdf = render_to_pdf(template,context)
+        return HttpResponse(pdf,content_type='application/pdf')

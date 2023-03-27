@@ -124,12 +124,12 @@
                                 <td>{{ item.tasa }}</td>
                                 <td>{{ item.cuota }}</td>
                                 <td>{{ item.estado }}</td>
-                                <td><a href="/prestamo/editar/{{ p.id_prestamo }}" class ="btn btn-info" data-toggle="tooltip" data-placement="top" title="Editar">
+                                <td><a href="/prestamo/editar/{{ item.id_prestamo }}" class ="btn btn-info" data-toggle="tooltip" data-placement="top" title="Editar">
                                     <i class="fa-solid fa-file-pen"></i></a>
-                                    <a href="/desembolso/registrar/{{ p.id_prestamo }}" class ="btn btn-secondary" id="desembolso" data-toggle="tooltip" data-placement="top" title="Desembolsar">
+                                    <a href="/desembolso/registrar/{{ item.id_prestamo }}" class ="btn btn-secondary" id="desembolso" data-toggle="tooltip" data-placement="top" title="Desembolsar">
                                     <i class="fa-solid fa-file-circle-question"></i>
                                     </a>
-                                    <a href="/prestamo/anular/{{ p.id_prestamo }}" class ="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Anular">
+                                    <a href="/prestamo/anular/{{ item.id_prestamo }}" class ="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Anular">
                                     <i class="fa-solid fa-xmark"></i></a></td>
                                 </td>
                                 </tr>
