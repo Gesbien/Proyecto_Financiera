@@ -1,12 +1,16 @@
+from io import BytesIO
 from datetime import datetime
 
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic import  ListView, CreateView
+from django.template.loader import get_template
+from django.views import View
 
 from .models import desembolso,prestamo, persona, solicitud
 from .personas import registroPersona
+from xhtml2pdf import pisa
 
 def inicio_desmbolso(request):
     Desembolso = desembolso.objects.all()
@@ -94,3 +98,23 @@ def eliminacionDesembolso(request, id_desembolso):
 
 
     return redirect('/desembolso')
+
+def render_to_pdf(template_src,context_dict={}):
+    template = get_template(template_src)
+    html = template.render(context_dict)
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode('ISO-8859-1')),result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(),content_type='application/pdf')
+    return None
+
+class generar_reporte(View):
+    def get(self,request,*args,**kwargs):
+        desembolsos = desembolso.objects.all()
+        template = 'Reportes/ReporteDesembolso.html'
+        context = {
+            'cant' : desembolsos.count(),
+            'desembolsos'  : desembolsos
+        }
+        pdf = render_to_pdf(template,context)
+        return HttpResponse(pdf,content_type='application/pdf')

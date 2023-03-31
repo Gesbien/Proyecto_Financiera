@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <h1>SERVICONFI S.R.L</h1>
+    <h2>Lista de Desembolso</h2>
+    <h3>Cantidad de Desembolsos : {{ cant }}</h3>
+</head>
+<body>
+    <table border="0.5">
+        <thead>
+            <th scope="col">Id Desembolso</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Monto Total</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Concepto</th>
+            <th scope="col">Estado</th>
+        </thead>
+        <tbody>
+            {% for obj in prestamos %}
+              <tr>
+                  <td>{{ obj.id_desembolso }}</td>
+                  <td>{{ obj.id_desembolso.cedula.nombres }} {{ p.id_solicitud.cedula.apellidos }}</td>
+                  <td>{{ obj.monto }}</td>
+                  <td>{{ obj.tipo }}</td>
+                  <td>{{ obj.concepto }}</td>
+                  <td>{{ obj.estado }}</td>
+              </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
