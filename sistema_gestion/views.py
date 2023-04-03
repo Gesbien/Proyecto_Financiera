@@ -6,3 +6,7 @@ from .models import persona
 
 def inicio(request):
      return render(request,'paginas/index.html')
+
+def login(request):
+     return render(request, 'accounts/login.html')
+
