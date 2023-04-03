@@ -51,20 +51,27 @@ def registro_notas(request,id_nota):
     concepto = request.POST['txt_concepto']
     Prestamo = prestamo.objects.get(id_prestamo=id_prestamo)
 
-    if tipo == 'Credito':
-        Prestamo.balance_actual -= float(monto_total)
-        Prestamo.balance_capital -= float(monto_capital)
-        Prestamo.balance_interes -= float(monto_interes)
-    else:
-        Prestamo.balance_actual += float(monto_total)
-        Prestamo.balance_capital += float(monto_capital)
-        Prestamo.balance_interes += float(monto_interes)
-    Prestamo.save()
-
     notas.objects.create(id_nota=id_nota,tipo=tipo,monto_total=monto_total,monto_interes=monto_interes,
                          monto_capital=monto_capital,fecha=fecha_convert,estado=estado,
                          id_prestamo=Prestamo,concepto=concepto)
 
+    return redirect('/notas')
+
+def postear_notas(request,id_nota):
+    Nota = notas.objects.get(id_nota=id_nota)
+    Prestamo = prestamo.objects.get(id_prestamo=Nota.id_prestamo.id_prestamo)
+    Nota.estado = 'Posteada'
+    Nota.save()
+
+    if Nota.tipo == 'Credito':
+        Prestamo.balance_actual -= float(Nota.monto_total)
+        Prestamo.balance_capital -= float(Nota.monto_capital)
+        Prestamo.balance_interes -= float(Nota.monto_interes)
+    else:
+        Prestamo.balance_actual += float(Nota.monto_total)
+        Prestamo.balance_capital += float(Nota.monto_capital)
+        Prestamo.balance_interes += float(Nota.monto_interes)
+    Prestamo.save()
     return redirect('/notas')
 
 def anulacion_notas(request, id_nota):

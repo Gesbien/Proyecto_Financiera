@@ -3,9 +3,7 @@
 {% block title %} Prestamo {% endblock title %}
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}
-    <link href="/static/assets/fontawesome/css/all.css" rel="stylesheet">
-{% endblock stylesheets %}
+{% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
     <!-- Header -->
@@ -26,7 +24,7 @@
                   <div class="row">
                     <div class="col">
                         <h5 class="card-title text-uppercase text-muted mb-0">Id Desembolso</h5>
-                        <h1 class="card-title text-uppercase text-muted mb-0">{{ desembolso.id_desembolso }}</h1>
+                        <h1 class="card-title text-uppercase text-muted mb-0">{{ desembolso }}</h1>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-gray-dark text-white rounded-circle shadow">
@@ -44,46 +42,85 @@
         <div class="col-sm-12 col-md-6 col-lg-8 col-xl-12">
             <div class="card">
                 <div class="card-body" div.row="" style="background-color: #e9ecef">
-                    <h3>Informacion Desembolso</h3>
-                    <form action="/desembolso/editar/{{ desembolso.id_desembolso }}" method="POST"> {% csrf_token %}
+                    <h3>Informacion Cliente</h3>
+                    <form action="/desembolso/edicion/{{ desembolso }}" method="POST"> {% csrf_token %}
                         <div class="form-row">
                             <div class="col-ms-auto col-md-1">
-                                <label for="txt_idPrestamo" class="col-form-label col-sm-0">Prestamo:</label>
+                                <label for="txt_idPersona" class="col-form-label col-sm-0">Prestamos:</label>
                             </div>
 
-                            <div class="col-ms-auto col-md-4">
+                            <div class="col-ms-auto col-md-3">
                               <div class="form-group">
-                                <input type="number" class="form-control" id="txt_idPrestamo" name="txt_idPrestamo" value="{{ desembolso.id_prestamo.id_prestamo }}" class="form-control" placeholder="Id Prestamo" required>
+                                <input type="number" class="form-control" id="txt_idPrestamo" name="txt_idPrestamo" value="{{ desembolso_seleccion.id_prestamo }}" class="form-control" placeholder="Id Prestamo" required>
                               </div>
                             </div>
-                            <div class="col-ms-auto col-md-1">
-                                <label for="txt_idPrestamo" class="col-form-label col-sm-0"></label>
+                            <!-- Button trigger modal -->
+                            <div class="form-group col-ms-auto col-md-3">
+                               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_busqueda">Buscar</button>
                             </div>
-                            <div class="form-group col-ms-auto col-md-4">
-                                   <select id="typeSel" class="form-control" tabindex="50" name="txt_tipo">
-                                       <option value="Efectivo">Efectivo</option>
-                                       <option value="Transferecia">Transferecia</option>
-                                       <option value="Cheque">Cheque</option>
-                                   </select>
+                            <!-- Modal -->
+                            <div class="modal fade" id="modal_busqueda" name="modal_busqueda" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Busqueda de Desembolso</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body" div.row="">
+                                      <div class="row">
+                                        <div class="col-md-10">
+                                          <div class="form-group">
+                                            <div class="input-group mb-4">
+                                              <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
+                                              </div>
+                                              <input id="searchTerm" name="searchTerm" class="form-control" placeholder="Search" type="text" onkeyup="doSearch()">
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                          <div class="table-responsive" >
+                                          <!-- Projects table -->
+                                              <table class="table align-items-center table-flush" id="datos" name="datos" >
+                                                <thead class="thead-light">
+                                                    <tr>
+                                                        <th scope="col">Id Prestamo</th>
+                                                        <th scope="col">Monto</th>
+                                                        <th scope="col">Fecha</th>
+                                                        <th colspan="">Opcion</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for d in desembolsos %}
+                                                        <tr>
+                                                            <td>{{ d.id_prestamo }}</td>
+                                                            <td>{{ d.Monto }}</td>
+                                                            <td>{{ d.Fecha }}</td>
+                                                            <td>{{ d.opcion }}</td>
+                                                            <td><a href="/desembolso/registrar/{{d.id_prestamo}}" class ="btn btn-info">Seleccionar</a></td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                              </table>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-ms-auto col-md-1">
-                                <label for="txt_num" class="col-form-label col-sm-0">Numero:</label>
+                                <label for="txt_idPrestamo" class="col-form-label col-sm-0">Prestamo:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
-                                    <input type="text" class="form-control" id="txt_num" name="txt_num" value="{{desembolso.codigo_cuenta_cheque}}"  class="form-control" placeholder="Numero" required>
-                            </div>
-                            <div class="col-ms-auto col-md-1">
-                                <label for="fecha_inicio" class="col-form-label col-sm-0">Fecha:</label>
-                            </div>
-                            <div class="form-group col-ms-auto col-md-4">
-                                    <div class="input-group date" id="fecha_inicio">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-                                        </div>
-                                        <input class="form-control datepicker" id="datepicker-monthi" name="datepicker-month_inicio" value="{{desembolso.fecha}}" placeholder="Selecciona Fecha" onkeydown="addMonths(event)" type="text" value="" required>
-                                    </div>
+                                    <input type="text" class="form-control" id="txt_idPrestamo" name="txt_idPrestamo" value="{{ desembolso.id_prestamo }}"  class="form-control" placeholder="Id Prestamo" required>
                             </div>
                         </div>
                         <div class="form-row">
@@ -91,7 +128,36 @@
                                 <label for="txt_monto" class="col-form-label col-sm-0">Monto:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
-                                    <input type="text" class="form-control" id="txt_Monto" name="txt_Monto" value="{{ desembolso.monto_total }}"   class="form-control" placeholder="Monto" required>
+                                    <input type="text" class="form-control" id="txt_monto" name="txt_monto" value="{{ desembolso.monto }}"  class="form-control" placeholder="Monto" required>
+                            </div>
+                            <div class="col-ms-auto col-md-1">
+                                <label for="txt_fecha" class="col-form-label col-sm-0">Fecha:</label>
+                            </div>
+                            <div class="form-group col-ms-auto col-md-4">
+                                    <input type="text" class="form-control" id="txt_fecha"  name="txt_fecha" value="{{ desembolso.fecha }}" class="form-control" placeholder="Fecha" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-ms-auto col-md-1">
+                                <label for="txt_num" class="col-form-label col-sm-0">Numero:</label>
+                            </div>
+                            <div class="form-group col-ms-auto col-md-4">
+                                    <input type="text" class="form-control" id="txt_num" name="txt_num" value="{{ desembolso.id_desembolso }}"  class="form-control" placeholder="Numero" required>
+                            </div>
+                            <div class="col-ms-auto col-md-1">
+                                <label for="txt_fecha" class="col-form-label col-sm-0">Fecha:</label>
+                            </div>
+                            <div class="form-group col-ms-auto col-md-4">
+                                    <input type="text" class="form-control" id="txt_fecha" name="txt_fecha" value="{{ desembolso.fecha }}"  class="form-control" placeholder="Fecha" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-ms-auto col-md-1">
+                                <label for="txt_monto" class="col-form-label col-sm-0">Monto:</label>
+                            </div>
+                            <div class="form-group col-ms-auto col-md-4">
+                                    <input type="text" class="form-control" id="txt_Monto" name="txt_idMonto" value="{{ desembolso.monto }}"  class="form-control" placeholder="Monto" required>
                             </div>
                         </div>
                         <div class="form-row">
@@ -99,7 +165,7 @@
                                 <label for="txt_Nombres" class="col-form-label col-sm-0">Orden de:</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
-                                    <input type="text" class="form-control" id="txt_Nombres" name="txt_Nombres" value="{{ desembolso.nombre_cliente }}" disable="disable"  class="form-control" required>
+                                    <input type="text" class="form-control" id="txt_Nombres" name="txt_Nombres" value="{{ desembolso.nombres }}"  class="form-control" required>
                             </div>
                         </div>
                         <div class="form-row">
@@ -107,20 +173,17 @@
                                 <label for="txt_Concepto" class="col-form-label col-sm-0">Concepto :</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
-                                    <input type="text" class="form-control" id="txt_Concepto" name="txt_Concepto" value="{{ desembolso.concepto}}"  class="form-control" placeholder="Concepto" required>
+                                    <input type="text" class="form-control" id="txt_Concepto" name="txt_Concepto" value="{{ desembolso.concepto }}"  class="form-control" placeholder="Concepto" required>
                             </div>
                         </div>
 
+                        <!-- Divider -->
                         <div class="row">
-                            <div align="right" class="col-md-1">
-                                <button type="submit" class="btn btn-success btn-block text-white" data-toggle="tooltip" data-placement="top" title="Guardar" value="Submit">
-                                    <i class="fa-solid fa-floppy-disk"></i>
-                                </button>
+                            <div align="right" class="col-md-2">
+                                <button type="submit" class="btn btn-success btn-block text-white">Editar</button>
                              </div>
-                            <div  align="right" class="col-md-1">
-                                <a href="/prestamo" class ="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Cerrar">
-                                    <i class="fa-solid fa-right-from-bracket"></i>
-                                </a>
+                            <div  align="right" class="col-md-2">
+                                <a href="/desembolso" class ="btn btn-danger">Cerrar</a>
                             </div>
                         </div>
 
@@ -133,8 +196,6 @@
 {% endblock content %}
 
 {% block javascripts %}
-    <script src="/static/assets/js/modal.js"></script>
-    <script src="/static/assets/js/datepicker.js"></script>
-    <script src="/static/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+  <script src="/static/assets/js/modal.js"></script>
 
 {% endblock javascripts %}
