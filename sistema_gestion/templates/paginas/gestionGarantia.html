@@ -64,12 +64,11 @@
                                 </a>
                                 <a href="/garantia/anular/{{ item.id_garantia }}" class ="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Anular">
                                 <i class="fa-solid fa-xmark"></i></a></td>
-                                </a></td>
                             </tr>
                         {% endfor %}
                     </tbody>
                   </table>
-                    <nav aria-label="Paginacion" style="justify-items: center">
+                    <nav aria-label="Paginacion" style="display: grid; place-content: center">
                         <ul class="pagination">
                             {% if items.has_previous %}
                                 <li class="page-item">

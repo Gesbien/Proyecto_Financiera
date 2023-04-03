@@ -1,7 +1,7 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
-from .models import prestamo, cobro
+from .models import prestamo, cobro, tabla_amortizacion
 
 def inicio_cobros(request):
     Cobros = cobro.objects.all()
@@ -13,6 +13,30 @@ def inicio_cobros(request):
                'prestamos' : Prestamos}
     return render(request, 'paginas/gestionCobro.html', context)
 
+def actualizar_prestamo(fecha_hoy,Prestamo):
+    mora = 0
+    tabla = tabla_amortizacion.objects.all().filter(id_prestamo=Prestamo.id_prestamo)
+    for item in tabla:
+        cont = 0
+        fecha_limite = item.fecha + timedelta(days=Prestamo.dias_gracia)
+        if Prestamo.balance_actual <= item.balance_actual:
+            item.estado = 'Pagado'
+            item.save()
+        elif fecha_limite < datetime.strptime('2023-04-23','%Y-%m-%d').date():
+            cont += 1
+            item.estado = 'Atrasado'
+            item.save()
+            mora = item.cuota * (Prestamo.porciento_mora/100)
+        else:
+            cont += 1
+            item.estado = 'Activo'
+            item.save()
+
+    Prestamo.cuota_faltantes = cont
+    Prestamo.save()
+
+    return mora
+
 def crear_cobro(request,id_prestamo):
     if cobro.objects.last() is not None:
         Num_cobro = 1 + cobro.objects.last().id_cobro
@@ -20,13 +44,23 @@ def crear_cobro(request,id_prestamo):
         Num_cobro = 1
 
     Prestamo = prestamo.objects.get(id_prestamo=id_prestamo)
-    monto_interes = Prestamo.balance_interes/Prestamo.cuota
-    monto_capital = Prestamo.balance_capital/Prestamo.cuota
+    tabla_amortizada = tabla_amortizacion.objects.all().filter(id_prestamo=id_prestamo)
+    fecha_hoy = datetime.today()
+    fecha = fecha_hoy.strftime('%Y-%m-%d')
+    mora = actualizar_prestamo(fecha,Prestamo)
+    fecha_convert = fecha_hoy.strftime('%m/%d/%Y')
+    monto_total = (Prestamo.balance_actual/Prestamo.cuota_faltantes) + mora
+    monto_interes = Prestamo.balance_interes / Prestamo.cuota_faltantes
+    monto_capital = monto_total - monto_interes
     context = {
         'num_cobro': Num_cobro,
         'prestamo': Prestamo,
         'interes' : monto_interes,
-        'capital' : monto_capital
+        'capital' : monto_capital,
+        'tabla'   : tabla_amortizada,
+        'fecha'   : fecha_convert,
+        'mora'    : mora,
+        'monto_tot' : monto_total
     }
 
     return render(request, "paginas/registrarCobro.html", context)
@@ -36,6 +70,7 @@ def registro_cobros(request,id_cobro):
     monto_total = request.POST['txt_monto_total']
     monto_interes = request.POST['txt_monto_interes']
     monto_capital = request.POST['txt_monto_capital']
+    monto_mora  = request.POST['txt_mora']
     concepto = request.POST['txt_concepto']
     fecha = request.POST['txt_fecha']
     fecha_exped = datetime.strptime(fecha, '%m/%d/%Y')
@@ -45,14 +80,16 @@ def registro_cobros(request,id_cobro):
 
     cobro.objects.create(id_cobro=id_cobro,monto_total=monto_total,monto_interes=monto_interes,
                          monto_capital=monto_capital,concepto=concepto,fecha=fecha_convert,
-                         id_prestamo=Prestamo, estado=estado)
+                         id_prestamo=Prestamo,monto_mora=monto_mora, estado=estado)
 
     return redirect('/cobros')
 
 def editar_cobro(request,id_cobro):
     Cobro = cobro.objects.get(id_cobro=id_cobro)
+    tabla_amortizada = tabla_amortizacion.objects.all().filter(id_prestamo=Cobro.id_prestamo.id_prestamo)
     context = {
         'cobro': Cobro,
+        'tabla': tabla_amortizada
     }
     return render(request, "paginas/edicionCobro.html", context)
 
@@ -60,6 +97,7 @@ def edicion_cobros(request,id_cobro):
     monto_total = request.POST['txt_monto_total']
     monto_interes = request.POST['txt_monto_interes']
     monto_capital = request.POST['txt_monto_capital']
+    monto_mora  = request.POST['txt_mora']
     concepto = request.POST['txt_concepto']
     fecha = request.POST['txt_fecha']
     fecha_exped = datetime.strptime(fecha, '%m/%d/%Y')
@@ -69,6 +107,7 @@ def edicion_cobros(request,id_cobro):
     Cobro.monto_total = monto_total
     Cobro.monto_interes = monto_interes
     Cobro.monto_capital = monto_capital
+    Cobro.monto_mora = monto_mora
     Cobro.concepto = concepto
     Cobro.fecha = fecha_convert
     Cobro.save()
@@ -80,11 +119,17 @@ def postear_cobros(request,id_cobro):
     Cobro.estado = 'Posteado'
     Cobro.save()
     Prestamo = prestamo.objects.get(id_prestamo=Cobro.id_prestamo.id_prestamo)
-
-    Prestamo.balance_actual -= Cobro.monto_total
+    tabla = tabla_amortizacion.objects.all().filter(id_prestamo=Prestamo).exclude(estado='Pagado')
+    Prestamo.balance_actual -= (Cobro.monto_total - Cobro.monto_mora)
     Prestamo.balance_capital -= Cobro.monto_capital
     Prestamo.balance_interes -= Cobro.monto_interes
+    Prestamo.balance_mora += Cobro.monto_mora
     Prestamo.save()
+
+    for item in tabla:
+        if Prestamo.balance_actual <= item.balance_actual:
+            item.estado = 'Pagado'
+            item.save()
 
     return redirect('/cobros')
 
@@ -94,19 +139,6 @@ def anulacion_cobros(request, id_cobro):
     Cobro.save()
 
     return redirect('/cobros')
-
-def tabla_amortizacion(id_prestamo):
-    Prestamo = prestamo.objects.get(id_prestamo=id_prestamo)
-    monto = Prestamo.monto
-    tasa = Prestamo.tasa
-    cuota = Prestamo.cuota
-    monto_interes = Prestamo.balance_interes
-    pago_interes = monto_interes / cuota
-    pago_capital = monto / cuota
-    valor_cuota = Prestamo.valor_cuota
-    balance_total = Prestamo.balance_actual
-    i = 0
-
 
 
 

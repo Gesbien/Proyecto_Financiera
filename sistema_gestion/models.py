@@ -51,9 +51,11 @@ class prestamo(models.Model):
     monto = models.FloatField()
     tasa = models.FloatField()
     cuota = models.IntegerField()
+    cuota_faltantes = models.IntegerField(null=True)
     valor_cuota = models.FloatField(null=True)
     estado = models.CharField(max_length=30)
     clasificacion = models.CharField(max_length=30)
+    tipo_saldo = models.CharField(max_length=30,null=True)
     porciento_mora = models.FloatField()
     dias_gracia = models.IntegerField()
     fecha_expedicion = models.DateField(null=True)
@@ -61,6 +63,7 @@ class prestamo(models.Model):
     balance_actual = models.FloatField(default=0)
     balance_capital = models.FloatField(default=0)
     balance_interes = models.FloatField(default=0)
+    balance_mora = models.FloatField(default=0)
 
 
     def __str__(self):
@@ -110,6 +113,7 @@ class cobro(models.Model):
     monto_total = models.FloatField()
     monto_interes = models.FloatField()
     monto_capital = models.FloatField()
+    monto_mora = models.FloatField(default=0)
     estado = models.CharField(max_length=40)
     concepto = models.CharField(max_length=150, null=True)
 
@@ -123,7 +127,7 @@ class desembolso(models.Model):
     tipo = models.CharField(max_length=40)
     estado = models.CharField(max_length=40)
     nombre_cliente = models.CharField(max_length=30, null=True)
-
+    concepto = models.CharField(max_length=150, null=True)
 
 class notas(models.Model):
     id_nota = models.AutoField(primary_key=True)
@@ -144,3 +148,15 @@ class modelo(models.Model):
     id_modelo = models.AutoField(primary_key=True)
     nombre_marca = models.CharField(max_length=155)
     nombre_modelo = models.CharField(max_length=255)
+
+class tabla_amortizacion(models.Model):
+    id_cuota = models.AutoField(primary_key=True)
+    id_prestamo = models.ForeignKey(prestamo, null=True, on_delete=models.CASCADE)
+    fecha = models.DateField()
+    cuota = models.FloatField()
+    balance_actual = models.FloatField()
+    balance_interes = models.FloatField()
+    balance_capital = models.FloatField()
+    estado = models.CharField(max_length=50,null=True)
+
+
