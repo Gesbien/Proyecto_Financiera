@@ -30,7 +30,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
                   </div>
-                  <input id="searchTerm" name="searchTerm" class="form-control" placeholder="Search" type="text" onkeyup="doSearch()">
+                  <input id="searchTerm" name="searchTerm" class="form-control" placeholder="Search" type="text" onkeyup=doSearch("datos","searchTerm")>
                 </div>
               </div>
             </div>
@@ -74,7 +74,7 @@
                                               <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
                                               </div>
-                                              <input id="searchTerm" name="searchTerm" class="form-control" placeholder="Search" type="text" onkeyup="doSearch()">
+                                              <input id="search_Modal" name="search_Modal" class="form-control" placeholder="Search" type="text" onkeyup=doSearch("tabla_busqueda","search_Modal")>
                                             </div>
                                           </div>
                                         </div>
@@ -82,7 +82,7 @@
                                       <div class="row">
                                           <div class="table-responsive" >
                                           <!-- Projects table -->
-                                              <table class="table align-items-center table-flush" id="datos" name="datos" >
+                                              <table class="table align-items-center table-flush" id="tabla_busqueda" name="tabla_busqueda" >
                                                 <thead class="thead-light">
                                                     <tr>
                                                         <th scope="col">Id Prestamo</th>

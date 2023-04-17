@@ -22,7 +22,7 @@ def actualizar_prestamo(fecha_hoy,Prestamo):
         if Prestamo.balance_actual <= item.balance_actual:
             item.estado = 'Pagado'
             item.save()
-        elif fecha_limite < datetime.strptime('2023-04-23','%Y-%m-%d').date():
+        elif fecha_limite < datetime.strptime('2023-05-23','%Y-%m-%d').date():
             cont += 1
             item.estado = 'Atrasado'
             item.save()
@@ -35,7 +35,7 @@ def actualizar_prestamo(fecha_hoy,Prestamo):
     Prestamo.cuota_faltantes = cont
     Prestamo.save()
 
-    return mora
+    return round(mora,2)
 
 def crear_cobro(request,id_prestamo):
     if cobro.objects.last() is not None:

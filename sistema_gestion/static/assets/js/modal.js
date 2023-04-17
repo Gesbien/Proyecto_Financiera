@@ -1,6 +1,6 @@
-function doSearch(){
-    const tableReg = document.getElementById('datos');
-    const searchText = document.getElementById('searchTerm').value.toLowerCase();
+function doSearch(datos,searchTerm){
+    const tableReg = document.getElementById(datos);
+    const searchText = document.getElementById(searchTerm).value.toLowerCase();
 
     // Recorremos todas las filas con contenido de la tabla
     for (let i = 1; i < tableReg.rows.length; i++) {

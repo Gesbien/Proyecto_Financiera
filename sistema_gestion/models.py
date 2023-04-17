@@ -158,5 +158,3 @@ class tabla_amortizacion(models.Model):
     balance_interes = models.FloatField()
     balance_capital = models.FloatField()
     estado = models.CharField(max_length=50,null=True)
-
-
