@@ -41,12 +41,13 @@ def crear_prestamo(request,id_solicitud):
     }
     return render(request, "paginas/registrarPrestamo.html", context)
 
-def registroPrestamo(request,opcion,id_solicitud):
+def registroPrestamo(request,opcion,id_solicitud,num):
     salida = 'Prestamo'
     monto = float(request.POST['txt_monto'])
     tasa = float(request.POST['txt_tasa'])
     cuota = int(request.POST['txt_cuota'])
     clasificacion = request.POST.get('typeSel')
+    tipo_saldo = request.POST.get('typeSaldo')
     porciento_mora = request.POST['txt_%_de_mora']
     dias_gracia = request.POST['txt_dias_de_gracia']
     valor_cuota = request.POST['txt_valor_cuota']
@@ -61,12 +62,12 @@ def registroPrestamo(request,opcion,id_solicitud):
 
     Solicitud = solicitud.objects.get(id_solicitud=id_solicitud)
 
-    Prestamo = prestamo.objects.create(id_solicitud=Solicitud,fecha_expedicion=fecha_convert,fecha_expiracion=fecha_fin,dias_gracia=dias_gracia,
+    Prestamo = prestamo.objects.create(id_prestamo=num,id_solicitud=Solicitud,fecha_expedicion=fecha_convert,fecha_expiracion=fecha_fin,dias_gracia=dias_gracia,
                                       clasificacion=clasificacion,estado=estado,valor_cuota=valor_cuota,cuota=cuota,tasa=tasa,
                                        monto=monto,porciento_mora=porciento_mora,balance_actual=monto_actual,balance_capital=monto,
-                                       balance_interes= monto_interes,cuota_faltantes= cuota)
+                                       balance_interes= monto_interes,cuota_faltantes= cuota,tipo_saldo=tipo_saldo)
 
-    generar_tabla_amortizacion(Prestamo,monto,tasa/100,cuota,fecha_tasa)
+    generar_tabla_amortizacion(Prestamo.id_prestamo,fecha_tasa)
 
     Solicitud.estado = 'Procesada'
     Solicitud.save()
@@ -129,6 +130,8 @@ def edicionPrestamo(request,id_prestamo):
     fecha_fin = request.POST['fecha_fin']
     monto_interes = float(monto)*(float(tasa)/100)*int(cuota)
     monto_actual = float(monto) + monto_interes
+    tipo_saldo = request.POST.get('typeSaldo')
+
 
     Prestamo = prestamo.objects.get(id_prestamo=id_prestamo)
     Prestamo.monto = monto
@@ -143,6 +146,7 @@ def edicionPrestamo(request,id_prestamo):
     Prestamo.balance_capital = monto
     Prestamo.balance_interes = monto_interes
     Prestamo.balance_actual = monto_actual
+    Prestamo.tipo_saldo = tipo_saldo
     Prestamo.save()
 
     tipo = Prestamo.clasificacion
@@ -161,37 +165,53 @@ def anulacionPrestamo(request, id_prestamo):
 
     return redirect('/prestamo')
 
-def generar_tabla_amortizacion(id_prestamo,capital, tasa_interes, cuotas,fecha):
-    monto_interes = (capital * tasa_interes * cuotas)
+def generar_tabla_amortizacion(id_prestamo,fecha):
+    Prestamo = prestamo.objects.get(id_prestamo=id_prestamo)
+    if(Prestamo.tipo_saldo == 'Absoluto'):
+        tabla_amortizacion_absoluta(id_prestamo,Prestamo.cuota,fecha)
+    elif(Prestamo.tipo_saldo == 'Insoluto'):
+        tabla_amortizacion_insoluta(id_prestamo,Prestamo.monto,Prestamo.tasa,Prestamo.cuota,fecha)
+
+def tabla_amortizacion_absoluta(id_prestamo,cuotas,fecha):
+    Prestamo = prestamo.objects.get(id_prestamo=id_prestamo)
+    capital = Prestamo.monto
+    tasa_interes = Prestamo.tasa/100
+    monto_interes = round((capital * tasa_interes * cuotas),2)
     # Cálculo de la cuota
-    cuota = (capital + monto_interes) / cuotas
+    if(Prestamo.tipo_saldo == 'Absoluto'):
+        valor_cuota = round((capital + monto_interes) / cuotas,2)
+        balance_total = capital + monto_interes
+    else:
+        valor_cuota = round(monto_interes/cuotas,2)
+        balance_total = round(monto_interes,2)
     estado = 'Activo'
 
     # Inicialización de variables
-    balance_total = capital + monto_interes
     balance_interes = 0
     balance_capital = 0
 
     interes = monto_interes / cuotas
-    capital_cuota = cuota - interes
+    capital_cuota = valor_cuota - interes
 
     # Generación de la tabla de amortización
     for i in range(cuotas):
         # Actualización de los balances
-        balance_total -= cuota
+        balance_total -= valor_cuota
         balance_interes += interes
         balance_capital += capital_cuota
         # Actualización de la fecha para el siguiente período
         fecha += timedelta(days=30)
-        tabla_amortizacion.objects.create(id_prestamo=id_prestamo, fecha=fecha, cuota=cuota,
-                                          balance_actual=balance_total, estado=estado,
-                                          balance_interes=balance_interes, balance_capital=balance_capital)
+        tabla_amortizacion.objects.create(id_prestamo=id_prestamo, fecha=fecha, cuota=round(valor_cuota,2),
+                                          balance_actual=round(balance_total,2), estado=estado,
+                                          balance_interes=round(balance_interes,2), balance_capital=round(balance_capital,2))
 
 
-def tabla_amortizacion_insoluta(capital, tasa_interes, cuotas,fecha):
+def tabla_amortizacion_insoluta(id_prestamo,capital, tasa_interes, cuotas,fecha):
+    Prestamo = prestamo.objects.get(id_prestamo=id_prestamo)
     # Cálculo de la cuota
-    tasa_mensual = tasa_interes
-    cuota = (capital * tasa_mensual) / (1 - (1 + tasa_mensual) ** (-cuotas))
+    tasa_mensual = tasa_interes/100
+    cuota = round((capital * tasa_mensual) / (1 - (1 + tasa_mensual) ** (-cuotas)),2)
+    estado = 'Activo'
 
     # Inicialización de variables
     balance_total = capital
@@ -201,7 +221,7 @@ def tabla_amortizacion_insoluta(capital, tasa_interes, cuotas,fecha):
     # Generación de la tabla de amortización
     for i in range(cuotas):
         # Cálculo del interés y capital de la cuota
-        interes = balance_total * tasa_mensual
+        interes = round(balance_total * tasa_mensual,2)
         capital_cuota = cuota - interes
 
         # Actualización de los balances
@@ -211,6 +231,9 @@ def tabla_amortizacion_insoluta(capital, tasa_interes, cuotas,fecha):
 
         # Actualización de la fecha para el siguiente período
         fecha += timedelta(days=30)
+        tabla_amortizacion.objects.create(id_prestamo=Prestamo, fecha=fecha, cuota=round(cuota,2),
+                                          balance_actual=round(balance_total,2), estado=estado,
+                                          balance_interes=round(balance_interes,2), balance_capital=round(balance_capital,2))
 
 def render_to_pdf(template_src,context_dict={}):
     template = get_template(template_src)

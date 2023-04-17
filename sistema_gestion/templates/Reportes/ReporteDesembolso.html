@@ -16,10 +16,10 @@
             <th scope="col">Estado</th>
         </thead>
         <tbody>
-            {% for obj in prestamos %}
+            {% for obj in desembolsos %}
               <tr>
                   <td>{{ obj.id_desembolso }}</td>
-                  <td>{{ obj.id_desembolso.cedula.nombres }} {{ p.id_solicitud.cedula.apellidos }}</td>
+                  <td>{{ obj.id_desembolso.id_prestamo.id_solicitud.cedula.nombres }} {{obj.id_desembolso.id_prestamo.id_solicitud.cedula.nombres }}</td>
                   <td>{{ obj.monto }}</td>
                   <td>{{ obj.tipo }}</td>
                   <td>{{ obj.concepto }}</td>

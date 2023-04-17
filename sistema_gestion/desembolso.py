@@ -42,6 +42,7 @@ def registroDesembolso(request,id_prestamo):
     fecha = request.POST['datepicker-month_inicio']
     fecha_exped = datetime.strptime(fecha, '%m/%d/%Y')
     fecha_convert = fecha_exped.strftime('%Y-%m-%d')
+    concepto = request.POST['txt_Concepto']
     estado = 'Activo'
     orden_de = request.POST['txt_Nombres']
     tipo = request.POST['txt_tipo']
@@ -51,7 +52,7 @@ def registroDesembolso(request,id_prestamo):
 
 
     Desembolso = desembolso.objects.create( id_prestamo = Prestamo  ,monto_total=monto,estado=estado,codigo_cuenta_cheque=codigo_cuenta_cheque,
-                                            fecha = fecha_convert, nombre_cliente= orden_de, tipo = tipo )
+                                            fecha = fecha_convert, nombre_cliente= orden_de, tipo = tipo, concepto=concepto )
 
     return redirect('/prestamo')
 
@@ -114,7 +115,7 @@ class generar_reporte(View):
         template = 'Reportes/ReporteDesembolso.html'
         context = {
             'cant' : desembolsos.count(),
-            'desembolsos'  : desembolsos
+            'desembolsos' : desembolsos
         }
         pdf = render_to_pdf(template,context)
         return HttpResponse(pdf,content_type='application/pdf')

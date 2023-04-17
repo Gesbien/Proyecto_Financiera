@@ -6,9 +6,9 @@ class persona(models.Model):
     cedula = models.CharField(max_length=15,unique=True)
     nombres = models.CharField(max_length=80)
     apellidos = models.CharField(max_length=80)
-    direccion = models.CharField(max_length=256)
-    telefono = models.CharField(max_length=20)
-    celular = models.CharField(max_length=20)
+    direccion = models.CharField(max_length=256, null=True)
+    telefono = models.CharField(max_length=20,null=True)
+    celular = models.CharField(max_length=20,null=True)
     tipo = models.CharField(max_length=20)
     estado = models.CharField(max_length=20)
 
@@ -18,10 +18,10 @@ class persona(models.Model):
 class informacion_trabajo(models.Model):
     id_info = models.AutoField(primary_key=True)
     cedula = models.ForeignKey(persona, null=True, on_delete=models.CASCADE)
-    nombre = models.CharField(max_length=70)
-    telefono = models.CharField(max_length=20)
-    direccion = models.CharField(max_length=256)
-    sueldo = models.FloatField()
+    nombre = models.CharField(max_length=70,null=True)
+    telefono = models.CharField(max_length=20,null=True)
+    direccion = models.CharField(max_length=256,null=True)
+    sueldo = models.FloatField(null=True)
 
     def __str__(self):
         return str(self.id_info)
@@ -99,8 +99,8 @@ class automovil(models.Model):
     fabricante = models.CharField(max_length=25)
     modelo = models.CharField(max_length=40)
     anio = models.CharField(max_length=5)
-    placa = models.CharField(max_length=11)
-    chasis = models.CharField(max_length=11)
+    placa = models.CharField(max_length=11,null=True)
+    chasis = models.CharField(max_length=11,null=True)
     pasajeros = models.IntegerField(default=2,null=True)
     no_motor = models.CharField(max_length=15,null=True)
     color = models.CharField(max_length=10,null=True)
