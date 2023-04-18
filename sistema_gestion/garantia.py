@@ -1,9 +1,16 @@
 from django.core.paginator import Paginator
+from django.template.loader import get_template
+from django.views import View
+from xhtml2pdf import pisa
+from io import BytesIO
 
-from .models import garantia, terreno, automovil,garante,prestamo, marca, modelo
+
+from .models import garantia, terreno, automovil, marca, modelo
 from django.shortcuts import render, redirect
 from datetime import datetime
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
+
+
 def inicio_garantia(request):
     Garantia = garantia.objects.all().exclude(estado='Anulado')
     paginator = Paginator(Garantia, 10)
@@ -129,6 +136,34 @@ def edicionGarantia(request,salida,id_garantia):
 
     if salida == 'garantia':
         return redirect('/garantia')
+
+def render_to_pdf(template_src,context_dict={}):
+    template = get_template(template_src)
+    html = template.render(context_dict)
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode('ISO-8859-1')),result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(),content_type='application/pdf')
+    return None
+
+class generar_reporte(View):
+    def post(self,request):
+        tipo = request.POST.get('typeSel')
+        if tipo == 'Vehiculo':
+            garantias = automovil.objects.all()
+            template = 'Reportes/ReporteGarantiaVehiculo.html'
+        elif tipo == 'Inmobiliario':
+            garantias = terreno.objects.all()
+            template = 'Reportes/ReporteGarantiaInmobilaria.html'
+        else:
+            garantias = garantia.objects.all().exclude(estado='Anulado')
+            template = 'Reportes/ReporteGarantia.html'
+        context = {
+            'cant' : garantias.count(),
+            'garantias' : garantias
+        }
+        pdf = render_to_pdf(template,context)
+        return HttpResponse(pdf,content_type='application/pdf')
 
 def anulacionGarantia(request, id_garantia):
     Garantia = garantia.objects.get(id_garantia=id_garantia)

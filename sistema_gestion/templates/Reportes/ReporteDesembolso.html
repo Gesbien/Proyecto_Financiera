@@ -13,16 +13,18 @@
             <th scope="col">Monto Total</th>
             <th scope="col">Tipo</th>
             <th scope="col">Concepto</th>
+            <th scope="col">Fecha</th>
             <th scope="col">Estado</th>
         </thead>
         <tbody>
             {% for obj in desembolsos %}
               <tr>
                   <td>{{ obj.id_desembolso }}</td>
-                  <td>{{ obj.id_desembolso.id_prestamo.id_solicitud.cedula.nombres }} {{obj.id_desembolso.id_prestamo.id_solicitud.cedula.nombres }}</td>
-                  <td>{{ obj.monto }}</td>
+                  <td>{{ obj.id_prestamo.id_solicitud.cedula.nombres }} {{obj.id_prestamo.id_solicitud.cedula.nombres }}</td>
+                  <td>{{ obj.monto_total }}</td>
                   <td>{{ obj.tipo }}</td>
                   <td>{{ obj.concepto }}</td>
+                  <td>{{ obj.fecha }}</td>
                   <td>{{ obj.estado }}</td>
               </tr>
             {% endfor %}

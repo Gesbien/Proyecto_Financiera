@@ -8,18 +8,20 @@
 <body>
     <table border="0.5">
         <thead>
-            <th scope="col">Valor</th>
             <th scope="col">Dueño</th>
+            <th scope="col">Valor</th>
             <th scope="col">Metraje</th>
+            <th scope="col">Certificado</th>
             <th scope="col">Direccion</th>
         </thead>
         <tbody>
-            {% for obj in GarantiaInmobilaria %}
+            {% for obj in garantias %}
               <tr>
-                  <td>{{ obj.valor_tasacion }}</td>
-                  <td>{{ obj.nombre_propetario }}</td>
-                  <td>{{ obj.garantia.metraje }}</td>
-                  <td>{{ obj.direccion.modelo }}</td>
+                  <td>{{ obj.id_garantia.nombre_propetario }}</td>
+                  <td>{{ obj.id_garantia.valor_tasacion }}</td>
+                  <td>{{ obj.metraje }}</td>
+                  <td>{{ obj.certificado_titulo }}</td>
+                  <td>{{ obj.direccion }}</td>
               </tr>
             {% endfor %}
         </tbody>

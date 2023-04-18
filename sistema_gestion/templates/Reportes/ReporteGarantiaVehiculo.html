@@ -17,15 +17,15 @@
             <th scope="col">Color</th>
         </thead>
         <tbody>
-            {% for obj in GarantiaVehiculo %}
+            {% for obj in garantias %}
               <tr>
-                  <td>{{ obj.valor_tasacion }}</td>
-                  <td>{{ obj.nombre_propetario }}</td>
-                  <td>{{ obj.automovil.fabricante }}</td>
-                  <td>{{ obj.automovil.modelo }}</td>
-                  <td>{{ obj.automovil.anio }}</td>
-                  <td>{{ obj.automovil.placa }}</td>
-                  <td>{{ obj.automovil.color }}</td>
+                  <td>{{ obj.id_garantia.nombre_propetario }}</td>
+                  <td>{{ obj.id_garantia.valor_tasacion }}</td>
+                  <td>{{ obj.fabricante }}</td>
+                  <td>{{ obj.modelo }}</td>
+                  <td>{{ obj.anio }}</td>
+                  <td>{{ obj.placa }}</td>
+                  <td>{{ obj.color }}</td>
               </tr>
             {% endfor %}
         </tbody>

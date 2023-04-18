@@ -1,7 +1,9 @@
 from datetime import datetime, timedelta
 from django.core.paginator import Paginator
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import prestamo, cobro, tabla_amortizacion
+from reportlab.pdfgen import canvas
 
 def inicio_cobros(request):
     Cobros = cobro.objects.all()
@@ -15,9 +17,10 @@ def inicio_cobros(request):
 
 def actualizar_prestamo(fecha_hoy,Prestamo):
     mora = 0
+    cont = 0
     tabla = tabla_amortizacion.objects.all().filter(id_prestamo=Prestamo.id_prestamo)
+
     for item in tabla:
-        cont = 0
         fecha_limite = item.fecha + timedelta(days=Prestamo.dias_gracia)
         if Prestamo.balance_actual <= item.balance_actual:
             item.estado = 'Pagado'
@@ -132,6 +135,25 @@ def postear_cobros(request,id_cobro):
             item.save()
 
     return redirect('/cobros')
+
+def generar_recibo(request,id_cobro):
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="recibo.pdf"'
+    Cobro = cobro.objects.get(id_cobro=id_cobro)
+    # Crea un archivo PDF
+    c = canvas.Canvas(response)
+
+    # Agrega texto al archivo PDF
+    c.drawString(100, 730, "SERVICONFI")
+    c.drawString(100, 740, "Pedro Francisco Bono No.70      Santiago")
+    c.drawString(100, 750, "Nombre: " + Cobro.id_prestamo.id_solicitud.cedula.nombres + Cobro.id_prestamo.id_solicitud.cedula.apellidos)
+    c.drawString(100, 760, "Dirección: Calle 123")
+    c.drawString(100, 770, "Ciudad: Ciudad de México")
+
+    # Guarda el archivo PDF y lo cierra
+    c.save()
+
+    return response
 
 def anulacion_cobros(request, id_cobro):
     Cobro = cobro.objects.get(id_cobro=id_cobro)

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <h1>SERVICONFI S.R.L</h1>
+    <h2>Lista de Garantia</h2>
+    <h3>Cantidad de Garantias : {{ cant }}</h3>
+</head>
+<body>
+    <table border="0.5">
+        <thead>
+            <th scope="col">Valor</th>
+            <th scope="col">Dueño</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Fecha Expedicion</th>
+        </thead>
+        <tbody>
+            {% for obj in garantias %}
+              <tr>
+                  <td>{{ obj.valor_tasacion }}</td>
+                  <td>{{ obj.nombre_propetario }}</td>
+                  <td>{{ obj.tipo }}</td>
+                  <td>{{ obj.fecha_expedicion }}</td>
+              </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
