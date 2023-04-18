@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from datetime import datetime
 
 def inicio_empleados(request):
-    Empleado = empleados.objects.all()
+    Empleado = empleados.empAuth.all()
     paginator = Paginator(Empleado, 10)
     page = request.GET.get('page')
     items = paginator.get_page(page)
@@ -14,7 +14,7 @@ def inicio_empleados(request):
     return render(request, 'paginas/gestionEmpleados.html' , context)
 
 def crear_empleado(request):
-    if empleados.objects.last() is not None:
+    if empleados.empAuth.last() is not None:
         Empleado = 1 + empleados.objects.last().id
     else:
         Empleado = 1
@@ -33,7 +33,7 @@ def registroEmpleados(request,salida):
     rol = request.POST['txt_rol']
 
 
-    Empleado = empleados.objects.create(cedula= Cedula, sueldo=sueldo, estado=estado,
+    Empleado = empleados.empAuth.create(cedula= Cedula, sueldo=sueldo, estado=estado,
                                            password=password,
                                            usuario=usuario, rol=rol)
 
@@ -41,7 +41,7 @@ def registroEmpleados(request,salida):
 
 
 def editarEmpleado(request,id_empleado):
-    Empleado = empleados.objects.get(id=id_empleado)
+    Empleado = empleados.empAuth.get(id=id_empleado)
     data = {
         'Empleado': Empleado,
     }
@@ -56,7 +56,7 @@ def edicionEmpleados(request,id_empleado):
     edicionPersona(request, salida)
 
 
-    Empleado = empleados.objects.get(id=id_empleado)
+    Empleado = empleados.empAuth.get(id=id_empleado)
     Empleado.sueldo = sueldo
     Empleado.usuario = usuario
     Empleado.password = password
@@ -65,7 +65,7 @@ def edicionEmpleados(request,id_empleado):
     return redirect('/empleados')
 
 def anulacionEmpleado(request,id_empleado):
-    Empleado = empleados.objects.get(id=id_empleado)
+    Empleado = empleados.empAuth.get(id=id_empleado)
     Empleado.estado = 'Anulado'
     Empleado.save()
 
