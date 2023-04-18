@@ -14,7 +14,7 @@
           <div class="card bg-secondary shadow border-0">
             <div class="card-header bg-transparent pb-5">
               <div class="text-muted text-center mt-2 mb-3">
-                Sign IN
+                Iniciar Sesion
               </div>
             </div>
             <div class="card-body px-lg-5 py-lg-5">
@@ -24,22 +24,24 @@
                   <p>{{ msg }}</p>
                 {% else %}
                   <p>
-                    Add your credentials
+                    Escriba sus credenciales
                   </p>
                 {% endif %}  
 
               </div>
 
-              <form method="POST">
-
-                {% csrf_token %}
-
-                <div class="form-group mb-3">
+              <form method="POST" action=" "> {% csrf_token %}
+                <div class="form-group ">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                     </div>
-                    {{ form.username }}
+                    <div class="col-ms-auto col-md-2">
+                         <label for="txt_usuario" class="col-form-label col-sm-0">Usuario:</label>
+                    </div>
+                    <div class="form-group col-ms-auto col-md-8">
+                            <input type="text" class="form-control" id="txt_usuario"  name="txt_usuario" class="form-control" placeholder="Usuario" required>
+                    </div>
                   </div>
                 </div>
                 <div class="form-group">
@@ -47,27 +49,19 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    {{ form.password }}
+                   <div class="col-ms-auto col-md-2">
+                        <label for="txt_password" class="col-form-label col-sm-0">Contraseña:</label>
+                    </div>
+
+                    <div class="form-group col-ms-auto col-md-8">
+                            <input type="password" class="form-control" id="txt_password" name="txt_password" class="form-control" placeholder="Contraseña" required>
+                    </div>
                   </div>
-                </div>
-                <div class="custom-control custom-control-alternative custom-checkbox">
-                  <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
-                  <label class="custom-control-label" for=" customCheckLogin">
-                    <span class="text-muted">Recordarme</span>
-                  </label>
                 </div>
                 <div class="text-center">
                   <button type="submit" class="btn btn-primary my-4">Iniciar Sesión</button>
                 </div>
               </form>
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-6">
-              <a href="{% url 'register' %}" class="text-light"><small>Registrar</small></a>
-            </div>
-            <div class="col-6 text-right">
-              <a href="https://appseed.us/support" class="text-light"><small>Soporte</small></a>
             </div>
           </div>
         </div>

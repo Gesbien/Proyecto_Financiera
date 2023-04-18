@@ -44,6 +44,8 @@ class empleados(models.Model):
     password = models.CharField(max_length=40)
     estado = models.CharField(max_length=40)
 
+    empAuth = models.Manager()
+
 
 class prestamo(models.Model):
     id_prestamo = models.AutoField(primary_key=True)

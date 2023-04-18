@@ -1,6 +1,7 @@
 from datetime import datetime,timedelta
 from io import BytesIO
 
+from django.db.models import Sum
 from django.template.loader import get_template
 from django.views import View
 
@@ -250,6 +251,8 @@ class generar_reporte(View):
         template = 'Reportes/ReportePrestamo.html'
         context = {
             'cant' : prestamos.count(),
+            'sum'  :  prestamos.aggregate(suma=Sum('monto'))['suma'],
+            'sum_interes' :  prestamos.aggregate(suma=Sum('balance_interes'))['suma'],
             'prestamos'  : prestamos
         }
         pdf = render_to_pdf(template,context)
