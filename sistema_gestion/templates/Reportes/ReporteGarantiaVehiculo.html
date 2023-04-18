@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <h1>SERVICONFI S.R.L</h1>
+    <h2>Lista de Garantia Vehiculos</h2>
+    <h3>Cantidad de Garantia Vehiculos : {{ cant }}</h3>
+</head>
+<body>
+    <table border="0.5">
+        <thead>
+            <th scope="col">Valor</th>
+            <th scope="col">Dueño</th>
+            <th scope="col">Fabricante</th>
+            <th scope="col">Modelo</th>
+            <th scope="col">Año</th>
+            <th scope="col">Placa</th>
+            <th scope="col">Color</th>
+        </thead>
+        <tbody>
+            {% for obj in GarantiaVehiculo %}
+              <tr>
+                  <td>{{ obj.valor_tasacion }}</td>
+                  <td>{{ obj.nombre_propetario }}</td>
+                  <td>{{ obj.automovil.fabricante }}</td>
+                  <td>{{ obj.automovil.modelo }}</td>
+                  <td>{{ obj.automovil.anio }}</td>
+                  <td>{{ obj.automovil.placa }}</td>
+                  <td>{{ obj.automovil.color }}</td>
+              </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

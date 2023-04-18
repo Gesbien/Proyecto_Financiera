@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <h1>SERVICONFI S.R.L</h1>
+    <h2>Lista de Garantia Inmobilario</h2>
+    <h3>Cantidad de Garantia Inmobilario : {{ cant }}</h3>
+</head>
+<body>
+    <table border="0.5">
+        <thead>
+            <th scope="col">Valor</th>
+            <th scope="col">Dueño</th>
+            <th scope="col">Metraje</th>
+            <th scope="col">Direccion</th>
+        </thead>
+        <tbody>
+            {% for obj in GarantiaInmobilaria %}
+              <tr>
+                  <td>{{ obj.valor_tasacion }}</td>
+                  <td>{{ obj.nombre_propetario }}</td>
+                  <td>{{ obj.garantia.metraje }}</td>
+                  <td>{{ obj.direccion.modelo }}</td>
+              </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
