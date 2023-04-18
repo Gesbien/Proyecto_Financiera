@@ -47,8 +47,9 @@
                             <th scope="col">Fecha</th>
                             <th scope="col">Opcion</th>
                             <th>
-                                <a href="desembolso/reporte" class ="btn btn-default text-white"  target="_blank"  data-toggle="tooltip" data-placement="left" title="Imprimir">
-                                 <i class="fa-solid fa-print"></i> </a>
+                                 <a class="btn btn-outline-secondary text-white" data-toggle="modal" data-target="#modal_busqueda" data-toggle="tooltip" data-placement="right" title="Reporte">
+                                   <i class="fa-solid fa-print"></i>
+                               </a>
                             </th>
                         </tr>
                     </thead>
@@ -107,6 +108,51 @@
           </div>
       </div>
     {% include "includes/footer-fullscreen.html" %}
+    </div>
+    <div class="modal fade" id="modal_busqueda" name="modal_busqueda" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reporte de Garantia</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                    <form action="/desembolso/reporte " method="POST"> {% csrf_token %}
+                      <div class="modal-body" div.row="">
+                         <div class="input-daterange datepicker row align-items-center">
+                           <div class="col">
+                             <div class="form-group">
+                                 <div class="input-group input-group-alternative">
+                                   <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                   </div>
+                                   <input class="form-control" placeholder="Start date" type="text" value="06/18/2020">
+                             </div>
+                          </div>
+                         </div>
+                      <div class="col">
+                    <div class="form-group">
+                  <div class="input-group input-group-alternative">
+                   <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                </div>
+                <input class="form-control" placeholder="End date" type="text" value="06/22/2020">
+                 </div>
+                  </div>
+                    </div>
+</div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="submit" formtarget="_blank" class="btn btn-success text-white" data-toggle="tooltip" data-placement="top" title="Guardar" value="Submit">
+                              <i class="fa-solid fa-floppy-disk"></i>
+                          </button>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                      </div>
+                    </form>
+                </div>
+              </div>
+        </div>
     </div>
 {% endblock content %}
 
