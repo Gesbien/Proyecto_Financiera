@@ -2,6 +2,8 @@ from datetime import datetime, timedelta
 from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.views import View
+
 from .models import prestamo, cobro, tabla_amortizacion
 from reportlab.pdfgen import canvas
 
@@ -136,24 +138,36 @@ def postear_cobros(request,id_cobro):
 
     return redirect('/cobros')
 
-def generar_recibo(request,id_cobro):
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="recibo.pdf"'
-    Cobro = cobro.objects.get(id_cobro=id_cobro)
-    # Crea un archivo PDF
-    c = canvas.Canvas(response)
+class generar_recibo(View):
+    def get(self, request, id):
+        Cobro = cobro.objects.get(id_cobro=id)
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="recibo.pdf"'
 
-    # Agrega texto al archivo PDF
-    c.drawString(100, 730, "SERVICONFI")
-    c.drawString(100, 740, "Pedro Francisco Bono No.70      Santiago")
-    c.drawString(100, 750, "Nombre: " + Cobro.id_prestamo.id_solicitud.cedula.nombres + Cobro.id_prestamo.id_solicitud.cedula.apellidos)
-    c.drawString(100, 760, "Dirección: Calle 123")
-    c.drawString(100, 770, "Ciudad: Ciudad de México")
+        # Crea un archivo PDF
+        c = canvas.Canvas(response)
 
-    # Guarda el archivo PDF y lo cierra
-    c.save()
+        # Agrega texto al archivo PDF
+        c.drawString(100, 760, "SERVICONFI")
+        c.drawString(100, 750, "Pedro Francisco Bono No.70      Santiago")
+        c.drawString(100, 740, "Prestamo: " + str(Cobro.id_prestamo.id_prestamo))
+        c.drawString(200, 730, "Recibo: " + str(Cobro.id_cobro))
+        c.drawString(200, 720, "Fecha: " + str(Cobro.fecha))
+        c.drawString(100, 710, "Nombre: " + str(Cobro.id_prestamo.id_solicitud.cedula.nombres) + str(Cobro.id_prestamo.id_solicitud.cedula.apellidos))
+        c.drawString(100, 700, "Dirección: " + str(Cobro.id_prestamo.id_solicitud.cedula.direccion))
+        c.drawString(100, 690, "Valor de Cuota: " + str(Cobro.monto_total))
+        c.drawString(100, 680, "Total de Cuotas Atrasadas: " + str(Cobro.id_prestamo.cuota))
+        c.drawString(100, 670, "Capital:  " + str(Cobro.monto_capital))
+        c.drawString(100, 660, "Interes:  " + str(Cobro.monto_interes))
+        c.drawString(100, 650, "Mora:  " + str(Cobro.monto_mora))
+        c.drawString(100, 640, "Total:  " + str(Cobro.monto_total))
+        c.drawString(100, 630, "_________________________:  ")
+        c.drawString(100, 620, "        Cobrador  ")
+        c.drawString(100, 610, " Este recibo es valido solo si esta Firmado")
+        # Guarda el archivo PDF y lo cierra
+        c.save()
 
-    return response
+        return response
 
 def anulacion_cobros(request, id_cobro):
     Cobro = cobro.objects.get(id_cobro=id_cobro)

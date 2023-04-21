@@ -22,7 +22,7 @@
     <!-- Page content -->
     <div class="container-fluid mt--6" style="background-color: #ced4da" div.row=" ">
         <div class="form-row align-items-center py-7">
-            <div class="col-md-10">
+            <div class="col-md-11">
               <div class="form-group">
                 <div class="input-group">
                   <div class="input-group-prepend">
@@ -35,7 +35,7 @@
         </div>
 
         <div class="form-row align-items-center mt--7">
-          <div class="col-lg-10">
+          <div class="col-lg-11">
               <div class="table-responsive">
               <!-- Projects table -->
                   <table class="table align-items-center table-dark" id="datos" name="datos" >
@@ -46,7 +46,7 @@
                             <th scope="col">Monto</th>
                             <th scope="col">Fecha</th>
                             <th scope="col">Opcion</th>
-                            <th>
+                            <th> <!-- boton trigger para el modal de reporte -->
                                  <a class="btn btn-outline-secondary text-white" data-toggle="modal" data-target="#modal_busqueda" data-toggle="tooltip" data-placement="right" title="Reporte">
                                    <i class="fa-solid fa-print"></i>
                                </a>
@@ -121,42 +121,45 @@
                     <form action="/desembolso/reporte " method="POST"> {% csrf_token %}
                       <div class="modal-body" div.row="">
                          <div class="input-daterange datepicker row align-items-center">
-                           <div class="col">
-                             <div class="form-group">
-                                 <div class="input-group input-group-alternative">
-                                   <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-                                   </div>
-                                   <input class="form-control" placeholder="Start date" type="text" value="06/18/2020">
-                             </div>
-                          </div>
-                         </div>
-                      <div class="col">
-                    <div class="form-group">
-                  <div class="input-group input-group-alternative">
-                   <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-                </div>
-                <input class="form-control" placeholder="End date" type="text" value="06/22/2020">
-                 </div>
-                  </div>
-                    </div>
-</div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <div class="input-group input-group-alternative">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                        </div>
+                                        <input class="form-control datepicker" id="datepicker_monthi" name="datepicker_monthi" placeholder="Fecha Inicial" type="text" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <div class="input-group input-group-alternative">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                        </div>
+                                        <input class="form-control datepicker" id="datepicker_monthf" name="datepicker_monthf" placeholder="Fecha Final" type="text" >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                       </div>
                       <div class="modal-footer">
-                          <button type="submit" formtarget="_blank" class="btn btn-success text-white" data-toggle="tooltip" data-placement="top" title="Guardar" value="Submit">
-                              <i class="fa-solid fa-floppy-disk"></i>
+                          <button type="submit" formtarget="_blank" class="btn btn-info text-white" data-toggle="tooltip" data-placement="top" title="Imprimir" value="Submit">
+                              <i class="fa-solid fa-print"></i>
                           </button>
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                          <button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Cerrar" data-dismiss="modal">
+                              <i class="fa-solid fa-right-from-bracket"></i>
+                          </button>
                       </div>
                     </form>
                 </div>
               </div>
-        </div>
     </div>
 {% endblock content %}
 
 <!-- Specific JS goes HERE -->
 {% block javascripts %}
+    <script src="/static/assets/js/datepicker.js"></script>
+    <script src="/static/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script src="/static/assets/js/modal.js"></script>
 {% endblock javascripts %}

@@ -41,7 +41,7 @@ def registroGarantia(request,salida):
     fecha = request.POST['datepicker-month']
     fecha_exped = datetime.strptime(fecha, '%m/%d/%Y')
     fecha_convert = fecha_exped.strftime('%Y-%m-%d')
-    tipo = request.POST.get('roleSel')
+    tipo = request.POST['roleSel']
     Garantia = garantia.objects.create(valor_tasacion=valor_tasacion,nombre_propetario=nombre_propetario,
                                        estado='Activa',tipo=tipo,fecha_expedicion=fecha_convert)
     if tipo == 'Inmobiliario':

@@ -110,12 +110,19 @@ def render_to_pdf(template_src,context_dict={}):
     return None
 
 class generar_reporte(View):
-    def get(self,request,*args,**kwargs):
-        desembolsos = desembolso.objects.all()
+    def post(self, request):
+        fecha_inicio = request.POST['datepicker_monthi']
+        fecha_expedi = datetime.strptime(fecha_inicio, '%m/%d/%Y')
+        fecha_converti = fecha_expedi.strftime('%Y-%m-%d')
+        fecha_final = request.POST['datepicker_monthf']
+        fecha_expedf = datetime.strptime(fecha_final, '%m/%d/%Y')
+        fecha_convertf = fecha_expedf.strftime('%Y-%m-%d')
+
+        desembolsos = desembolso.objects.filter(fecha__gte=fecha_converti,fecha__lte=fecha_convertf)
         template = 'Reportes/ReporteDesembolso.html'
         context = {
-            'cant' : desembolsos.count(),
-            'desembolsos' : desembolsos
+           'cant': desembolsos.count(),
+            'desembolsos': desembolsos
         }
-        pdf = render_to_pdf(template,context)
-        return HttpResponse(pdf,content_type='application/pdf')
+        pdf = render_to_pdf(template, context)
+        return HttpResponse(pdf, content_type='application/pdf')

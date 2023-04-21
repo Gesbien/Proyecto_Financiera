@@ -1,7 +1,6 @@
 from datetime import datetime,timedelta
 from io import BytesIO
 
-from django.db.models import Sum
 from django.template.loader import get_template
 from django.views import View
 
@@ -246,14 +245,18 @@ def render_to_pdf(template_src,context_dict={}):
     return None
 
 class generar_reporte(View):
-    def get(self,request,*args,**kwargs):
-        prestamos = prestamo.objects.all()
+    def post(self,request,*args,**kwargs):
+        fecha_inicio = request.POST['datepicker_monthi']
+        fecha_expedi = datetime.strptime(fecha_inicio, '%m/%d/%Y')
+        fecha_converti = fecha_expedi.strftime('%Y-%m-%d')
+        fecha_final = request.POST['datepicker_monthf']
+        fecha_expedf = datetime.strptime(fecha_final, '%m/%d/%Y')
+        fecha_convertf = fecha_expedf.strftime('%Y-%m-%d')
+        prestamos = prestamo.objects.filter(fecha_expedicion__gte=fecha_converti,fecha_expedicion__lte=fecha_convertf)
+
+        # Obtiene la plantilla HTML
         template = 'Reportes/ReportePrestamo.html'
-        context = {
-            'cant' : prestamos.count(),
-            'sum'  :  prestamos.aggregate(suma=Sum('monto'))['suma'],
-            'sum_interes' :  prestamos.aggregate(suma=Sum('balance_interes'))['suma'],
-            'prestamos'  : prestamos
-        }
-        pdf = render_to_pdf(template,context)
-        return HttpResponse(pdf,content_type='application/pdf')
+        context = {'cant' : prestamos.count(),
+                   'prestamos'  : prestamos}
+        pdf = render_to_pdf(template, context)
+        return HttpResponse(pdf, content_type='application/pdf')
