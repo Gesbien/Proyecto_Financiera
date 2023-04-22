@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <h1>SERVICONFI S.R.L</h1>
+    <h2>Lista de Clientes</h2>
+    <h3>Cantidad de Clientes : {{ cant }}</h3>
+</head>
+<body>
+    <table border="0.5">
+        <thead>
+            <th scope="col">Nombre </th>
+            <th scope="col">Apellidos </th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Direccion</th>
+            <th scope="col">Estado</th>
+        </thead>
+        <tbody>
+            {% for obj in clientes %}
+              <tr>
+                  <td>{{ obj.nombres }}</td>
+                  <td>{{ obj.apellidos }}</td>
+                  <td>{{ obj.telefono }}</td>
+                  <td>{{ obj.direccion }}</td>
+                  <td>{{ obj.estado }}</td>
+              </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
