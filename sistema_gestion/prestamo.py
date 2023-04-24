@@ -230,7 +230,7 @@ def tabla_amortizacion_insoluta(id_prestamo,capital, tasa_interes, cuotas,fecha)
     estado = 'Activo'
 
     # Inicialización de variables
-    balance_total = capital
+    balance_total = capital + Prestamo.monto_interes
     balance_interes = 0
     balance_capital = 0
 
@@ -246,7 +246,7 @@ def tabla_amortizacion_insoluta(id_prestamo,capital, tasa_interes, cuotas,fecha)
         capital_cuota = cuota - interes
 
         # Actualización de los balances
-        balance_total -= capital_cuota
+        balance_total -= cuota
         balance_interes += interes
         balance_capital += capital_cuota
 

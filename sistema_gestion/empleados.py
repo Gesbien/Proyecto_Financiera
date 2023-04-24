@@ -15,7 +15,7 @@ def inicio_empleados(request):
 
 def crear_empleado(request):
     if empleados.empAuth.last() is not None:
-        Empleado = 1 + empleados.objects.last().id
+        Empleado = 1 + empleados.empAuth.last().id
     else:
         Empleado = 1
     context = {

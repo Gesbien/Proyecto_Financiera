@@ -1,0 +1,170 @@
+{% extends 'paginas/base.html' %}
+
+{% block title %} Prestamo {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+        <link href="/static/assets/fontawesome/css/all.css" rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block content %}
+    <!-- Header -->
+    <div class="header pb-4" style="background-color: #009ACD">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-3">
+            <div class="col-lg-6 col-7">
+              <h6 class="h2 text-white d-inline-block mb-0">Datos del Cliente</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div class="row">
+            <div class="col-xl-3 ">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">ID Cliente</h5>
+                        <h1 class="card-title text-uppercase text-muted mb-0">{{ cliente.id_persona }}</h1>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-gray-dark text-white rounded-circle shadow">
+                        <i class="ni  ni-badge"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-5 ">
+                  <div class="card card-stats">
+                    <!-- Card body -->
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col">
+                            <h5 class="card-title text-uppercase text-muted mb-0">Cliente</h5>
+                            <h3 class="card-title text-uppercase text-muted mb-0">{{ cliente.nombres }} {{ cliente.apellidos }}</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- Body -->
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-8 col-xl-12">
+            <div class="card">
+                <div class="card-body" div.row="" style="background-color: #e9ecef">
+                    <div class="nav-wrapper">
+                        <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true">
+                                    <i class="ni ni-cloud-upload-96 mr-2"></i>Prestamos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false">
+                                    <i class="ni ni-bell-55 mr-2"></i>Cobros</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" data-toggle="tab" href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false">
+                                    <i class="ni ni-calendar-grid-58 mr-2"></i>Garantias</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                                   <table class="table align-items-center table-dark" id="datos" name="datos" >
+                                    <thead class="thead-dark" width="500">
+                                        <tr>
+                                            <th scope="col">Id Prestamo</th>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Monto</th>
+                                            <th scope="col">Tasa</th>
+                                            <th scope="col">Cuota</th>
+                                            <th scope="col">Fecha</th>
+                                            <th scope="col">Estado</th>
+                                        </tr>
+                                    </thead>
+                                       <tbody>
+                                        {% for item in prestamos %}
+                                            <tr>
+                                                <td>{{ item.id_prestamo }}</td>
+                                                <td>{{ item.id_solicitud.cedula.nombres }} {{ p.id_solicitud.cedula.apellidos }}</td>
+                                                <td>{{ item.monto }}</td>
+                                                <td>{{ item.tasa }}</td>
+                                                <td>{{ item.cuota }}</td>
+                                                <td>{{ item.fecha_expedicion }}</td>
+                                                <td>{{ item.estado }}</td>
+                                                </tr>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                   </table>
+                                </div>
+                                <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
+                                    <table class="table align-items-center table-dark" id="datos" name="datos" >
+                                        <thead class="thead-dark" width="500">
+                                            <tr>
+                                                <th scope="col">Id Cobro</th>
+                                                <th scope="col">Id Préstamo</th>
+                                                <th scope="col">Nombre</th>
+                                                <th scope="col">Fecha</th>
+                                                <th scope="col">Monto</th>
+                                                <th scope="col">Estado</th>
+                                            </tr>
+                                        </thead>
+                                           <tbody>
+                                            {% for item in cobros %}
+                                                <tr>
+                                                    <td>{{ item.id_cobro }}</td>
+                                                    <td>{{ item.id_prestamo.id_prestamo }}</td>
+                                                    <td>{{ item.id_prestamo.id_solicitud.cedula.nombres }} {{ item.id_prestamo.id_solicitud.cedula.apellidos }}</td>
+                                                    <td>{{ item.fecha }}</td>
+                                                    <td>{{ item.monto_total }}</td>
+                                                    <td>{{ item.estado }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                   </table>
+                                </div>
+                                <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
+                                   <table class="table align-items-center table-dark" id="datos" name="datos" >
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">Id Garantia</th>
+                                                <th scope="col">Dueño</th>
+                                                <th scope="col">Valor tasacion</th>
+                                                <th scope="col">Tipo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in union %}
+                                                <tr>
+                                                    <td>{{ item.id_garantia.id_garantia }}</td>
+                                                    <td>{{ item.id_garantia.nombre_propetario }}</td>
+                                                    <td>{{ item.id_garantia.valor_tasacion }}</td>
+                                                    <td>{{ item.id_garantia.tipo }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                      </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block javascripts %}
+   <script src="/static/assets/js/modal.js"></script>
+{% endblock javascripts %}

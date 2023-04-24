@@ -15,7 +15,10 @@ $(document).ready(function(){
         format: "dd/mm/yyyy",
         language: "es"
     });
-
+	$("#datepicker_fecha").datepicker( {
+        format: "dd-mm-yyyy",
+        language: "es"
+    });
 	$("#datepicker-monthi").datepicker( {
         format: "dd/mm/yyyy",
         language: "es"

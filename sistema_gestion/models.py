@@ -67,6 +67,9 @@ class prestamo(models.Model):
     balance_capital = models.FloatField(default=0)
     balance_interes = models.FloatField(default=0)
     balance_mora = models.FloatField(default=0)
+    total_pagado = models.FloatField(default=0)
+    capital_pagado = models.FloatField(default=0)
+    interes_pagado = models.FloatField(default=0)
 
 
     def __str__(self):
