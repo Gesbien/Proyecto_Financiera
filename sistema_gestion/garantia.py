@@ -39,13 +39,13 @@ def registroGarantia(request,salida):
     valor_tasacion = request.POST['txt_valor_tasacion']
     nombre_propetario = request.POST['txt_nombre']
     fecha = request.POST['datepicker-month']
-    fecha_exped = datetime.strptime(fecha, '%m/%d/%Y')
+    fecha_exped = datetime.strptime(fecha, '%d/%m/%Y')
     fecha_convert = fecha_exped.strftime('%Y-%m-%d')
     tipo = request.POST['roleSel']
     Garantia = garantia.objects.create(valor_tasacion=valor_tasacion,nombre_propetario=nombre_propetario,
                                        estado='Activa',tipo=tipo,fecha_expedicion=fecha_convert)
     if tipo == 'Inmobiliario':
-        direccion = request.POST['txt_direccion']
+        direccion = request.POST['txt_direccion_garantia']
         metraje = request.POST['txt_metraje']
         certificado = request.POST['txt_certificado']
         percela = request.POST['txt_parcela']
@@ -95,7 +95,7 @@ def edicionGarantia(request,salida,id_garantia):
     valor_tasacion = request.POST['txt_valor_tasacion']
     nombre_propetario = request.POST['txt_nombre']
     fecha = request.POST['datepicker-month']
-    fecha_exped = datetime.strptime(fecha, '%m/%d/%Y')
+    fecha_exped = datetime.strptime(fecha, '%d/%m/%Y')
     fecha_convert = fecha_exped.strftime('%Y-%m-%d')
     Garantia = garantia.objects.get(id_garantia=id_garantia)
     Garantia.valor_tasacion = valor_tasacion
@@ -104,7 +104,7 @@ def edicionGarantia(request,salida,id_garantia):
     Garantia.save()
 
     if Garantia.tipo == 'Inmobiliario':
-        direccion = request.POST['txt_direccion']
+        direccion = request.POST['txt_direccion_garantia']
         metraje = request.POST['txt_metraje']
         certificado = request.POST['txt_certificado']
         num_parcela = request.POST['txt_parcela']

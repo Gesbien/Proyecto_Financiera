@@ -96,10 +96,10 @@
                             <h3>Inmobiliario</h3>
                             <div class="form-row">
                                 <div class="col-ms-auto col-md-2">
-                                    <label for="txt_direccion" class="col-form-label col-sm-0">Direccion:</label>
+                                    <label for="txt_direccion_garantia" class="col-form-label col-sm-0">Direccion:</label>
                                 </div>
                                 <div class="form-group col-ms-auto col-md-10">
-                                        <input type="text" class="form-control" id="txt_direccion" name="txt_direccion"  class="form-control" placeholder="Direccion">
+                                        <input type="text" class="form-control" id="txt_direccion_garantia" name="txt_direccion_garantia"  class="form-control" placeholder="Direccion">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -145,7 +145,7 @@
                                 <div class="form-group col-ms-auto col-md-4">
                                      <select id="modSel"  class=" form-control" name="modSel"   style="width: 100%">
                                          {% for mod in modelos %}
-                                            <option value="{{ mod.nombre_marca }}">{{ mod.nombre_modelo }}</option>
+                                            <option value="{{ mod.nombre_modelo }}" data-category="{{ mod.nombre_marca }}">{{ mod.nombre_modelo }}</option>
                                          {% endfor%}
                                      </select>
                                 </div>

@@ -52,20 +52,22 @@ def registroPrestamo(request,opcion,id_solicitud,num):
     dias_gracia = request.POST['txt_dias_de_gracia']
     valor_cuota = request.POST['txt_valor_cuota']
     fecha = request.POST['datepicker-month_inicio']
-    fecha_exped = datetime.strptime(fecha, '%m/%d/%Y')
+    fecha_exped = datetime.strptime(fecha, '%d/%m/%Y')
     fecha_convert = fecha_exped.strftime('%Y-%m-%d')
     fecha_tasa = datetime.strptime(fecha_convert, '%Y-%m-%d')
     fecha_fin = request.POST['fecha_fin']
+    fecha_expedf = datetime.strptime(fecha_fin, '%d/%m/%Y')
+    fecha_convertf = fecha_expedf.strftime('%Y-%m-%d')
     estado = 'Proceso'
     monto_interes = monto * (tasa / 100) * cuota
     monto_actual = monto + monto_interes
 
     Solicitud = solicitud.objects.get(id_solicitud=id_solicitud)
 
-    Prestamo = prestamo.objects.create(id_prestamo=num,id_solicitud=Solicitud,fecha_expedicion=fecha_convert,fecha_expiracion=fecha_fin,dias_gracia=dias_gracia,
+    Prestamo = prestamo.objects.create(id_prestamo=num,id_solicitud=Solicitud,fecha_expedicion=fecha_convert,fecha_expiracion=fecha_convertf,dias_gracia=dias_gracia,
                                       clasificacion=clasificacion,estado=estado,valor_cuota=valor_cuota,cuota=cuota,tasa=tasa,
-                                       monto=monto,porciento_mora=porciento_mora,balance_actual=monto_actual,balance_capital=monto,
-                                       balance_interes= monto_interes,cuota_faltantes= cuota,tipo_saldo=tipo_saldo)
+                                       monto=monto,monto_interes=monto_interes,porciento_mora=porciento_mora,balance_actual=monto_actual,balance_capital=monto,
+                                       balance_interes= monto_interes,cuota_faltantes=cuota,tipo_saldo=tipo_saldo)
 
     generar_tabla_amortizacion(Prestamo.id_prestamo,fecha_tasa)
 
@@ -125,16 +127,21 @@ def edicionPrestamo(request,id_prestamo):
     dias_gracia = request.POST['txt_dias_de_gracia']
     valor_cuota = request.POST['txt_valor_cuota']
     fecha = request.POST['datepicker-month_inicio']
-    fecha_exped = datetime.strptime(fecha, '%m/%d/%Y')
+    fecha_exped = datetime.strptime(fecha, '%d/%m/%Y')
     fecha_convert = fecha_exped.strftime('%Y-%m-%d')
     fecha_fin = request.POST['fecha_fin']
+    fecha_expedf = datetime.strptime(fecha_fin, '%d/%m/%Y')
+    fecha_convertf = fecha_expedf.strftime('%Y-%m-%d')
     monto_interes = float(monto)*(float(tasa)/100)*int(cuota)
     monto_actual = float(monto) + monto_interes
     tipo_saldo = request.POST.get('typeSaldo')
 
+    fecha_tasa = datetime.strptime(fecha_convert, '%Y-%m-%d')
+    generar_tabla_amortizacion(id_prestamo, fecha_tasa)
 
     Prestamo = prestamo.objects.get(id_prestamo=id_prestamo)
     Prestamo.monto = monto
+    Prestamo.monto_interes = monto_interes
     Prestamo.tasa = tasa
     Prestamo.cuota = cuota
     Prestamo.cuota_faltantes = cuota
@@ -142,17 +149,16 @@ def edicionPrestamo(request,id_prestamo):
     Prestamo.dias_gracia = dias_gracia
     Prestamo.valor_cuota = valor_cuota
     Prestamo.fecha_expedicion = fecha_convert
-    Prestamo.fecha_expiracion = fecha_fin
+    Prestamo.fecha_expiracion = fecha_convertf
     Prestamo.balance_capital = monto
     Prestamo.balance_interes = monto_interes
     Prestamo.balance_actual = monto_actual
     Prestamo.tipo_saldo = tipo_saldo
     Prestamo.save()
 
-    tipo = Prestamo.clasificacion
-    if tipo == 'Personal':
+    if garante.objects.filter(id_prestamo=Prestamo).exists():
         edicionPersona(request, salida)
-    elif tipo == 'Inmobiliario' or tipo == 'Vehiculo':
+    else:
         Garantia = prestamo_garantia.objects.get(id_prestamo=id_prestamo)
         edicionGarantia(request, salida,Garantia.id_garantia.id_garantia )
 
@@ -167,7 +173,10 @@ def anulacionPrestamo(request, id_prestamo):
 
 def generar_tabla_amortizacion(id_prestamo,fecha):
     Prestamo = prestamo.objects.get(id_prestamo=id_prestamo)
-    if(Prestamo.tipo_saldo == 'Absoluto'):
+    if tabla_amortizacion.objects.all().filter(id_prestamo=Prestamo.id_prestamo) is not None:
+        tabla_amortizacion.objects.all().filter(id_prestamo=Prestamo.id_prestamo).delete()
+
+    if(Prestamo.tipo_saldo == 'Absoluto' or Prestamo.tipo_saldo == 'Libre' ):
         tabla_amortizacion_absoluta(id_prestamo,Prestamo.cuota,fecha)
     elif(Prestamo.tipo_saldo == 'Insoluto'):
         tabla_amortizacion_insoluta(id_prestamo,Prestamo.monto,Prestamo.tasa,Prestamo.cuota,fecha)
@@ -193,6 +202,11 @@ def tabla_amortizacion_absoluta(id_prestamo,cuotas,fecha):
     interes = monto_interes / cuotas
     capital_cuota = valor_cuota - interes
 
+    if tabla_amortizacion.objects.last() is not None:
+        num_cuota = 1 + tabla_amortizacion.objects.last().id_cuota
+    else:
+        num_cuota = 1
+
     # Generación de la tabla de amortización
     for i in range(cuotas):
         # Actualización de los balances
@@ -201,9 +215,11 @@ def tabla_amortizacion_absoluta(id_prestamo,cuotas,fecha):
         balance_capital += capital_cuota
         # Actualización de la fecha para el siguiente período
         fecha += timedelta(days=30)
-        tabla_amortizacion.objects.create(id_prestamo=id_prestamo, fecha=fecha, cuota=round(valor_cuota,2),
-                                          balance_actual=round(balance_total,2), estado=estado,
-                                          balance_interes=round(balance_interes,2), balance_capital=round(balance_capital,2))
+        tabla_amortizacion.objects.create(id_cuota=num_cuota,id_prestamo=Prestamo, fecha=fecha, cuota=round(valor_cuota,2),
+                                          balance_total_esperado=round(balance_total,2), estado=estado,
+                                          balance_interes_esperado=round(balance_interes,2), balance_capital_esperado=round(balance_capital,2),
+                                          pago_capital=round(capital_cuota,2),pago_interes=round(interes,2))
+        num_cuota += 1
 
 
 def tabla_amortizacion_insoluta(id_prestamo,capital, tasa_interes, cuotas,fecha):
@@ -218,6 +234,11 @@ def tabla_amortizacion_insoluta(id_prestamo,capital, tasa_interes, cuotas,fecha)
     balance_interes = 0
     balance_capital = 0
 
+    if tabla_amortizacion.objects.last() is not None:
+        num_cuota = 1 + tabla_amortizacion.objects.last().id_cuota
+    else:
+        num_cuota = 1
+
     # Generación de la tabla de amortización
     for i in range(cuotas):
         # Cálculo del interés y capital de la cuota
@@ -231,9 +252,11 @@ def tabla_amortizacion_insoluta(id_prestamo,capital, tasa_interes, cuotas,fecha)
 
         # Actualización de la fecha para el siguiente período
         fecha += timedelta(days=30)
-        tabla_amortizacion.objects.create(id_prestamo=Prestamo, fecha=fecha, cuota=round(cuota,2),
-                                          balance_actual=round(balance_total,2), estado=estado,
-                                          balance_interes=round(balance_interes,2), balance_capital=round(balance_capital,2))
+        tabla_amortizacion.objects.create(id_cuota=num_cuota,id_prestamo=Prestamo, fecha=fecha, cuota=round(cuota,2),
+                                          balance_total_esperado=round(balance_total,2), estado=estado,
+                                          balance_interes_esperado=round(balance_interes,2), balance_capital_esperado=round(balance_capital,2),
+                                          pago_interes=round(interes,2),pago_capital=round(capital_cuota,2))
+        num_cuota += 1
 
 def render_to_pdf(template_src,context_dict={}):
     template = get_template(template_src)

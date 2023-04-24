@@ -178,7 +178,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                         </div>
-                                        <input class="form-control datepicker" id="datepicker-monthi" name="datepicker-month_inicio" placeholder="Selecciona Fecha" onkeydown="addMonths(event)" type="text" value="" required>
+                                        <input class="form-control" id="datepicker-monthi" name="datepicker-month_inicio" placeholder="Selecciona Fecha" onkeydown="addMonths(event)" type="text" value="" required>
                                     </div>
                             </div>
                             <div class="col-ms-auto col-md-2">
@@ -233,7 +233,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                         </div>
-                                        <input class="form-control datepicker" id="datepicker-month" name="datepicker-month" value="{{ garantia.fecha_expedicion }}" placeholder="Selecciona Fecha" type="text" >
+                                        <input class="form-control" id="datepicker-month" name="datepicker-month" value="{{ garantia.fecha_expedicion }}" placeholder="Selecciona Fecha" type="text" >
                                     </div>
                             </div>
                         </div>
@@ -242,10 +242,10 @@
                             <h3>Inmobiliario</h3>
                             <div class="form-row">
                                 <div class="col-ms-auto col-md-2">
-                                    <label for="txt_direccion" class="col-form-label col-sm-0">Direccion:</label>
+                                    <label for="txt_direccion_garantia" class="col-form-label col-sm-0">Direccion:</label>
                                 </div>
                                 <div class="form-group col-ms-auto col-md-10">
-                                        <input type="text" id="txt_direccion" name="txt_direccion" value="{{ Inmobi.direccion }}" class="form-control" placeholder="Direccion">
+                                        <input type="text" id="txt_direccion_garantia" name="txt_direccion_garantia" value="{{ Inmobi.direccion }}" class="form-control" placeholder="Direccion">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -291,7 +291,7 @@
                                 <div class="form-group col-ms-auto col-md-4">
                                      <select id="modSel"  class=" form-control" name="modSel"   style="width: 100%">
                                          {% for mod in modelos %}
-                                            <option value="{{ mod.nombre_marca }}">{{ mod.nombre_modelo }}</option>
+                                            <option value="{{ mod.nombre_modelo }}" data-category="{{ mod.nombre_marca }}">{{ mod.nombre_modelo }}</option>
                                          {% endfor%}
                                      </select>
                                 </div>

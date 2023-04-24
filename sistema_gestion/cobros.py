@@ -20,27 +20,67 @@ def inicio_cobros(request):
 def actualizar_prestamo(fecha_hoy,Prestamo):
     mora = 0
     cont = 0
+    cont_atrasado = 0
+    atrasado = False
+    sum_tot = 0
+    sum_cap = 0
+    sum_int = 0
     tabla = tabla_amortizacion.objects.all().filter(id_prestamo=Prestamo.id_prestamo)
 
     for item in tabla:
-        fecha_limite = item.fecha + timedelta(days=Prestamo.dias_gracia)
-        if Prestamo.balance_actual <= item.balance_actual:
-            item.estado = 'Pagado'
-            item.save()
-        elif fecha_limite < datetime.strptime('2023-05-23','%Y-%m-%d').date():
-            cont += 1
-            item.estado = 'Atrasado'
-            item.save()
-            mora = item.cuota * (Prestamo.porciento_mora/100)
+        if Prestamo.balance_actual <= 0:
+            Prestamo.estado = 'Pagado'
+            Prestamo.save()
+            return redirect('/cobros')
+        elif Prestamo.tipo_saldo == 'Libre':
+            fecha_limite = item.fecha + timedelta(days=Prestamo.dias_gracia)
+            if Prestamo.balance_actual <= item.balance_total_esperado:
+                item.estado = 'Pagado'
+                item.save()
+            elif fecha_limite < datetime.strptime('2024-06-27','%Y-%m-%d').date():
+                atrasado = True
+                cont_atrasado +=1
+                cont += 1
+                item.estado = 'Atrasado'
+                item.save()
+                mora = item.cuota * (Prestamo.porciento_mora/100)
+                sum_tot += item.cuota
+                sum_cap += item.pago_capital
+                sum_int += item.pago_interes
+            else:
+                cont += 1
+                item.estado = 'Activo'
+                item.save()
         else:
-            cont += 1
-            item.estado = 'Activo'
-            item.save()
+            fecha_limite = item.fecha + timedelta(days=Prestamo.dias_gracia)
+            if Prestamo.balance_actual <= item.balance_total_esperado:
+                item.estado = 'Pagado'
+                item.save()
+            elif fecha_limite < datetime.strptime('2023-05-27', '%Y-%m-%d').date():
+                atrasado = True
+                cont_atrasado += 1
+                cont += 1
+                item.estado = 'Atrasado'
+                item.save()
+                mora = item.cuota * (Prestamo.porciento_mora / 100)
+                sum_tot += item.cuota
+                sum_cap += item.pago_capital
+                sum_int += item.pago_interes
+            else:
+                cont += 1
+                item.estado = 'Activo'
+                item.save()
+
+    if atrasado == False:
+        item = tabla_amortizacion.objects.filter(id_prestamo=Prestamo.id_prestamo).filter(estado='Activo').first()
+        sum_tot = item.cuota
+        sum_cap = item.pago_capital
+        sum_int = item.pago_interes
 
     Prestamo.cuota_faltantes = cont
     Prestamo.save()
 
-    return round(mora,2)
+    return round(mora,2),round(sum_tot,2),round(sum_cap,2),round(sum_int,2)
 
 def crear_cobro(request,id_prestamo):
     if cobro.objects.last() is not None:
@@ -52,7 +92,7 @@ def crear_cobro(request,id_prestamo):
     tabla_amortizada = tabla_amortizacion.objects.all().filter(id_prestamo=id_prestamo)
     fecha_hoy = datetime.today()
     fecha = fecha_hoy.strftime('%Y-%m-%d')
-    mora = actualizar_prestamo(fecha,Prestamo)
+    mora,sum_tot,sum_cap,sum_int = actualizar_prestamo(fecha,Prestamo)
     fecha_convert = fecha_hoy.strftime('%m/%d/%Y')
     monto_total = (Prestamo.balance_actual/Prestamo.cuota_faltantes) + mora
     monto_interes = Prestamo.balance_interes / Prestamo.cuota_faltantes
@@ -60,12 +100,12 @@ def crear_cobro(request,id_prestamo):
     context = {
         'num_cobro': Num_cobro,
         'prestamo': Prestamo,
-        'interes' : monto_interes,
-        'capital' : monto_capital,
         'tabla'   : tabla_amortizada,
         'fecha'   : fecha_convert,
         'mora'    : mora,
-        'monto_tot' : monto_total
+        'total'   : sum_tot,
+        'capital' : sum_cap,
+        'interes' : sum_int
     }
 
     return render(request, "paginas/registrarCobro.html", context)

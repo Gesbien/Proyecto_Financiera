@@ -44,7 +44,7 @@
             <div class="card">
                 <div class="card-body" div.row="" style="background-color: #e9ecef">
                     <h3>Informacion Personal</h3>
-                    <form action="/prestamo/edicion/{{ solicitud.id_solicitud }}" method="POST"> {% csrf_token %}
+                    <form action="/prestamo/edicion/{{ prestamo.id_prestamo }}" method="POST"> {% csrf_token %}
                         <div class="form-row">
                             <div class="col-ms-auto col-md-2">
                                 <label for="txt_cedula" class="col-form-label col-sm-0">Cédula:</label>
@@ -129,7 +129,17 @@
                                 <label for="txt_valor_cuota" class="col-form-label col-sm-0">Valor Cuota</label>
                             </div>
                             <div class="form-group col-ms-auto col-md-4">
-                                    <input step="any" type="number" class="form-control" id="txt_valor_cuota" name="txt_valor_cuota" value="{{ prestamo.valor_cuota }}"  class="form-control" placeholder="0" required>
+                                    <input readonly="readonly" step="any" type="number" class="form-control" id="txt_valor_cuota" name="txt_valor_cuota" value="{{ prestamo.valor_cuota }}"  class="form-control" placeholder="0" required>
+                            </div>
+                            <div class="col-ms-auto col-md-2">
+                                <label for="typeSaldo" class="col-form-label col-sm-0">Tipo de Saldo:</label>
+                            </div>
+                            <div class="form-group col-ms-auto col-md-4">
+                                   <select id="typeSaldo" class="form-control" tabindex="50" name="typeSaldo">
+                                       <option value="Libre">A Interes</option>
+                                       <option value="Absoluto">Absoluto</option>
+                                       <option value="Insoluto">Insoluto</option>
+                                   </select>
                             </div>
                         </div>
                         <div class="form-row">
@@ -156,7 +166,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                         </div>
-                                        <input class="form-control datepicker" id="datepicker-monthi" name="datepicker-month_inicio" placeholder="Selecciona Fecha" onkeydown="addMonths(event)" type="text" value="{{ prestamo.fecha_expedicion }}">
+                                        <input class="form-control" id="datepicker-monthi" name="datepicker-month_inicio" placeholder="Selecciona Fecha" onkeydown="addMonths(event)" type="text" value="{{ prestamo.fecha_expedicion }}">
                                     </div>
                             </div>
                             <div class="col-ms-auto col-md-2">
@@ -212,7 +222,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                             </div>
-                                            <input class="form-control datepicker" id="datepicker-month" name="datepicker-month" value="{{ garantia.id_garantia.fecha_expedicion }}" placeholder="Selecciona Fecha" type="text" value="">
+                                            <input class="form-control" id="datepicker-month" name="datepicker-month" value="{{ garantia.id_garantia.fecha_expedicion }}" placeholder="Selecciona Fecha" type="text" value="">
                                         </div>
                                 </div>
                             </div>
@@ -222,10 +232,10 @@
                             <h3>Inmobiliario</h3>
                             <div class="form-row">
                                 <div class="col-ms-auto col-md-2">
-                                    <label for="txt_direccion" class="col-form-label col-sm-0">Direccion:</label>
+                                    <label for="txt_direccion_garantia" class="col-form-label col-sm-0">Direccion:</label>
                                 </div>
                                 <div class="form-group col-ms-auto col-md-10">
-                                        <input type="text" class="form-control" id="txt_direccion" name="txt_direccion" value="{{ garantia.id_garantia.direccion }}" class="form-control" placeholder="Direccion">
+                                        <input type="text" class="form-control" id="txt_direccion_garantia" name="txt_direccion_garantia" value="{{ Inmobi.direccion }}" class="form-control" placeholder="Direccion">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -233,13 +243,13 @@
                                     <label for="txt_metraje" class="col-form-label col-sm-0">Metraje:</label>
                                 </div>
                                 <div class="form-group col-ms-auto col-md-4">
-                                        <input type="number" class="form-control" id="txt_metraje" name="txt_metraje" value="{{ garantia.id_garantia.metraje }}" class="form-control" placeholder="Metraje">
+                                        <input type="number" class="form-control" id="txt_metraje" name="txt_metraje" value="{{ Inmobi.metraje }}" class="form-control" placeholder="Metraje">
                                 </div>
                                 <div class="col-ms-auto col-md-2">
                                     <label for="txt_certificado" class="col-form-label col-sm-0">Certificado del Titulo:</label>
                                 </div>
                                 <div class="form-group col-ms-auto col-md-4">
-                                        <input type="text" class="form-control" id="txt_certificado" name="txt_certificado" value="{{ garantia.id_garantia.certificado_titulo }}"class="form-control" placeholder="Certificado">
+                                        <input type="text" class="form-control" id="txt_certificado" name="txt_certificado" value="{{ Inmobi.certificado_titulo }}"class="form-control" placeholder="Certificado">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -247,7 +257,7 @@
                                     <label for="txt_parcela" class="col-form-label col-sm-0">Numero de Parcela:</label>
                                 </div>
                                 <div class="form-group col-ms-auto col-md-4">
-                                        <input type="text" class="form-control" id="txt_parcela" name="txt_parcela" value="{{ garantia.id_garantia.numero_parcela }}" class="form-control" placeholder="Parcela">
+                                        <input type="text" class="form-control" id="txt_parcela" name="txt_parcela" value="{{ Inmobi.numero_parcela }}" class="form-control" placeholder="Parcela">
                                 </div>
                             </div>
                         </div>
@@ -426,4 +436,8 @@
     <script src="/static/assets/js/formula.js"></script>
     <script src="/static/assets/js/datepicker.js"></script>
     <script src="/static/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        var valorSelect = "{{ prestamo.tipo_saldo }}";
+        document.getElementById("typeSaldo").value = valorSelect;
+    </script>
 {% endblock javascripts %}

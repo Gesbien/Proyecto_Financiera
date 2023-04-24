@@ -105,6 +105,7 @@ def edicionPersona(request,salida):
     Persona.telefono = telefono
     Persona.celular = celular
     Persona.save()
+    edicionInforme(request,Persona)
 
     if salida == 'cl':
         edicionInforme(request,Persona)
