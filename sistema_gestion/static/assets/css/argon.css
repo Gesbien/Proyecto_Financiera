@@ -1186,17 +1186,17 @@ pre {
   width: 100%;
   margin-bottom: 1rem;
   color: #525f7f;
-  background-color: transparent; }
+  background-color: transparent;}
   .table th,
   .table td {
-    padding: 1rem;
+    padding: 0.3rem;
     vertical-align: top;
     border-top: 1px solid #e9ecef; }
   .table thead th {
     vertical-align: bottom;
-    border-bottom: 2px solid #e9ecef; }
+    border-bottom: 1px solid #e9ecef; }
   .table tbody + tbody {
-    border-top: 2px solid #e9ecef; }
+    border-top: 1px solid #e9ecef; }
 
 .table-sm th,
 .table-sm td {
@@ -12324,7 +12324,7 @@ textarea[resize="horizontal"] {
   font-size: .875rem;
   letter-spacing: .05px; }
   .navbar-horizontal .navbar-brand img {
-    height: 30px; }
+    height: 100px; }
 
 .navbar-horizontal .navbar-dark .navbar-brand {
   color: #fff; }
@@ -12553,7 +12553,7 @@ textarea[resize="horizontal"] {
   .navbar-vertical .navbar-brand-img,
   .navbar-vertical .navbar-brand > img {
     max-width: 100%;
-    max-height: 2rem; }
+    max-height: 4rem; }
   @media (min-width: 768px) {
     .navbar-vertical .navbar-collapse {
       margin-left: -1rem;

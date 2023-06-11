@@ -25,7 +25,7 @@ def actualizar_prestamo(fecha_hoy,Prestamo):
     tabla = tabla_amortizacion.objects.all().filter(id_prestamo=Prestamo.id_prestamo)
     valor = tabla_amortizacion.objects.filter(id_prestamo=Prestamo).exclude(estado='Pagado').last()
     if Prestamo.tipo_saldo == 'Libre':
-        sum_tot = -(valor.cuota - (Prestamo.balance_interes - valor.balance_total_esperado))
+        sum_tot = -(valor.cuota - (Prestamo.interes_pagado - (valor.balance_interes_esperado-valor.pago_interes)))
         sum_cap = 0
         sum_int = -(valor.pago_interes - (Prestamo.interes_pagado - valor.balance_interes_esperado))
     else:

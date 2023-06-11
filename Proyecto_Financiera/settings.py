@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'Proyecto_Financiera.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': 'financiera',
+        'NAME': 'sistema_financiera',
         'USER': '',
         'PASSWORD': '',
         'HOST': 'GESBIEN',
